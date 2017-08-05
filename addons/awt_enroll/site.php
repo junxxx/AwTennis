@@ -29,4 +29,6 @@ class Awt_enrollModuleSite extends WeModuleSite {
 		//这个操作被定义用来呈现 管理中心导航菜单
 	}
 
+	public function test(){}
+
 }
