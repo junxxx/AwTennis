@@ -1,0 +1,1615 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $type == 'manage'}class="active"{/if}><a href="{php echo url('mc/card/wechat', array('type' => 'manage'));}">会员卡管理</a></li>
+	<li {if $type == 'create'}class="active"{/if}><a href="{php echo url('mc/card/wechat', array('type' => 'create'));}">创建会员卡</a></li>
+	{if $type == 'record'}
+	<li class="active"><a href="javascript:;">领取记录</a></li>
+	{/if}
+	{if $type == 'detail'}
+	<li class="active"><a href="javascript:;">会员卡详情</a></li>
+	{/if}
+</ul>
+
+
+{if $type == 'manage'}
+
+<div class="main">
+
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+				<input type="hidden" name="c" value="mc" />
+				<input type="hidden" name="a" value="card" />
+				<input type="hidden" name="do" value="wechat" />
+				<input type="hidden" name="type" value="manage" />
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">审核状态</label>
+					<div class="col-sm-7 col-lg-9 col-xs-12">
+						<div class="btn-group">
+							<a href="{php echo filter_url('status:');}" class="btn {if $_GPC['status'] == ''}btn-primary{else}btn-default{/if}">不限</a>
+							<a href="{php echo filter_url('status:1');}" class="btn {if $_GPC['status'] == 1}btn-primary{else}btn-default{/if}">审核中</a>
+							<a href="{php echo filter_url('status:2');}" class="btn {if $_GPC['status'] == 2}btn-primary{else}btn-default{/if}">未通过</a>
+							<a href="{php echo filter_url('status:3');}" class="btn {if $_GPC['status'] == 3}btn-primary{else}btn-default{/if}">已通过</a>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">券标题</label>
+					<div class="col-sm-7 col-lg-9 col-xs-12">
+						<input class="form-control" name="title" placeholder="券标题" type="text" value="{$_GPC['title']}">
+					</div>
+					<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+				<tr>
+					<th width="120px">会员卡名称</th>
+					<th width="150px">有效期</th>
+					<th width="70px">状态</th>
+					<th width="100px">总数</th>
+					<th width="100px">被领取</th>
+					<th style="width:450px; text-align:right;">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['title']}</td>
+					<td>
+						{if $item['date_info']['type'] == 'DATE_TYPE_PERMANENT'}
+						永久有效
+						{else}
+						{php echo date('Y.m.d', $item['date_info']['begin_timestamp'])} /
+						{php echo date('Y.m.d', $item['date_info']['end_timestamp'])}
+						{/if}
+					</td>
+					<td>
+						{if $item['status'] == '0'}
+						未开始审核
+						{else if $item['status'] == '1'}
+						审核中
+						{else if $item['status'] == '2'}
+						未通过
+						{else if $item['status'] == '3'}
+						已通过
+						{/if}
+					</td>
+					<td>
+						{$item['sku']['quantity']}
+					</td>
+					<td>
+						{$item['dosage']}
+					</td>
+					<td style="text-align:right;">
+						<a href="#whitelist" data-toggle="modal" data-cid={$item['id']} class="btn btn-default btn-sm whitelist">白名单（测试）</a>
+						<a href="#put-coupon" data-toggle="modal" data-cid={$item['id']} class="btn btn-default btn-sm js-publish">投放</a>
+						<a href="{php echo url('mc/card/wechat', array('type' => 'detail', 'id' => $item['id']));}" class="btn btn-success btn-sm" title="查看详情">查看详情</a>
+						<a href="{php echo url('mc/card/wechat', array('type' => 'record', 'id' => $item['id']));}"  class="btn btn-default btn-sm" title="领取记录">领取记录</a>
+						<a href="{php echo url('mc/card/wechat', array('type' => 'delete', 'id' => $item['id']))}"  class="btn btn-default btn-sm" title="删除" onclick="if(!confirm('删除后将不可恢复，确定删除吗?')) return false;">删除</a>
+					</td>
+				</tr>
+				{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="put-coupon">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#put-qrcode" aria-controls="qrcode" role="tab" data-toggle="tab">二维码</a></li>
+						<li role="presentation"><a href="#put-coupon-record" aria-controls="put-coupon-record" role="tab" data-toggle="tab">领取记录</a></li>
+					</ul>
+				</div>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active text-center" id="put-qrcode">
+						<div class="alert alert-info text-left">
+							该投放二维码有效期至：<span class="js-qrcode-expire"></span> <br />
+							如果您要大量投放卡券，请使用卡券营销功能
+						</div>
+						<img src="" class="js-qrcode-src">
+					</div>
+					<div role="tabpanel" class="tab-pane" id="put-coupon-record">
+						<div class="alert alert-info text-left">
+							共有 <span class="js-qrcode-record-total"></span> 人领取
+						</div>
+						<table class="table table-hover">
+							<thead class="table table-hover">
+							<tr>
+								<th style="width: 20%;"></th>
+								<th>昵称</th>
+								<th style="width: 30%;">领取时间</th>
+							</tr>
+							</thead>
+							<tbody class="js-qrcode-record"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="whitelist">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+				<h4 class="modal-title">设置白名单</h4>
+			</div>
+			<div class="modal-body">
+				<textarea id="openids" class="form-control"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary">确认</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).on('click', '.js-publish', function() {
+		cid = $(this).data('cid');
+		$.post("{php echo url('mc/card/wechat', array('type' => 'ajax'))}", {'action' : 'qrcode','cid' : cid}, function(data) {
+			var data = $.parseJSON(data);
+
+			if (data.message.errno == '0') {
+				var coupon = data.message.message.coupon;
+				$('.js-qrcode-src').attr('src', coupon.url);
+				$('.js-qrcode-expire').html(coupon.expire);
+				$('.js-qrcode-record-total').html(data.message.message.total);
+				var record = data.message.message.record;
+				if (record) {
+					$('.js-qrcode-record').html('');
+					for (i in record) {
+						$('.js-qrcode-record').append('<tr><td><img src="'+record[i].avatar+'" width="50" /></td><td><a href="#">'+record[i].nickname+'</a></td><td><a href="#">'+record[i].createtime+'</a></td></tr>');
+					}
+				}
+			} else {
+				$('#put-coupon').modal('hide');
+				util.message(data.message.message);
+			}
+		});
+	});
+
+	$(document).on('click', '.whitelist', function() {
+
+		$('.btn-primary').bind('click', function(){
+			var openids = $('#openids').val();
+
+			$.post("{php echo url('mc/card/wechat', array('type' => 'ajax'))}", {'action' : 'whitelist', 'openids' : openids}, function(data) {
+				var data = $.parseJSON(data);
+
+				console.log(data);
+
+				if (data.message.errno == '0') {
+					$('#whitelist').modal('hide');
+					util.message('白名单，添加成功。');
+				} else {
+					$('#whitelist').modal('hide');
+					util.message(data.message.message);
+				}
+			});
+		});
+	});
+
+
+</script>
+
+{/if}
+
+
+{if $type == 'create'}
+
+<style>
+	.info-font-style{
+		height:22px;line-height:22px;float: none !important;text-align: left;line-height: 20px;color: #fff;font-size: 14px; font-weight: bolder;text-shadow: 1px 1px 3px #666;
+	}
+	.code_num{
+		padding: 2px 20px 10px;
+		margin-top: 30px;
+		position: relative;
+		font-size: 17px;font-family: menlo,tahoma;text-shadow: 1px 1px 2px #666;line-height: 18px;color: #fff;
+		text-align: left;
+	}
+	 .info-font-style{
+		 height:22px;line-height:22px;float: none !important;text-align: left;line-height: 20px;color: #fff;font-size: 14px; font-weight: bolder;text-shadow: 1px 1px 3px #666;
+	 }
+	.code_num{
+		padding: 2px 20px 10px;
+		margin-top: 30px;
+		position: relative;
+		font-size: 17px;font-family: menlo,tahoma;text-shadow: 1px 1px 2px #666;line-height: 18px;color: #fff;
+		text-align: left;
+	}
+</style>
+<div class="main" ng-app>
+	<form action="" method="post" id="coupon-form" class="form-horizontal" enctype="multipart/form-data">
+		<div class="panel panel-default" id="step1">
+			<div class="panel-heading">
+				{$coupon_title}
+			</div>
+			<div class="panel-body">
+				<div class="pull-left" style="width:320px;background:#F4F5F9;margin-right:20px;border:1px solid #E7E7EB">
+					<div class="card-title card-title-bg">{$coupon_title}</div>
+					<div class="card_section area" style="position: relative;padding: 15px 26px">
+						<div class="shop-panel" id="color-purview" style="background: #a9d92d">
+							<div class="logo-area">
+								<span class="logo pull-left"><img src="{$setting['logourl']}" alt=""/></span>
+								<div class="pull-left info-font-style"  id="brand_name">商户信息</div>
+								<div class="pull-left info-font-style" ><p><b id="title-purview">{$coupon_title}标题</b></p></div>
+								<div class="clear"></div>
+							</div>
+							<div class="barcode-area code_preview code_preview_3" style="display: block">
+								<!--<div class="barcode"></div>-->
+								<p class="code_num" style="">1513-2290-1878</p>
+							</div>
+							<!--<div class="msg-area">-->
+							<!--<div class="tick-msg">-->
+							<!--<p><b id="title-purview">{$coupon_title}标题</b></p>-->
+							<!--&lt;!&ndash;<p id="sub-title-purview">{$coupon_title}副标题</p>&ndash;&gt;-->
+							<!--</div>-->
+							<!--&lt;!&ndash;<p id="sub-time-purview" style="text-align: center">有效期:{php echo date('Y-m-d')} ~ {php echo date('Y-m-d', time() + 30 * 86400)}</p>&ndash;&gt;-->
+							<!--</div>-->
+							<!--<div class="deco"></div>-->
+							<div class="cicon">
+								<a href="javascript:;" data-id="form1"><i class="fa fa-pencil"></i></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="shop-detail">
+						<ul class="list">
+							<li>
+								<div class="li-panel area" style="">
+									<div class="li-content enter-name-1" id="custom_url_name">自定义入口</div>
+									<div class="ricon"><span id="custom_url_sub_title" class="enter-tips-1">点击进入 </span><i class="fa fa-angle-right"></i></div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form6"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="li-panel area" style="">
+									<div class="li-content enter-name-3" id="custom_cell_name">自定义会员信息类目</div>
+									<div class="ricon"><span id="custom_cell_sub_tittle" class="enter-tips-3">点击进入 </span><i class="fa fa-angle-right"></i></div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form8"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="li-panel area" style="border-bottom: none">
+									<div class="li-content enter-name-2" id="promotion_url_name">营销场景的自定义入口</div>
+									<div class="ricon"><span id="promotion_url_sub_title" class="enter-tips-2">点击进入 </span><i class="fa fa-angle-right"></i></div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form7"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="pull-left alert form form-area" style="width:700px;position:relative;display:block;" id="form1">
+					<div class="arrow_in"></div>
+					<h4 style="margin-top:20px;border-bottom: 1px solid #e6e9eb;padding-bottom: 10px">券面信息</h4>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 商户LOGO</label>
+						<div class="col-sm-9 col-xs-12" id="logo_upload">
+							{php echo tpl_form_field_wechat_image('logo_url', $setting['logourl'], '', array('acid' => $acid, 'mode' => 'file_upload'));}
+							<div class="help-block">商户LOGO大小不超过1M。像素为：300*300。仅支持JPG格式</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 商户名称</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" class="form-control" name="brand_name"/>
+							<div class="help-block">商户名字,字数上限为12个汉字。 </div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> {$coupon_title}标题</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" class="form-control" id="edit_card_tit" name="title"/>
+							<div class="help-block">建议填写{$coupon_title}“减免金额”及自定义内容，描述卡券提供的具体优惠。不超过9个字符</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 卡券背景</label>
+						<div class="radio">
+							<div class="frm_controls frm_sub_range " style="padding-top: 0;padding-left: 15px">
+								<label class="radio-inline " for="set_color_bg" style="padding-top: 0">
+									<input type="radio" name="bg_type" value="0" class="frm_checkbox set_bg_btn" id="set_color_bg" checked>颜色背景
+									<!--<span class="lbl_content">颜色背景</span>-->
+								</label>
+								<label class="radio-inline " for="set_img_bg" style="padding-top: 0;">
+									<input type="radio" name="bg_type" value="1" class="frm_checkbox set_bg_btn" id="set_img_bg">图片背景
+									<!--<span class="lbl_content">图片背景</span>-->
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group set_color_bg">
+						<div class="set-box"  style="width: 307px;margin-left: 130px;margin-top: 10px;position: relative;">
+							<div class="color-sel-box">
+								<input type="text" class="form-control color-name" name="color" value="Color082">
+								<input type="hidden" name="color-value" class="form-control color-value" value="#a9d92d">
+								<span class="input-group-addon color-show-box" style="width: 35px;background: #a9d92d"></span>
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" onclick="selCouponColor(this);">选择颜色</button>
+								</span>
+							</div>
+							<div class="color-sel-menu" style="padding: 6px 0px 0px 6px; width: 185px; position: absolute; top: 35px; left: 15px;">
+								<ul style="padding:0">
+									<li data-name="Color010" data-color="#63b359" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#63b359;float:left;list-style: none;"></li><li data-name="Color020" data-color="#2c9f67" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#2c9f67;float:left;list-style: none;"></li><li data-name="Color030" data-color="#509fc9" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#509fc9;float:left;list-style: none;"></li><li data-name="Color040" data-color="#5885cf" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#5885cf;float:left;list-style: none;"></li><li data-name="Color050" data-color="#9062c0" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#9062c0;float:left;list-style: none;"></li><li data-name="Color060" data-color="#d09a45" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#d09a45;float:left;list-style: none;"></li><li data-name="Color070" data-color="#e4b138" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#e4b138;float:left;list-style: none;"></li><li data-name="Color080" data-color="#ee903c" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#ee903c;float:left;list-style: none;"></li><li data-name="Color081" data-color="#f08500" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#f08500;float:left;list-style: none;"></li><li data-name="Color082" data-color="#a9d92d" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#a9d92d;float:left;list-style: none;"></li><li data-name="Color090" data-color="#dd6549" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#dd6549;float:left;list-style: none;"></li><li data-name="Color100" data-color="#cc463d" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#cc463d;float:left;list-style: none;"></li><li data-name="Color101" data-color="#cf3e36" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#cf3e36;float:left;list-style: none;"></li><li data-name="Color102" data-color="#5E6671" style="padding: 0;margin-right:5px;margin-bottom:5px;width:30px;height:30px;background:#5E6671;float:left;list-style: none;"></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<script>
+						function selCouponColor(e){
+							$(e).parents('.color-sel-box').next().toggle();
+						}
+						$(function () {
+							$('.color-sel-menu li').click(function () {
+								var this_color_val = $(this).attr('data-color');
+								var this_color_name = $(this).attr('data-name');
+								$('#color-purview').removeAttr('style');
+								console.log(this_color_name);
+								$('.color-value').val(this_color_val);
+								$('.color-name').val(this_color_name);
+								$('.color-show-box').css("background-color",this_color_val);
+								$(this).parents('.color-sel-menu').hide()
+							});
+						})
+					</script>
+					<div class="form-group set_img_bg">
+						<div class="set-box" style="margin-left: 116px;margin-top: 10px;position: relative;">
+							<div class="col-sm-9 col-xs-12" id="img_upload">
+								{php echo tpl_form_field_wechat_image('background_pic_url', $setting['logourl'], '', array('acid' => $acid, 'mode' => 'file_upload'));}
+								<div class="help-block">会员卡背景图片大小不超过1M。仅支持JPG格式</div>
+							</div>
+						</div>
+					</div>
+					<script>
+						$(function () {
+							$('.set_bg_btn').change(function () {
+								$(this).parent().siblings().find('.set_bg_btn').removeAttr("checked");
+								var this_id = $(this).attr("id");
+								var sib_id = $(this).parent().siblings().find('.set_bg_btn').attr("id");
+								$('.'+this_id).show();
+								$('.'+sib_id).hide();
+							});
+							$('body').delegate('.img-container','click', function () {
+								var box_bg_src = $(this).css('background');
+								$('#color-purview').css("background",box_bg_src)
+							});
+
+							setInterval(function () {
+								    var new_img_val = $(':input[name="background_pic_url"]').parent().next().find('img').attr('src');
+									if($('.set_img_bg').css("display")=='none'){
+
+									}else{
+										$('#color-purview').css("background-image",'url('+new_img_val+')');
+									}
+
+									console.log(new_img_val);
+
+							},1000);
+//							$('body').delegate('.state-pedding','click', function () {
+//
+//
+//									var img_url =	$(':input[name="background_pic_url"]').parent().next().find('img').attr('src');
+//									$('#color-purview').css("background-image",'url('+img_url+')');
+//
+//							})
+
+						});
+
+					</script>
+
+					<!--<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px"> 有效期</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="radio">
+								<div class="col-sm-3" style="padding-top:6px"><label><input type="radio" value="1" name="date_info" checked/>固定日期 </label></div>
+								{php echo tpl_form_field_daterange('date_info_type', array('start' => date('Y-m-d'), 'end' => date('Y-m-d', time() + 30*86400)));}
+							</div>
+							<div class="radio">
+								<div class="col-sm-3" style="padding-top:6px"><label><input type="radio" value="3" name="date_info" checked/>永久有效 </label></div>
+							</div>
+						</div>
+					</div>-->
+
+					<!--<div class="form-group" style="display: none">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">可用时段</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="radio">
+								<div class="col-sm-3" style="padding-top:6px"><label><input type="radio" value="0" name="time_limit" checked/>全部时段 </label></div>
+							</div>
+							<div class="radio">
+								<div class="col-sm-3" style="padding-top:6px"><label><input type="radio" value="1" name="time_limit" checked/>部分时段 </label></div>
+								<div class="frm_controls frm_sub_range js_discount_select">
+									<label class="frm_radio_label">日期：</label>
+									<label class="frm_radio_label frm_checkbox_label " for="checkbox9">
+										<i class="icon_checkbox"></i>
+										<span class="lbl_content">周一</span>
+										<input type="checkbox" value="Mon" class="frm_checkbox" id="checkbox9" >
+									</label>
+									<label class="frm_radio_label frm_checkbox_label " for="checkbox10">
+										<i class="icon_checkbox"></i>
+										<span class="lbl_content">周二</span>
+										<input type="checkbox" value="Tues" class="frm_checkbox" id="checkbox10" >
+									</label>
+									<label class="frm_radio_label frm_checkbox_label " for="checkbox11">
+										<i class="icon_checkbox"></i>
+										<span class="lbl_content">周三</span>
+										<input type="checkbox" value="Wed" class="frm_checkbox" id="checkbox11" >
+									</label>
+									<label class="frm_radio_label frm_checkbox_label " for="checkbox12">
+										<i class="icon_checkbox"></i>
+										<span class="lbl_content">周四</span>
+										<input type="checkbox" value="Thurs" class="frm_checkbox" id="checkbox12" >
+									</label>
+									<label class="frm_radio_label frm_checkbox_label " for="checkbox13">
+										<i class="icon_checkbox"></i>
+										<span class="lbl_content">周五</span>
+										<input type="checkbox" value="Fir" class="frm_checkbox" id="checkbox13" >
+									</label>
+									<label class="frm_radio_label frm_checkbox_label " for="checkbox14">
+										<i class="icon_checkbox"></i>
+										<span class="lbl_content">周六</span>
+										<input type="checkbox" value="Sat" class="frm_checkbox" id="checkbox14" >
+									</label>
+									<label class="frm_radio_label frm_checkbox_label " for="checkbox15">
+										<i class="icon_checkbox"></i>
+										<span class="lbl_content">周日</span>
+										<input type="checkbox" value="Sun" class="frm_checkbox" id="checkbox15" >
+									</label>
+								</div>
+								<div class="frm_clear" style="float: left;margin: 0 34px;padding-top:12px;width: 100%"><a href="javascript:void(0);" class="js_add_time_period_first">添加时间段</a></div>
+								<div class="js_hour_range_container" style="padding-top:12px;display: none;float: left;margin-left: 34px">
+									<div class="control_group frm_msg_align">
+										<label class="frm_radio_label">时间:</label>
+										<span class="js_hour_range_list">
+											<span class="time_range js_hour_range">
+												<span class="frm_input_box frm_input_box_short">
+													<input value="" name="" type="text" class=" valid js_hour_start form-control" placeholder="">
+												</span>
+												<span class=""> 至 </span>
+												<span class="frm_input_box frm_input_box_short">
+													<input value="" name="" type="text" class="form-control valid js_hour_end" placeholder="">
+												</span>
+											</span>
+										</span>
+										<a href="javascript:void(0);" class="time_range js_add_time_period" style="display: inline-block;">添加时间段</a>
+										<a href="javascript:void(0);" class="time_range js_del_time_period">删除时间段</a>
+									</div>
+									<p class="frm_msg fail js_time_period_interval_fail" style="display: none;">结束时间必须大于起始时间,且多个时间段不能重叠</p>
+									<p class="frm_msg fail js_time_period_fail" style="display: none;">请输入正确的时间格式</p>
+									<p class="frm_tips">请使用24小时制输入时间，格式如11:00至14:30</p>
+								</div>
+							</div>
+						</div>
+					</div>-->
+
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">会员卡优惠</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="radio">
+								<div class="frm_controls frm_sub_range js_discount_select">
+									<label class="frm_radio_label frm_checkbox_label selected" for="js_supply_bonus">
+										<input type="checkbox" name="supplybonus" value="1" class="frm_checkbox" id="js_supply_bonus">
+										<span class="lbl_content">积分优惠</span>
+									</label>
+									<label class="frm_radio_label frm_checkbox_label selected" for="js_supply_discount">
+										<input type="checkbox" name="supplybalance" value="1" class="frm_checkbox" id="js_supply_discount">
+										<span class="lbl_content">余额储值</span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<script>
+						$(function () {
+							$('#js_supply_bonus').change(function() {
+								$('.js_supply_bonus').toggle()
+								console.log(123)
+							});
+						})
+					</script>
+					<div class="form-group js_supply_bonus">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">会员卡优惠</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="input_submsg multi_input" style="padding-top: 10px">
+								<span class="">
+									<span class="">每消费</span>
+									<span class="frm_input_box frm_input_box_short ">
+										<input value="" name="cost_money_unit" type="text" class="frm_input frm_msg_content form-control" placeholder="">
+									</span>
+									<span class="">元，赠送</span>
+									<span class="frm_input_box frm_input_box_short ">
+										<input value="" id="js_increase_bonus" name="increase_bonus" type="text" class="frm_input form-control" placeholder="">
+									</span>
+									<span class="frm_input_append">积分</span>
+								</span>
+							</div>
+							<p class="frm_msg fail" style="display: none;">
+								<span for="cost_money_unit" class="frm_msg_content" style="display: inline;">消费金额和赠送积分只能大于0的整数</span>
+							</p>
+						</div>
+					</div>
+					<div class="form-group js_supply_bonus">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">单次上限 <br><span class="tips">(选填)</span></label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="input_submsg" style="padding-top: 10px;">
+								<span class="frm_input_box ">
+									<input value="" name="max_increase_bonus" type="text" class="frm_input form-control" placeholder="">
+								</span>
+								<span class="input_sub_msg">积分</span>
+							</div>
+							<p class="frm_tips">请设置单次增加积分的上限，不填写表示无限制</p>
+						</div>
+					</div>
+					<div class="form-group js_supply_bonus">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">激活送积分 <br><span class="tips">(选填)</span></label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="input_submsg" style="padding-top: 10px;">
+								<span class="frm_input_box">
+									<input value="" name="init_increase_bonus" type="text" class="frm_input form-control" placeholder="">
+								</span>
+								<span class="input_sub_msg">积分</span>
+							</div>
+							<p class="frm_tips">请设置激活会员卡赠送的积分，不填写表示不赠送</p>
+						</div>
+					</div>
+					<div class="form-group js_supply_bonus">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">积分抵扣</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="input_submsg multi_input" style="padding-top: 10px">
+								<span class="">
+									<span class="">每</span>
+									<span class="frm_input_box frm_input_box_short">
+										<input value="" id="cost_bonus_unit" name="cost_bonus_unit" type="text" class="frm_input frm_msg_content form-control" placeholder="">
+									</span>
+									<span class="">积分，抵扣</span>
+									<span class="frm_input_box frm_input_box_short">
+										<input value="" id="reduce_money" name="reduce_money" type="text" class="frm_input form-control" placeholder="">
+									</span>
+									<span class="frm_input_append">元</span>
+								</span>
+							</div>
+							<p class="frm_msg fail" style="display: none;">
+								<span for="js_cost_bonus_unit" class="frm_msg_content" style="display: inline;">积分只能填大于0的整数，金额大于0且只能到百分位</span>
+							</p>
+						</div>
+					</div>
+					<div class="form-group js_supply_bonus">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">抵扣条件<br><span class="tips">(选填)</span></label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="input_submsg multi_input" style="padding-top: 10px">
+								<span class="">
+									<span class="">订单满</span>
+									<span class="frm_input_box frm_input_box_short">
+										<input value="" name="least_money_to_use_bonus" type="text" class="frm_input frm_msg_content form-control" placeholder="">
+									</span>
+									<span class="">元可用，单笔上限</span>
+									<span class="frm_input_box frm_input_box_short">
+										<input value="" name="max_reduce_bonus" type="text" class="frm_input form-control" placeholder="">
+									</span>
+									<span class="frm_input_append">积分</span>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group js_supply_discount">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">享受折扣</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="input_submsg" style="padding-top: 10px;">
+								<span class="frm_input_box">
+									<input value="" name="discount" type="text" class="frm_input form-control" placeholder="">
+								</span>
+								<span class="input_sub_msg">折</span>
+							</div>
+							<p class="frm_msg fail" style="display: none;">
+								<span for="js_discount" class="frm_msg_content" style="display: inline;">折扣额度只能是大于1且小于10的数字</span>
+							</p>
+							<p class="frm_tips">请填写1-9.9之间的数字，精确到小数点后1位</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px">快速支付</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="input_submsg" style="padding-top: 10px;">
+								<label class="radio-inline">
+									<input type="radio" value="1" name="pay_info" checked="checked"> 支持
+								</label>
+								<label class="radio-inline">
+									<input type="radio" value="0" name="pay_info" checked=""> 不支持
+								</label>
+								<span class="help-block">设置该功能之前，请确认自己是否开通了微信支付，否则接口报错。</span>
+							</div>
+						</div>
+					</div>
+
+					<h4 style="margin-top:20px;border-bottom: 1px solid #e6e9eb;padding-bottom: 10px">所需字段信息</h4>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px"> 必填项</label>
+						<div class="col-sm-9 col-xs-12 " style="padding-top: 10px;">
+							<label class="radio-inline" ><input type="checkbox" name="required_form[]" value="USER_FORM_INFO_FLAG_NAME"  checked="checked" disabled="disabled" /> 姓名</label>
+							<label class="radio-inline" ><input type="checkbox" name="required_form[]" value="USER_FORM_INFO_FLAG_MOBILE"  checked="checked" disabled="disabled"  /> 手机号</label>
+							<label class="radio-inline" ><input type="checkbox" name="required_form[]" value="USER_FORM_INFO_FLAG_BIRTHDAY"  /> 生日</label>
+							<label class="radio-inline" ><input type="checkbox" name="required_form[]" value="USER_FORM_INFO_FLAG_IDCARD"  /> 身份证</label>
+							<label class="radio-inline" ><input type="checkbox" name="required_form[]" value="USER_FORM_INFO_FLAG_SEX"  /> 性别</label>
+						</div>
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px"> 选填项</label>
+						<div class="col-sm-9 col-xs-12 " style="padding-top: 10px;">
+							<label class="radio-inline" ><input type="checkbox" name="optional_form[]" value="USER_FORM_INFO_FLAG_EMAIL"  /> 邮箱</label>
+							<label class="radio-inline" ><input type="checkbox" name="optional_form[]" value="USER_FORM_INFO_FLAG_IDCARD"  /> 身份证</label>
+							<label class="radio-inline" ><input type="checkbox" name="optional_form[]" value="USER_FORM_INFO_FLAG_LOCATION"  /> 详细地址</label>
+							<label class="radio-inline" ><input type="checkbox" name="optional_form[]" value="USER_FORM_INFO_FLAG_EDUCATION_BACKGROUND"  /> 教育背景</label>
+						</div>
+					</div>
+
+					<h4 style="margin-top:20px;border-bottom: 1px solid #e6e9eb;padding-bottom: 10px">会员卡详情</h4>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px"> 特权说明</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="frm_textarea_box">
+								<textarea class=" form-control" rows="10" name="prerogative" placeholder="注：1、上文设置中，如已经填写“积分优惠”“折扣优惠”的内容，将会自动在用户会员卡详情展示，无需重复填写。2、建议填写其他特权，举例：100积分可兑换精美礼品；会员日可享受折上折优惠等"></textarea>
+							</div>
+							<p class="frm_msg fail" style="display: none;"><span for="prerogative" class="frm_msg_content" style="display: inline;">特权说明不能为空</span></p>
+						</div>
+					</div>
+					<script>
+						$('.frm_textarea_box').find('textarea').blur(function () {
+							if($(this).val()==''){
+								$(this).parent().next().show()
+							}else{
+								$(this).parent().next().hide()
+							}
+						})
+					</script>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 使用须知</label>
+						<div class="col-sm-9 col-xs-12">
+							<textarea name="description" id="description" class="form-control" rows="10" placeholder="注：1、上文设置中，如已经填写“积分优惠”“折扣优惠”的内容，将会自动在用户会员卡详情展示，无需重复填写。2、建议填写其他注意事项，举例：积分不支持兑换现金"></textarea>
+						</div>
+					</div>
+					<h4 style="margin-top:20px;border-bottom: 1px solid #e6e9eb;padding-bottom: 10px">商户介绍（选填）</h4>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">客服电话</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" class="form-control" name="service_phone"/>
+							<div class="help-block">手机或固话</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">客服电话</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="frm_controls frm_vertical_lh">
+								<label class="frm_radio_label frm_checkbox_label" for="checkbox18">
+									<input type="checkbox" value="BIZ_SERVICE_FREE_WIFI" name="business_service[]" class="frm_checkbox" id="checkbox18">
+									<span class="lbl_content">免费WIFI</span>
+								</label>
+								<label class="frm_radio_label frm_checkbox_label" for="checkbox19">
+
+									<input type="checkbox" value="BIZ_SERVICE_WITH_PET" name="business_service[]" class="frm_checkbox" id="checkbox19">
+									<span class="lbl_content">可带宠物</span>
+								</label>
+								<label class="frm_radio_label frm_checkbox_label" for="checkbox20">
+
+									<input type="checkbox" value="BIZ_SERVICE_FREE_PARK" name="business_service[]" class="frm_checkbox" id="checkbox20">
+									<span class="lbl_content">免费停车</span>
+								</label>
+								<label class="frm_radio_label frm_checkbox_label" for="checkbox21">
+
+									<input type="checkbox" value="BIZ_SERVICE_DELIVER" name="business_service[]" class="frm_checkbox" id="checkbox21">
+									<span class="lbl_content">可外卖</span>
+								</label>
+							</div>
+						</div>
+						<!--<div class="col-sm-9 col-xs-12">-->
+							<!--<div id="js_config_url_p">-->
+								<!--<div class="editor_section edit_section_url js_appmsg_url_item" data-idx="11">-->
+									<!--<h3 class="title js_card_title">-->
+										<!--<p><span class="js_appmsg_url_intro">入口一</span>-->
+											<!--<a class="link js_delete_item" href="javascript:;">删除</a>-->
+										<!--</p>-->
+									<!--</h3>-->
+									<!--<div class="">-->
+										<!--<div class="frm_control_group  frm_card_extend frm_normal">-->
+											<!--<label for="" class="frm_label">-->
+												<!--<strong class="title">入口名称</strong>-->
+											<!--</label>-->
+											<!--<span class="frm_input_box">-->
+												<!--<input type="text" value="" target=".js_url_title_11" data-maxlength="10" class="form-control js_maxlength js_custom_url_name">-->
+											<!--</span>-->
+											<!--<span class="tips"><span class="js_url_title_11">0</span>/5</span>-->
+											<!--<p class="frm_msg fail" style="display: none;"><span class="frm_msg_content"></span></p>-->
+										<!--</div>-->
+										<!--<div class="frm_control_group frm_normal frm_card_extend">-->
+											<!--<label for="" class="frm_label">-->
+												<!--<strong class="title">引导语-->
+													<!--<span class="tips">(选填)</span>-->
+												<!--</strong>-->
+											<!--<span class="frm_input_box">-->
+								<!--</label>-->
+								<!--<input type="text" value="" target=".js_url_desc_11" data-maxlength="6" class="form-control js_maxlength js_custom_url_desc">-->
+											<!--</span>-->
+											<!--<span class="tips"><span class="js_url_desc_11">0</span>/6</span>-->
+										<!--</div>-->
+										<!--<div class="js_appmsg_edit_item_p">-->
+											<!--<div class="appmsg_edit_item">-->
+												<!--<label class="frm_label">-->
+													<!--<strong class="title">网页链接</strong>-->
+												<!--</label>-->
+												<!--<div class="frm_controls">-->
+													<!--<span class="frm_hint">http://</span>-->
+													<!--<span class="frm_input_box url_box">-->
+													<!--<input type="text" value="" class="form-control js_link_url">-->
+														<!--</span>-->
+												<!--</div>-->
+											<!--</div>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="tool_bar border" id="js_config_url_toolbar">-->
+								<!--<a id="js_add_config_url" class="btn btn_default btn_disabled" href="javascript:;">添加自定义入口</a>-->
+								<!--<div class="tips">可配置图文消息、货架、网页链接,用户可查看详情或领取更多卡券。</div>-->
+							<!--</div>-->
+						<!--</div>-->
+					</div>
+				</div>
+				<!--<script>
+					$(function () {
+						var tran_arr = new Array()
+						tran_arr[0]="一";
+						tran_arr[1]="二";
+						tran_arr[2]="三";
+						var i = $('.js_appmsg_url_item').length;
+						var add_item = $('<div class="editor_section edit_section_url js_appmsg_url_item" data-idx='+i+'> <h3 class="title js_card_title"> <p><span class="js_appmsg_url_intro">入口一</span> <a class="link js_delete_item" href="javascript:;">删除</a> </p> </h3> <div class=""> <div class="frm_control_group  frm_card_extend frm_normal"> <label for="" class="frm_label"> <strong class="title">入口名称</strong> </label> <span class="frm_input_box"> <input type="text" value="" target=".js_url_title_11" data-maxlength="10" class="form-control js_maxlength js_custom_url_name"> </span> <span class="tips"><span class="js_url_title_11">0</span>/5</span> <p class="frm_msg fail" style="display: none;"><span class="frm_msg_content"></span></p> </div> <div class="frm_control_group frm_normal frm_card_extend"> <label for="" class="frm_label"> <strong class="title">引导语 <span class="tips">(选填)</span> </strong> </label> <span class="frm_input_box"> <input type="text" value="" target=".js_url_desc_11" data-maxlength="6" class="form-control js_maxlength js_custom_url_desc"> </span> <span class="tips"><span class="js_url_desc_11">0</span>/6</span> </div> <div class="js_appmsg_edit_item_p"> <div class="appmsg_edit_item"> <label class="frm_label"> <strong class="title">网页链接</strong> </label> <div class="frm_controls"> <span class="frm_hint">http://</span> <span class="frm_input_box url_box"> <input type="text" value="" class="form-control js_link_url"> </span> </div> </div> </div> </div> </div>')
+						$('#js_add_config_url').on('click',function () {
+							var i = $('.js_appmsg_url_item').length;
+							if(i<=2){
+								$('#js_config_url_p').append('<div class="editor_section edit_section_url js_appmsg_url_item" data-idx='+i+'> <h3 class="title js_card_title"> <p><span class="js_appmsg_url_intro">入口'+tran_arr[i]+'</span> <a class="link js_delete_item" href="javascript:;">删除</a> </p> </h3> <div class=""> <div class="frm_control_group  frm_card_extend frm_normal"> <label for="" class="frm_label"> <strong class="title">入口名称</strong> </label> <span class="frm_input_box"> <input type="text" value="" target=".js_url_title_11" data-maxlength="10" class="form-control js_maxlength js_custom_url_name"> </span> <span class="tips"><span class="js_url_title_11">0</span>/5</span> <p class="frm_msg fail" style="display: none;"><span class="frm_msg_content"></span></p> </div> <div class="frm_control_group frm_normal frm_card_extend"> <label for="" class="frm_label"> <strong class="title">引导语 <span class="tips">(选填)</span> </strong> </label> <span class="frm_input_box"> <input type="text" value="" target=".js_url_desc_11" data-maxlength="6" class="form-control js_maxlength js_custom_url_desc"> </span> <span class="tips"><span class="js_url_desc_11">0</span>/6</span> </div> <div class="js_appmsg_edit_item_p"> <div class="appmsg_edit_item"> <label class="frm_label"> <strong class="title">系统链接</strong> </label> <div class="frm_controls"> <span class="frm_hint">http://</span> <span class="frm_input_box url_box"> <input type="text" value="" class="form-control js_link_url"> </span> </div> </div> </div> </div> </div>')
+								console.log(i)
+							}
+							i++;
+						});
+						var index_ = 0;
+						$('#js_config_url_p').delegate('.js_delete_item','click', function () {
+							$(this).parents('.js_appmsg_url_item').remove();
+							console.log('success');
+							for(var i =0;i<=3;i++){
+								$('.js_appmsg_url_item').eq(i).find('.js_appmsg_url_intro').text('入口'+tran_arr[i]);
+							}
+
+						})
+					})
+				</script>-->
+				<!--<div class="pull-left alert form hidden form-area" style="width:700px;position:relative;" id="form2">-->
+					<!--<div class="arrow_in"></div>-->
+					<!--<h4 style="margin-top:20px;">领券设置</h4>-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 库存</label>-->
+						<!--<div class="col-sm-9 col-xs-12">-->
+							<!--<div class="input-group">-->
+								<!--<input type="text" class="form-control" name="quantity" value="300"/>-->
+								<!--<span class="input-group-addon">份</span>-->
+							<!--</div>-->
+							<!--<div class="help-block">库存只能是大于0的数字</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 领券限制</label>-->
+						<!--<div class="col-sm-9 col-xs-12">-->
+							<!--<div class="input-group">-->
+								<!--<input type="text" class="form-control" name="get_limit" value="1"/>-->
+								<!--<span class="input-group-addon">份</span>-->
+							<!--</div>-->
+							<!--<div class="help-block">默认领券限制为1</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--{if COUPON_TYPE == WECHAT_COUPON}-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>-->
+						<!--<div class="col-sm-9 col-xs-12">-->
+							<!--<div class="checkbox">-->
+								<!--<label><input type="checkbox" name="can_share" value="1" checked /> 用户可以分享领券链接</label>-->
+							<!--</div>-->
+							<!--<div class="checkbox">-->
+								<!--<label><input type="checkbox" name="can_give_friend" value="1" checked /> 用户领券后可转赠其他好友</label>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<h4 style="margin-top:20px;">销券设置</h4>-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-xs-12 col-sm-3 col-md-2 control-label">销券方式</label>-->
+						<!--<div class="col-sm-9 col-xs-12">-->
+							<!--<div class="radio">-->
+								<!--<label><input type="radio"  class="" name="code_type" value="1"/> 仅卡券号</label>-->
+								<!--<div class="help-block">只显示卡券号，验证后可进行销券</div>-->
+							<!--</div>-->
+							<!--<div class="radio">-->
+								<!--<label><input type="radio"  class="" name="code_type" value="2"/> 二维码</label>-->
+								<!--<div class="help-block">包含卡券信息的二维码，扫描后可进行销券</div>-->
+							<!--</div>-->
+							<!--<div class="radio">-->
+								<!--<label><input type="radio"  class="" name="code_type" value="3" checked/> 条形码</label>-->
+								<!--<div class="help-block">包含卡券信息的条形码，扫描后可进行销券</div>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 操作提示</label>-->
+						<!--<div class="col-sm-9 col-xs-12">-->
+							<!--<input type="text" class="form-control" name="notice" id="notice" value="请在付款时出示此券"/>-->
+							<!--<div class="help-block">建议引导用户到店出示卡券，由店员完成核销操作。不超过16个字符</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--{/if}-->
+				<!--</div>-->
+				<!--<div class="pull-left alert form hidden form-area" style="width:700px;position:relative;" id="form3">
+					<div class="arrow_in"></div>
+					<h4 style="margin-top:20px;">{$coupon_title}详情</h4>
+					<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top:15px"><span class="text-danger">*</span> 特权说明</label>
+					<div class="col-sm-9 col-xs-12">
+					<div class="frm_textarea_box">
+					<textarea class=" form-control" rows="10" name="prerogative" placeholder="注：1、上文设置中，如已经填写“积分优惠”“折扣优惠”的内容，将会自动在用户会员卡详情展示，无需重复填写。2、建议填写其他特权，举例：100积分可兑换精美礼品；会员日可享受折上折优惠等"></textarea>
+					</div>
+					</div>
+					</div>
+					<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 使用须知</label>
+					<div class="col-sm-9 col-xs-12">
+					<textarea name="description" id="description" class="form-control" rows="10" placeholder="注：1、上文设置中，如已经填写“积分优惠”“折扣优惠”的内容，将会自动在用户会员卡详情展示，无需重复填写。2、建议填写其他注意事项，举例：积分不支持兑换现金"></textarea>
+					</div>
+					</div>
+					<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 客服电话</label>
+					<div class="col-sm-9 col-xs-12">
+					<input type="text" class="form-control" name="service_phone"/>
+					<div class="help-block">手机或固话</div>
+					</div>
+					</div>
+				</div>-->
+				<!--<div class="pull-left alert form hidden form-area" style="width:700px;position:relative;" id="form4">
+					<input type="hidden" name="location-select" value="" autocomplete="off"/>
+					<input type="hidden" name="groups" value="" autocomplete="off"/>
+					<div class="arrow_in"></div>
+					<h4 style="margin-top:20px;">服务信息</h4>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 适用门店</label>
+						<div class="col-sm-9 col-xs-12">
+							<label class="radio"><a href="javascript:;" data-toggle="modal" data-target="#location-store-modal">选择适用门店</a></label>
+							<div class="js-location-contain"></div>
+							<div class="help-block">默认为适用于全部门店</div>
+						</div>
+					</div>
+					{if COUPON_TYPE == WECHAT_COUPON}
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger">*</span> 可用会员组</label>
+						<div class="col-sm-9 col-xs-12">
+							<label class="radio"><a href="javascript:;" data-toggle="modal" data-target="#groups-modal">选择可用会员组</a></label>
+							<div class="js-groups-contain"></div>
+							<div class="help-block">默认为全部用户组可用</div>
+						</div>
+					</div>
+					{/if}
+				</div>-->
+				<div class="enter-form-group">
+					<div class="pull-left alert form hidden form-area" style="width:700px;position:relative;" id="form6">
+						<div class="arrow_in"></div>
+						<h4 style="margin-top:20px;">自定义入口（激活后可见）</h4>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 入口名称</label>
+							<div class="col-sm-9 col-xs-12">
+								<input type="text" class="form-control enter-ipt-name" name="custom[url_name]" value="个人中心"/>
+								<div class="help-block">如：个人中心。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 跳转链接</label>
+							<div class="col-sm-9 col-xs-12">
+								{php echo tpl_form_field_link('custom[url]', '', array('link' => true));}
+								<div class="help-block">入口跳转链接地址。需要以"http://"或"https://"开头</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 右侧提示语</label>
+							<div class="col-sm-9 col-xs-12">
+								<input type="text" class="form-control enter-ipt-tips" name="custom[url_sub_title]" value="点击进入"/>
+								<p class="error-code" style="display: none">不能超过6个汉字！</p>
+								<div class="help-block">自定义入口右侧的提示语.不超过6个汉字</div>
+							</div>
+						</div>
+					</div>
+					<div class="pull-left alert form hidden form-area" style="width:700px;position:relative;" id="form7">
+						<div class="arrow_in"></div>
+						<h4 style="margin-top:20px;">营销入口</h4>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 入口名称</label>
+							<div class="col-sm-9 col-xs-12">
+								<input type="text" class="form-control enter-ipt-name" name="promotion[url_name]" value="个人中心"/>
+								<div class="help-block">如：个人中心。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 跳转链接</label>
+							<div class="col-sm-9 col-xs-12">
+								{php echo tpl_form_field_link('promotion[url]', '', array('link' => true));}
+								<div class="help-block">入口跳转链接地址。需要以"http://"或"https://"开头</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 右侧提示语</label>
+							<div class="col-sm-9 col-xs-12">
+								<input type="text" class="form-control enter-ipt-tips" name="promotion[url_sub_title]" value="点击进入"/>
+								<p class="error-code" style="display: none">不能超过6个汉字！</p>
+								<div class="help-block">营销入口右侧的提示语.不超过6个汉字</div>
+							</div>
+						</div>
+					</div>
+					<div class="pull-left alert form hidden form-area" style="width:700px;position:relative;" id="form8">
+						<div class="arrow_in"></div>
+						<h4 style="margin-top:20px;">自定义会员信息（激活后可见）</h4>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span>入口名称</label>
+							<div class="col-sm-9 col-xs-12">
+								<input type="text" class="form-control enter-ipt-name" name="custom_cell[name]" value="个人中心"/>
+								<div class="help-block">如：个人中心。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 跳转链接</label>
+							<div class="col-sm-9 col-xs-12">
+								{php echo tpl_form_field_link('custom_cell[url]', '', array('link' => true));}
+								<div class="help-block">入口跳转链接地址。需要以"http://"或"https://"开头</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 右侧提示语</label>
+							<div class="col-sm-9 col-xs-12">
+								<input type="text" class="form-control enter-ipt-tips" name="custom_cell[tips]" value="点击进入"/>
+								<p class="error-code" style="display: none">不能超过6个汉字！</p>
+								<div class="help-block">自定义会员信息入口右侧的提示语.不超过6个汉字</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<script>
+					$(function () {
+
+						$('.enter-ipt-name').bind('input', function () {
+							var this_px = $(this).parents('.form-area').index()+1;
+							var this_txt = $(this).val();
+								$('.enter-name-'+this_px).text(this_txt);
+							if(this_txt==''){
+								$(this).after('<p class="error-code">不可以为空!</p>')
+							}else{
+								$(this).next('.error-code').remove()
+							}
+						})
+						$('.enter-ipt-tips').bind('input', function () {
+							var this_px = $(this).parents('.form-area').index()+1;
+							var this_txt = $(this).val();
+							var str_num = strlen(this_txt);
+							$('.enter-tips-'+this_px).text(this_txt);
+							if(str_num>12){
+								$(this).next().empty().show().text('不能超过6个汉字！');
+							}else if(str_num<12&&str_num>0){
+								$(this).next().hide();
+							}else if(str_num==0){
+								$(this).next().empty().show().text('不可以为空！')
+							}
+						})
+
+					})
+				</script>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input name="submit-create" type="submit" value="提交" class="btn btn-primary col-lg-1">
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+
+<div id="footer-location" class="hide">
+	<span name="submit" id="submit" class="pull-right btn btn-primary">保存</span>
+</div>
+
+<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+
+<script>
+	$(function () {
+		$('.js_add_time_period_first').click(function () {
+			$(this).hide();
+			$('.js_hour_range_container').show();
+		});
+		$('.js_add_time_period').click(function () {
+			var js_hour_range = $('.js_hour_range');
+			var clone_j_h_r = js_hour_range.clone();
+			$(this).hide()
+			$('.js_hour_range_list').append(clone_j_h_r)
+		});
+		$('.js_del_time_period').click(function () {
+			var js_hour_range_length = $('.js_hour_range').length;
+			if(js_hour_range_length==1){
+				$(this).parents('.js_hour_range_container').hide();
+				$('.js_add_time_period_first').show()
+			}
+			if(js_hour_range_length==2){
+				$('.js_hour_range').last().remove();
+				$('.js_add_time_period').show();
+			}
+		})
+		var submsg_ipt = $('.input_submsg').find('input');
+		submsg_ipt.blur(function () {
+			if($(this).val()<=0){
+				$(this).parents('.input_submsg').next().show()
+			}else{
+				$(this).parents('.input_submsg').next().hide()
+			}
+		})
+	})
+</script>
+
+<script>
+//	alert (fucCheckLength("中国a"));
+function strlen(str){
+	var len = 0;
+	for (var i=0; i<str.length; i++) {
+		var c = str.charCodeAt(i);
+		//单字节加1
+		if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+			len++;
+		}
+		else {
+			len+=2;
+		}
+	}
+	return len;
+}
+$('.js_maxlength').bind('input',function () {
+		var text_num = $(this).val();
+		var str_len = strlen(text_num);
+		console.log(str_len);
+	if(str_len%2==0){
+		$(this).parent().next().find('span').text(str_len/2)
+	}
+	if(str_len==0){
+		console.log(str_len);
+		$(this).parents('.frm_control_group').find('.frm_msg').show();
+		$(this).parents('.frm_control_group').find('.frm_msg').text('自定义入口名称不能为空')
+	}else{
+		$(this).parents('.frm_control_group').find('.frm_msg').hide()
+	}
+	if(str_len>10){
+		console.log(str_len);
+		$(this).parents('.frm_control_group').find('.frm_msg').show();
+		$(this).parents('.frm_control_group').find('.frm_msg').text('自定义入口名称最多只能输入5个中文')
+	}else if(str_len<10&&str_len>0){
+		$(this).parents('.frm_control_group').find('.frm_msg').hide()
+	}
+	});
+	$('.list li,.card-dispose,.shop-panel').hover(function(){
+		$(this).find('.cicon').show();
+		$(this).addClass('hover');
+	}, function(){
+		$(this).find('.cicon').hide();
+		$(this).removeClass('hover');
+	});
+	$('#form1').mouseover(function(){
+		var bg_color = $(':input[name="color-value"]').val();
+		if(!bg_color) {
+			bg_color = '#a9d92d';
+		}
+		$('#color-purview').css('background-color', bg_color);
+		if($(':input[name="title"]').val()) {
+			$('#title-purview').html($(':input[name="title"]').val());
+		}
+		if($(':input[name="sub_title"]').val()) {
+			$('#sub-title-purview').html($(':input[name="sub_title"]').val());
+		}
+		if($(':input[name="brand_name"]').val()) {
+			$('#brand_name').html($(':input[name="brand_name"]').val());
+		}
+		$('.logo-area img').attr('src', $('#logo_upload img').attr('src'));
+		var time_type = $(':radio[name="time_type"]:checked').val();
+		var time = '';
+		if(time_type == 1) {
+			var startime = $("input[name='time_limit[start]']").val();
+			var endtime = $("input[name='time_limit[end]']").val();
+			time = '有效期:'+startime+'~'+endtime;
+		} else if(time_type == 2) {
+			var deadline = parseInt($('#deadline').val());
+			var limit = parseInt($('#limit').val());
+			var now = new Date();
+			now.setHours(0, 0, 0);
+			var unixtime =Date.parse(now)/1000;
+			unixtime += (deadline*86400);
+			var startime = new Date(parseInt(unixtime) * 1000).toLocaleString().substr(0,9).replace(/\//g, "-");
+			unixtime += (limit*86400);
+			var endtime = new Date(parseInt(unixtime) * 1000).toLocaleString().substr(0,9).replace(/\//g, "-");
+			time = '有效期:'+startime+'~'+endtime;
+		}
+		$('#sub-time-purview').html(time);
+	});
+	$('#edit_card_tit').keypress(function () {
+		$('.title-purview').text($(this).text())
+	});
+	$('.icon_checkbox').click(function () {
+		var ipt_id = $(this).parent().find('input').attr('id');
+		$(this).parent().toggleClass('selected');
+		if ($(this).siblings('.frm_checkbox').attr("checked")) {
+			$(this).siblings('.frm_checkbox').removeAttr("checked");
+			$('.'+ipt_id).hide();
+		}
+		else {
+			$(this).siblings('.frm_checkbox').attr("checked", 'true');
+			$('.'+ipt_id).show();
+		}
+
+		console.log(ipt_id)
+
+	});
+	$('.area').click(function() {
+		$(this).find('.cicon a').children().trigger('click');
+	});
+	$('.cicon a').click(function(){
+		$('.form').addClass('hidden');
+		var top = $(this).offset().top;
+		$('#'+$(this).attr('data-id')).css('margin-top',(top-300))
+		$('#'+$(this).attr('data-id')).removeClass('hidden');
+		return false;
+	});
+
+	$('#form2').mouseover(function(){
+		var code_type = $('#form2 :radio[name="code_type"]:checked').val() || 0;
+		if(code_type) {
+			$('#destroy_title').hide();
+			$('.code_preview').hide();
+			$('.code_preview_' + code_type).show();
+		}
+		$('#notice-purview').html($('#form2 :text[name="notice"]').val());
+	});
+
+	$('#coupon-form').submit(function(){
+		if(!$.trim($(':input[name="brand_name"]').val())) {
+			util.message('请填写商户名称', '','error');
+			return false;
+		}
+
+		if(!$.trim($(':input[name="color-value"]').val())) {
+			util.message('请选择卡券颜色', '','error');
+			return false;
+		}
+
+		{if $type == COUPON_TYPE_DISCOUNT}
+		if(!$.trim($(':text[name="discount"]').val())) {
+			util.message("折扣额度不合法",'','error');
+			return false;
+		}
+		{elseif $type == COUPON_TYPE_CASH}
+		if(!$.trim($(':text[name="reduce_cost"]').val())) {
+			util.message("减免金额不合法",'','error');
+			return false;
+		}
+		if(!$.trim($(':text[name="least_cost"]').val())) {
+			util.message("抵扣金额不合法",'','error');
+			return false;
+		}
+		{/if}
+		if(!$.trim($(':input[name="title"]').val())) {
+			util.message('{$coupon_title}标题不能为空', '','error');
+			return false;
+		}
+
+		if(!$.trim($('textarea[name="description"]').val())) {
+			util.message('请完善使用须知', '','error');
+			return false;
+		}
+
+		$('#submit').attr('disabled', true);
+		return true;
+	});
+
+</script>
+
+{/if}
+
+
+{if $type == 'detail'}
+
+<style>
+	.info-font-style {
+		height: 22px;
+		line-height: 22px;
+		float: none !important;
+		text-align: left;
+		color: #fff;
+		font-size: 14px;
+		text-shadow: 1px 1px 3px #666;
+	}
+
+</style>
+
+<div class="main">
+	<form action="" method="post" id="form-location" class="form-horizontal" enctype="multipart/form-data">
+		<div class="panel panel-default" id="step1">
+			<div class="panel-heading">
+				{$coupon_title}
+			</div>
+			<div class="panel-body">
+
+				<div class="pull-left" style="width:320px;background:#F4F5F9;margin-right:20px;border:1px solid #E7E7EB">
+					<div class="card-title card-title-bg">{$coupon_title}</div>
+					<div class="card_section area" style="position: relative;padding: 15px 26px">
+						<div class="shop-panel" id="color-purview" style="{$coupon['bg_css']}">
+							<div class="logo-area">
+								<span class="logo pull-left"><img src="{$coupon['logo_url']}" alt=""/></span>
+								<div class="pull-left info-font-style"  id="brand_name">{$coupon['brand_name']}</div>
+								<div class="pull-left info-font-style" ><p>{$coupon['title']}</p></div>
+								<div class="clear"></div>
+							</div>
+							<div class="barcode-area code_preview code_preview_3" style="display: block;padding-top: 25px;">
+								<p class="text-left" style="">8888 8888 8888</p>
+							</div>
+							<div class="cicon">
+								<a href="javascript:;" data-id="form1"><i class="fa fa-pencil"></i></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="shop-detail">
+						<ul class="list">
+							<li>
+								<div class="li-panel area" style="">
+									<div class="li-content enter-name-1" id="custom_url_name">{$coupon['custom_url_name']}</div>
+									<div class="ricon"><span id="custom_url_sub_title" class="enter-tips-1">{$coupon['custom_url_sub_title']}</span><i class="fa fa-angle-right"></i></div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form6"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="li-panel area" style="">
+									<div class="li-content enter-name-3" id="custom_cell_name">{$coupon['promotion_url_name']}</div>
+									<div class="ricon"><span id="custom_cell_sub_tittle" class="enter-tips-3">{$coupon['promotion_url_sub_title']}</span><i class="fa fa-angle-right"></i></div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form8"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="li-panel area" style="">
+									<div class="li-content enter-name-2" id="promotion_url_name">{$coupon['custom_cell1']['name']}</div>
+									<div class="ricon"><span id="promotion_url_sub_title" class="enter-tips-2">{$coupon['custom_cell1']['tips']}</span><i class="fa fa-angle-right"></i></div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form7"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="li-panel area" style="">
+									<div class="li-content enter-name-2" id="wechat-account-detail">会员卡详情</div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form7"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="li-panel area" style="border-bottom: none">
+									<div class="li-content enter-name-2" id="wechat-account">公众号</div>
+									<div class="cicon">
+										<a href="javascript:;" data-id="form7"><i class="fa fa-pencil"></i></a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="pull-left alert form" style="width:700px;position:relative;display:block;" id="form1">
+					<h4>{$coupon_title}信息</h4>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 会员卡id</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">{$coupon['card_id']}</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 商户名称</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">{$coupon['brand_name']}</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 会员卡标题</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">{$coupon['title']}</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 有效期</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								{$coupon['extra_date_info']}
+							</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 状态</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								{if $coupon['status'] == -1}
+								删除
+								{else if $coupon['status'] == 1}
+								待审核
+								{else if $coupon['status'] == 2}
+								审核失败
+								{else if $coupon['status'] == 3}
+								审核通过
+								{/if}
+							</p>
+						</div>
+					</div>
+					<h4>投放信息</h4>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 库存</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								{$coupon['quantity']}
+							</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 领取限制</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								每个用户限领{$coupon['get_limit']}张
+							</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 销券条码</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								{if $coupon['code_type'] == 1}
+								卡号
+								{elseif $coupon['code_type'] == 2}
+								二维码
+								{else}
+								条形码
+								{/if}
+							</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 操作提示</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								{$coupon['notice']}
+							</p>
+						</div>
+					</div>
+
+					<h4>{$coupon_title}详情</h4>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 使用须知</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								{$coupon['description']}
+							</p>
+						</div>
+					</div>
+					<div class="form-group marbot0">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="text-danger"></span> 客服电话</label>
+						<div class="col-sm-9 col-xs-12">
+							<p class="form-control-static">
+								{$coupon['service_phone']}
+							</p>
+						</div>
+					</div>
+					<h4>适用门店</h4>
+					{if !empty($coupon['location_id_list'])}
+					{loop $coupon['location_id_list'] $location}
+					{$location['business_name']}
+					{/loop}
+					{else}
+					适用于全部门店
+					{/if}
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<span class="btn btn-primary col-lg-1" onclick="javascript:history.go(-1)">返回</span>
+		</div>
+	</form>
+</div>
+
+{/if}
+
+{if $type == 'record'}
+
+<div class="main">
+
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+				<input type="hidden" name="c" value="mc" />
+				<input type="hidden" name="a" value="card" />
+				<input type="hidden" name="do" value="wechat" />
+				<input type="hidden" name="type" value="record" />
+				<input type="hidden" name="id" value="{$_GPC['id']}" />
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">code 码</label>
+					<div class="col-sm-7 col-lg-9 col-xs-12">
+						<input class="form-control" name="code" placeholder="code 码（会员卡号）" type="text" value="{$_GPC['code']}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">姓名</label>
+					<div class="col-sm-7 col-lg-9 col-xs-12">
+						<input class="form-control" name="realname" placeholder="会员真实姓名" type="text" value="{$_GPC['realname']}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">手机号码</label>
+					<div class="col-sm-7 col-lg-9 col-xs-12">
+						<input class="form-control" name="mobile" placeholder="手机号码" type="text" value="{$_GPC['mobile']}">
+					</div>
+					<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+				<tr>
+					<th width="60px">头像</th>
+					<th width="150px">会员昵称</th>
+					<th width="150px">会员卡号</th>
+					<th width="70px">积分</th>
+					<th width="70px">余额</th>
+					<th width="70px">姓名</th>
+					<th width="120px">手机号</th>
+					<th width="150px">激活时间</th>
+					<th width="120px">状态</th>
+					<th style="text-align:right;">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $record $item}
+				<tr>
+					<td><img width="48px;" src="{$item['avatar']}"></td>
+					<td>{$item['nickname']}</td>
+					<td>{$item['code']}</td>
+					<td>{$item['credit1']}</td>
+					<td>{$item['credit2']}</td>
+					<td>{$item['realname']}</td>
+					<td>{$item['mobile']}</td>
+					<td>{php echo date('Y.m.d H:i:s', $item['addtime']);}</td>
+					<td>
+						{if $item['status'] == -1}
+							无效
+						{else if $item['status'] == 0}
+							删除
+						{else if $item['status'] == 1}
+							领取
+						{else if $item['status'] == 2}
+							激活
+						{/if}
+					</td>
+					<td style="text-align:right;">
+						<a href="#userinfo" data-toggle="modal" data-rid={$item['id']} class="btn btn-default btn-sm js-userinfo">详细资料</a>
+						<a href="{php echo url('mc/card/wechat', array('type' => 'record', 'action' => 'invalid', 'rid' => $item['id']));}" onclick="if(!confirm('设为无效前须与顾客事先告知并取得同意，请确保您遵守微信运营协议。')) return false;" class="btn btn-default btn-sm" title="设为失效">设为失效</a>
+					</td>
+				</tr>
+				{/loop}
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer">
+			{$pager}
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="userinfo">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+				<h4 class="modal-title">会员详细信息</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-hover">
+
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary">确认</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).on('click', '.js-userinfo', function() {
+		var rid = $(this).data('rid');
+
+		$.post("{php echo url('mc/card/wechat', array('type' => 'ajax'))}", {'action' : 'userinfo','rid' : rid}, function(data) {
+			data = $.parseJSON(data);
+			console.log(data);
+			if (data.message.errno == '0') {
+				var html = '';
+				$.each(data.message.message.info, function(i,item){
+					if(i == 0){
+						html += '<tr>';
+						html += '<td style="border: none">';
+						html += item['name'];
+						html += '</td>';
+						html += '<td style="border: none">';
+						html += item['value'];
+						html += '</td>';
+						html += '</tr>';
+					}else{
+						html += '<tr>';
+						html += '<td>';
+						html += item['name'];
+						html += '</td>';
+						html += '<td>';
+						html += item['value'];
+						html += '</td>';
+						html += '</tr>';
+					}
+				});
+
+				$('#userinfo .table').html(html);
+			} else {
+				$('#put-coupon').modal('hide');
+				util.message(data.message.message);
+			}
+		});
+
+	});
+
+</script>
+
+{/if}
+
+{template 'common/footer'}
