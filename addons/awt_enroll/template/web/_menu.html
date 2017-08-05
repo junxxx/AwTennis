@@ -1,0 +1,13 @@
+<style type='text/css'>
+    .topmenu { position: relative; width:100%;float:left;background:#efefef;margin-bottom:20px;}
+    .topmenu ul li a { color:#000}
+    .topmenu .dropdown-menu li a { color:#666}
+    .topmenu ul li { content:'|'}
+</style>
+<div class='topmenu'>
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="{php echo url('home/welcome/ext',array('m'=>'awt_enroll'))}"><i class='fa fa-home'></i> {php echo $this->module['title']}</a>
+        </li>
+    </ul>
+</div>
