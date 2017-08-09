@@ -18,8 +18,8 @@ if ($_W['isajax']) {
 	$aboutUs = pdo_fetch($sql, $params);
 	if(!empty($aboutUs)){
 		$aboutUs['createtime'] = date('Y-m-d H:i:s',$aboutUs['createtime']);
-		$aboutUs['detail'] =  htmlspecialchars($aboutUs['detail']);
-		show_json(1,$aboutUs);
+		$aboutUs['detail'] =  $aboutUs['detail'];
+		show_json(1,array('aboutUs' => $aboutUs));
 	}
 	show_json(0,'敬请期待!!!');
 }
