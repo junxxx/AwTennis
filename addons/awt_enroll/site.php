@@ -15,24 +15,29 @@ require_once AWT_ENROLL_INC_MODEL . 'cache.class.php';
 
 class Awt_enrollModuleSite extends Core {
 
+	/*前台关于我们展示*/
 	public function doMobileAboutus() {
-		//这个操作被定义用来呈现 功能封面
 		$this->_exec(__FUNCTION__, 'aboutus', false);
 	}
+
+	/*前台积分榜*/
 	public function doMobileRanking() {
-		//这个操作被定义用来呈现 功能封面
 		$this->_exec(__FUNCTION__, 'ranking', false);
 	}
+
+	/*前台活动报名入口*/
 	public function doMobileEnroll() {
-		//这个操作被定义用来呈现 功能封面
 		$this->_exec(__FUNCTION__, 'enroll', false);
 	}
+
+	/*后台文章管理*/
 	public function doWebArticle() {
-		//这个操作被定义用来呈现 管理中心导航菜单
 		$this->_exec(__FUNCTION__, 'list');
 	}
+
+	/*后台活动管理*/
 	public function doWebMatch() {
-		//这个操作被定义用来呈现 管理中心导航菜单
+		$this->_exec(__FUNCTION__, 'match');
 	}
 	public function doWebSetting() {
 		//这个操作被定义用来呈现 管理中心导航菜单
