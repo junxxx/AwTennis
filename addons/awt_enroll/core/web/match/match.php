@@ -46,6 +46,7 @@ if ($operation == 'display'){
 			'headimg' => $_GPC['headimg'],
 			'sign_stime' => $sign_stime,
 			'activity_stime' => $activity_stime,
+			'location' => trim($_GPC['location']),
 			'rule' => $_GPC['rule'],
 			'com_nums' => $_GPC['com_nums'],
 			'fee' => $_GPC['fee'],

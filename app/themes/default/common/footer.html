@@ -1,16 +1,4 @@
-		{if empty($footer_off)}
-			<div class="text-center footer" style="margin:10px 0; width:100%; text-align:center; word-break:break-all;">
-				{if !empty($_W['page']['footer'])}
-					{$_W['page']['footer']}
-				{else}
-					{if IMS_FAMILY != 'x'}<a href="http://www.ewebao.com">关于E微宝</a>&nbsp;&nbsp;<a href="http://bbs.ewebao.com">E微宝帮助</a>{/if}
-				{/if}
-				&nbsp;&nbsp;{$_W['setting']['copyright']['statcode']}
-			</div>
-		{/if}
-		{if !empty($_W['quickmenu']['menus']) && empty($_W['quickmenu']['disabled'])}
-			<?php include_once template($_W['quickmenu']['template'], TEMPLATE_INCLUDEPATH);?>
-		{/if}
+
 		<script>require(['bootstrap']);</script>
 	</div>
 	<style>

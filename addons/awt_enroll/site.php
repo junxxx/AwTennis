@@ -27,7 +27,7 @@ class Awt_enrollModuleSite extends Core {
 
 	/*前台活动报名入口*/
 	public function doMobileEnroll() {
-		$this->_exec(__FUNCTION__, 'enroll', false);
+		$this->_exec(__FUNCTION__, 'list', false);
 	}
 
 	/*后台文章管理*/
