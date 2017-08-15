@@ -9,6 +9,7 @@
 $sql = " 
  DROP TABLE IF EXISTS awt_enroll_articles;
  DROP TABLE IF EXISTS awt_enroll_activities;
+ DROP TABLE IF EXISTS awt_enroll_member;
   ";
 
 pdo_query($sql);

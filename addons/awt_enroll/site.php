@@ -53,5 +53,22 @@ class Awt_enrollModuleSite extends Core {
 	    include $this->template('sui/demo');
     }
 
+	public function doMobileNotice(){
+		$openid = 'oFxpOw7Ms5PEWDZoNa2xV7amljxU';
+		$tpid = 'P3JR-nf7AaMlEUaROs1fStJpRvCbQnOlv6XsFkZNzG4';
+		$msg = array(
+			'first' => array(
+				'value' => "赛管理员您好，已有班级成功报名",
+				"color" => "#4a5077"
+			),
+			'orderProductPrice' =>
+				array('title' => '退款金额', 'value' => '￥100 元', "color" => "#4a5077"),
+			'orderProductName' => array('title' => '商品详情', 'value' => 12, "color" => "#4a5077"),
+			'orderName' => array('title' => '订单编号', 'value' => 123, "color" => "#4a5077"),
+			'remark' => array('value' => "\r\n模板消息测试", "color" => "#4a5077")
+		);
+		$t = m('message')->sendTplNotice($openid, $tpid, $msg);
+		var_dump($t);
+	}
 
 }

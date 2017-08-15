@@ -8,13 +8,13 @@
 if (!defined('IN_IA')) {
     die('Access Denied');
 }
-class Ewei_DShop_User
+class AWT_Tenroll_User
 {
     private $sessionid;
     public function __construct()
     {
         global $_W;
-        $this->sessionid = "__cookie_ewei_shop_201507200000_{$_W['uniacid']}";
+        $this->sessionid = "__cookie_enroll_2017081500000_{$_W['uniacid']}";
     }
     function getOpenid()
     {

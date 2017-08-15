@@ -10,6 +10,10 @@ class Core extends WeModuleSite {
 		global $_W;
 		/*TODO 初始化工作,例如绑定手机号操作*/
 
+		if ( is_weixin()) {
+			m('member')->checkMember();
+		}
+
 	}
 
 
