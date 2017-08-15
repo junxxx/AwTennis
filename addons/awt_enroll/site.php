@@ -44,4 +44,9 @@ class Awt_enrollModuleSite extends Core {
 	}
 
 
+	public function doMobileSui() {
+	    include $this->template('sui/demo');
+    }
+
+
 }

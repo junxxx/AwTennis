@@ -1,0 +1,70 @@
+{template 'common/header'}
+<title>活动详情页</title>
+<style>
+    .page.page-current {
+        overflow: auto;
+    }
+</style>
+<div class="page">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left" href="javascript:void();" onclick="window.history.back(-1);" data-transition='slide-out'>
+            <span class="icon icon-left"></span>
+            返回
+        </a>
+        <h1 class="title">活动</h1>
+    </header>
+    <div id='container'></div>
+</div>
+
+<script id='tpl_detail' type='text/html'>
+    <div class="content">
+        <div class="list-block">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.title%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.activity_stime%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.location%></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+            <p><a href="#" class="button button-big">立即报名 </a></p>
+        </div>
+    </div>
+</script>
+<script id='tpl_empty' type='text/html'>
+    <div class="team_no"><br><span style="line-height:18px; font-size:16px;">活动信息不存在</span></div>
+</script>
+
+<script language="javascript">
+    var id = "{$_GPC['id']}";
+    require(['tpl', 'core'], function (tpl, core) {
+        function getActivitie() {
+            core.json('enroll/detail', {id: id, }, function (json) {
+                var status = json.status;
+                if ( status == 1 ){
+                    $('#container').html(tpl('tpl_detail', json.result));
+                }else {
+                    $('#container').html(tpl('tpl_empty'));
+                }
+            }, true);
+        }
+
+        getActivitie();
+
+    })
+</script>

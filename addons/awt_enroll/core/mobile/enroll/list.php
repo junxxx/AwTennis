@@ -1,5 +1,5 @@
 <?php
-/*手机端活动报名 页面*/
+/*手机端活动列表页面*/
 if (!defined('IN_IA')) {
 	die('Access Denied');
 }
@@ -14,7 +14,6 @@ if ($_W['isajax']) {
 	if ($operation == 'display') {
 		$pindex = max(1, intval($_GPC['page']));
 		$psize = 5;
-		$status = $_GPC['status'];
 		$condition = " and uniacid=:uniacid and is_show=:is_show ";
 		$params = array(':uniacid' => $uniacid, ':is_show' => 1);
 

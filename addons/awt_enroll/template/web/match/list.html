@@ -81,9 +81,9 @@
 
 
         {if empty($id)}
-        if ($.trim($(':input[name="thumb"]').val()) == '') {
+        if ($.trim($(':input[name="headimg"]').val()) == '') {
             $('#myTab a[href="#tab_basic"]').tab('show');
-            Tip.focus(':input[name="thumb"]', '请上传缩略图.');
+            Tip.focus(':input[name="headimg"]', '请上传缩略图.');
             return false;
         }
         {/if}
@@ -205,7 +205,7 @@
                         <td>
                             {$item['title']}
                         </td>
-                        <td>后续添加{$item['location']}</td>
+                        <td>{$item['location']}</td>
                         <td>{$item['fee']}</td>
                         <td>{$item['updatetime']}</td>
                         <td>

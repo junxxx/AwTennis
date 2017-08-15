@@ -1,141 +1,32 @@
 {template 'common/header'}
-<title>活动</title>
-<style type="text/css">
-    body {margin:0px; background:#EEEEEE; font-family:'微软雅黑'; -moz-appearance:none;}
-    a {text-decoration:none;}
-    .team_top {height:44px; width:100%;  background:#f8f8f8;  border-bottom:1px solid #e3e3e3;}
-    .team_top .title {height:44px; width:auto;margin-left:10px; float:left; font-size:16px; line-height:44px; color:#666;}
-
-    .team_list_head {height:20px; width:94%; background:#fff; padding:10px 3%;border-bottom:1px solid #eaeaea;}
-    .team_list_head .time {height:20px; width:40%; float:left;  font-size:14px; color:#666; line-height:20px; text-align:left;}
-    .team_list_head .amount {height:20px; width:20%; float:left;  font-size:14px; color:#666; line-height:20px; text-align:left;}
-    .team_list_head .desc {height:20px; float:right; text-align:right; font-size:14px; color:#666; line-height:20px;  color:#999;}
-
-
-    .team_list {height:280px; width:94%; background:#fff; padding:10px 3%;}
-    .team_list .img {height:40px; width:16%; float:left; text-align:left;}
-
-    team_list .time {
-        height: 30px;
-        width: 40%;
-        float: left;
-        font-size: 12px;
-        color: #666;
-        text-align: left;
-        line-height: 30px;
+<title>活动列表</title>
+<style>
+    .page.page-current {
+        overflow: auto;
     }
-    .team_list .amount {height:30px; width:20%; float:left;  font-size:12px; color:#666; line-height:30px; text-align:left;}
-    .team_list .desc {height:30px; float:right; text-align:right; font-size:12px;line-height:30px;color:#999;}
-
-    .team_list .title {height:40px; width:100%; float:left; font-size:20px; color:#666; line-height:40px; text-align:left;}
-    .team_list .amount {height:40px; width:20%; float:left;  font-size:14px; color:#666; line-height:40px; text-align:left;}
-    .team_list .stime {height:40px; float:left; text-align:right; font-size:14px; color:#666; line-height:40px;  color:#999;width: 56%;overflow: hidden}
-
-    .team_tab {height:30px; margin:5px; border:1px solid #ff6801; border-radius:5px; overflow:hidden;font-size:13px;background:#fff;padding-right: -2px;}
-    .team_nav {height:30px;  background:#fff; color:#666; text-align:center; line-height:30px; float:left;}
-    .team_navon {color:#fff; background:#ff6801;}
-    .team_no {height:100px; width:100%; margin:50px 0px 60px; color:#ccc; font-size:12px; text-align:center;}
-    #team_loading { padding:10px;color:#666;text-align: center;}
-
-    .info_main .line .inner { margin-left:80px; }
-    .line .inner input {height:40px; width:100%;display:block; padding:0px; margin:0px; border:0px; float:left; font-size:16px;}
-
-    #search{
-        float: left;
-        width: 10%;
-        text-align: center;
-        color: #545454;
-    }
-    .time-set-box{
-        width: 100%;
-        overflow: hidden;
-        padding: 18px 0;
-        background: #E2E2E2;
-    }
-    #search i{}
-    .start-time{
-        width: 45%;
-        float: left;
-    }
-    .end-time{
-        width: 45%;
-        float: left;
-    }
-    .end-time input{
-        width: 53%;
-        float: left;
-        padding: 0;
-        margin: 0;
-        border: 1px solid #B3B3B3;
-        background: #fff;
-        height:20px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    .start-time input{
-        width: 53%;
-        float: left;
-        padding: 0;
-        margin: 0;
-        border: 1px solid #B3B3B3;
-        background: #fff;
-        height:20px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    .tit-box{
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        background: #cf4336;
-    }
-    .tit-box p{
-        margin: 0;
-        font-size: 18px;
-        color: #fff;
-    }
-    .back-btn{
-        position: absolute;
-        left: 10px;
-        top: 12px;
-        color: #fff;
-    }
-    .time-set-box .txt{
-        width: 35%;
-        font-size: 14px;
-        margin: 0 5%;
-        float: left;
-        display: block;
-        height: 22px;
-        line-height: 22px;
-        text-align: right;
-    }
-    .headimg {
-        text-align: center;
-    }
-
 </style>
-
-<div class="tit-box">
-    <i class='fa fa-chevron-left back-btn'onclick='window.history.back()'></i>
+<div class="page">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left" href="javascript:void();" onclick="window.history.back(-1);" data-transition='slide-out'>
+            <span class="icon icon-left"></span>
+            返回
+        </a>
+        <h1 class="title">活动</h1>
+    </header>
+    <div id='container'></div>
 </div>
 
-
-
-<div id='container'></div>
-
 <script id='tpl_list' type='text/html'>
-
     <%each list as activity%>
-    <div class="team_list">
-        <div class="headimg" onclick="location='{php echo $this->createMobileUrl('enroll/detail')}'">
-            <img src="<%activity.headimg%>">
+    <div class="card demo-card-header-pic" onclick="goDetail('<%activity.id%>')">
+        <div valign="bottom" class="card-header color-white no-border no-padding">
+            <img class='card-cover' src="<%activity.headimg%>" alt="">
         </div>
-        <div class="bottom">
-            <p><div class="title"><%activity.title%></div></p>
-            <div class="stime">活动时间:<%activity.activity_stime%></div>
+        <div class="card-content">
+            <div class="card-content-inner">
+                <p class="color-gray">活动时间 <%activity.activity_stime%></p>
+                <p><%activity.title%></p>
+            </div>
         </div>
     </div>
     <%/each%>
@@ -183,6 +74,7 @@
                 }
             });
         }
+
         function getActivities() {
             var starttime = $('#starttime').val();
             var endtime = $('#endtime').val();
@@ -202,4 +94,13 @@
         getActivities();
 
     })
+
+    function goDetail(activityId)
+    {
+        activityId = parseInt(activityId);
+        if (activityId <= 0 )
+            return;
+        var url = "{php echo $this->createMobileUrl('enroll/detail')}&id="+activityId;
+        window.location.href = url;
+    }
 </script>
