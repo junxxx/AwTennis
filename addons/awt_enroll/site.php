@@ -30,6 +30,11 @@ class Awt_enrollModuleSite extends Core {
 		$this->_exec(__FUNCTION__, 'list', false);
 	}
 
+    /*前台个人中心入口*/
+    public function doMobileMember() {
+        $this->_exec(__FUNCTION__, 'center', false);
+    }
+
 	/*后台文章管理*/
 	public function doWebArticle() {
 		$this->_exec(__FUNCTION__, 'list');
