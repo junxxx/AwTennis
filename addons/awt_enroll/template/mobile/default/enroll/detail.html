@@ -42,7 +42,7 @@
         </div>
 
         <div class="content-block">
-            <p><a href="#" class="button button-big">立即报名 </a></p>
+            <p><a href="javascript:void(0);" id="enroll" class="button button-big">立即报名 </a></p>
         </div>
     </div>
 </script>
@@ -58,13 +58,21 @@
                 var status = json.status;
                 if ( status == 1 ){
                     $('#container').html(tpl('tpl_detail', json.result));
+
+                    $('#enroll').click(function () {
+                        core.json('enroll/enroll',{id:id},function(json){
+                            console.log(json);
+//                            core.tip.show(json.status);
+                        },true,true);
+                    })
                 }else {
                     $('#container').html(tpl('tpl_empty'));
                 }
             }, true);
         }
-
         getActivitie();
+
+
 
     })
 </script>
