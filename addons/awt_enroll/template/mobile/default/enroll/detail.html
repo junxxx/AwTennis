@@ -42,6 +42,7 @@
         </div>
 
         <div class="content-block">
+
             <p><a href="javascript:void(0);" id="enroll" class="button button-big">立即报名 </a></p>
         </div>
     </div>
@@ -61,6 +62,15 @@
 
                     $('#enroll').click(function () {
                         core.json('enroll/enroll',{id:id},function(json){
+                            var status = json.status;
+                            var result = json.result;
+                            console.log(result);
+
+                            core.tip.show(result);
+
+                            if (status == 0){
+                                $.alert(result);
+                            }
                             console.log(json);
 //                            core.tip.show(json.status);
                         },true,true);

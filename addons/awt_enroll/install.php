@@ -72,6 +72,20 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_member` (
   KEY `idx_groupid` (`groupid`),
   KEY `idx_level` (`level`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS  `awt_enroll_activitie_logs` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uniacid` INT(11) NOT NULL,
+  `aid` INT(11) NOT NULL COMMENT '活动id',
+  `mid` INT(11) NOT NULL COMMENT 'enroll_member id',
+  `openid` VARCHAR(50) NOT NULL,
+  `createtime` INT(10) NOT NULL COMMENT '报名提交时间',
+  `status` TINYINT(1) NOT NULL DEFAULT 0  COMMENT '报名状态',
+  `updatetime` INT(10) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+COMMENT = '活动报名记录';
+
 ";
 
 pdo_query($sql);
