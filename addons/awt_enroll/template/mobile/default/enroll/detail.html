@@ -1,4 +1,20 @@
 {template 'common/header'}
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <!--<title>我的生活</title>-->
+    <!--<meta name="viewport" content="initial-scale=1, maximum-scale=1">-->
+    <!--<link rel="shortcut icon" href="/favicon.ico">-->
+    <!--<meta name="apple-mobile-web-app-capable" content="yes">-->
+    <!--<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
+
+    <!--<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">-->
+    <!--<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">-->
+
+<!--</head>-->
+<!--<body>-->
 <title>活动详情页</title>
 <style>
     .page.page-current {
@@ -19,6 +35,13 @@
 <script id='tpl_detail' type='text/html'>
     <div class="content">
         <div class="list-block">
+
+            <div class="content-block">
+                <p><a href="#" class="alert-text">Alert With Text</a></p>
+                <p><a href="#" class="alert-text-title">Alert With Text and Title</a></p>
+                <p><a href="#" class="alert-text-title-callback">Alert With Text and Title and Callback</a></p>
+                <p><a href="#" class="alert-text-callback">Alert With Text and Callback</a></p>
+            </div>
             <ul>
                 <li class="item-content">
                     <div class="item-media"><i class="icon icon-menu"></i></div>
@@ -53,12 +76,18 @@
 
 <script language="javascript">
     var id = "{$_GPC['id']}";
-    require(['tpl', 'core'], function (tpl, core) {
+    require(['tpl', 'core', 'sui'], function (tpl, core,sui) {
         function getActivitie() {
             core.json('enroll/detail', {id: id, }, function (json) {
                 var status = json.status;
                 if ( status == 1 ){
                     $('#container').html(tpl('tpl_detail', json.result));
+
+                    $(document).on('click', '.alert-text-callback', function () {
+                        sui.alert('Here goes alert text', function () {
+                            sui.alert('Button clicked!')
+                        });
+                    });
 
                     $('#enroll').click(function () {
                         core.json('enroll/enroll',{id:id},function(json){
@@ -86,3 +115,5 @@
 
     })
 </script>
+</body>
+</html>
