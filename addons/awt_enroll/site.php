@@ -52,6 +52,9 @@ class Awt_enrollModuleSite extends Core {
 	public function doMobileSui() {
 	    include $this->template('sui/demo');
     }
+    public function doMobileMui() {
+        include $this->template('mui/demo');
+    }
 
 	public function doMobileNotice(){
 		$openid = 'oFxpOw7Ms5PEWDZoNa2xV7amljxU';

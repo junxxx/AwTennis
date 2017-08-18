@@ -1,0 +1,144 @@
+{template 'common/header'}
+<script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
+<link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">cardview（卡片视图）</h1>
+</header>
+<div class="mui-content">
+    <div  id="container"></div>
+
+    <div class="mui-card">
+        <div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../addons/awt_enroll/static/js/dist/mui/images/cbd.jpg)"></div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+                <p>Posted on January 18, 2016</p>
+                <p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+            </div>
+        </div>
+        <div class="mui-card-footer">
+            <a class="mui-card-link">Like</a>
+            <a class="mui-card-link">Read more</a>
+        </div>
+    </div>
+    <div class="mui-card">
+        <div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(../addons/awt_enroll/static/js/dist/mui/images/cbd.jpg)"></div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner">
+                <p>Posted on January 18, 2016</p>
+                <p style="color: #333;">这里显示文章摘要，让读者对文章内容有个粗略的概念...</p>
+            </div>
+        </div>
+        <div class="mui-card-footer">
+            <a class="mui-card-link">Like</a>
+            <a class="mui-card-link">Read more</a>
+        </div>
+    </div>
+
+    <div class="mui-card">
+        <div class="mui-card-header mui-card-media">
+            <img src="../images/logo.png" />
+            <div class="mui-media-body">
+                小M
+                <p>发表于 2016-06-30 15:30</p>
+            </div>
+            <!--<img class="mui-pull-left" src="../images/logo.png" width="34px" height="34px" />
+            <h2>小M</h2>
+            <p>发表于 2016-06-30 15:30</p>-->
+        </div>
+        <div class="mui-card-content" >
+            <img src="../images/yuantiao.jpg" alt="" width="100%"/>
+        </div>
+        <div class="mui-card-footer">
+            <a class="mui-card-link">Like</a>
+            <a class="mui-card-link">Comment</a>
+            <a class="mui-card-link">Read more</a>
+        </div>
+    </div>
+</div>
+<div id="container"></div>
+<script id='tpl_detail' type='text/html'>
+    <div class="content">
+        <div class="list-block">
+
+            <div class="content-block">
+                <p><a href="#" class="alert-text">Alert With Text</a></p>
+                <p><a href="#" class="alert-text-title">Alert With Text and Title</a></p>
+                <p><a href="#" class="alert-text-title-callback">Alert With Text and Title and Callback</a></p>
+                <p><a href="#" class="alert-text-callback">Alert With Text and Callback</a></p>
+            </div>
+            <ul>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.title%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.activity_stime%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.location%></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+
+            <p><a href="javascript:void(0);" id="enroll" class="button button-big">立即报名 </a></p>
+        </div>
+    </div>
+</script>
+<script id='tpl_empty' type='text/html'>
+    <div class="team_no"><br><span style="line-height:18px; font-size:16px;">活动信息不存在</span></div>
+</script>
+
+<script language="javascript">
+    var id = "{$_GPC['id']}";
+    require(['tpl', 'core', ], function (tpl, core) {
+        function getActivitie() {
+            core.json('enroll/detail', {id: id, }, function (json) {
+                var status = json.status;
+                $('#container').html(tpl('tpl_detail', json.result));
+                if ( status == 1 ){
+                    $('#container').html(tpl('tpl_detail', json.result));
+
+                    $(document).on('click', '.alert-text-callback', function () {
+                        sui.alert('Here goes alert text', function () {
+                            sui.alert('Button clicked!')
+                        });
+                    });
+
+                    $('#enroll').click(function () {
+                        core.json('enroll/enroll',{id:id},function(json){
+                            var status = json.status;
+                            var result = json.result;
+                            console.log(result);
+
+                            core.tip.show(result);
+
+                            if (status == 0){
+                            }
+                            console.log(json);
+//                            core.tip.show(json.status);
+                        },true,true);
+                    })
+                }else {
+                    $('#container').html(tpl('tpl_empty'));
+                }
+            }, true);
+        }
+        getActivitie();
+
+
+
+    })
+</script>
+</body>
+</html>
