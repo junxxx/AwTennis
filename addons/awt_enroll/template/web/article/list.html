@@ -3,19 +3,6 @@
     <li {if $_GPC['p'] == 'list' || empty($_GPC['p'])} class="active" {/if}><a href="{php echo $this->createWebUrl('article/list')}">文章管理</a></li>
 </ul>
 {if $operation == 'display'}
-<div class="panel panel-info">
-    <div class="panel-heading">直接链接</div>
-    <div class="panel-body">
-        <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">链接(点击复制)</label>
-            <div class="col-sm-9 col-xs-12">
-                <p class='form-control-static'>
-                    <a href='javascript:;' title='点击复制连接' id='cp'>{php echo $this->createMobileUrl('article')}</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 <form action="" method="post">
     <div class="panel panel-default">
         <div class="panel-body table-responsive">
@@ -67,20 +54,6 @@
         </div>
     </div>
 </form>
-<script>
-    require(['bootstrap'], function ($) {
-        $('.btn').hover(function () {
-            $(this).tooltip('show');
-        }, function () {
-            $(this).tooltip('hide');
-        });
-    });
-    require(['util'],function(u){
-        $('#cp').each(function(){
-            u.clip(this, $(this).text());
-        });
-    })
-</script>
 
 {elseif $operation == 'post'}
 
@@ -90,6 +63,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             文章设置
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">链接(点击复制)</label>
+                <div class="col-sm-9 col-xs-12">
+                    <p class='form-control-static'>
+                        <a href='javascript:;' title='点击复制连接' id='cpdetail'>{php echo $this->createMobileUrl('aboutus/detail',array('id' => $article['id']))}</a>
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="panel-body">
             <div class="form-group">
@@ -130,6 +113,18 @@
 </div>
 
 <script language='javascript'>
+    require(['bootstrap'], function ($) {
+        $('.btn').hover(function () {
+            $(this).tooltip('show');
+        }, function () {
+            $(this).tooltip('hide');
+        });
+    });
+    require(['util'],function(u){
+        $('#cpdetail').each(function(){
+            u.clip(this, $(this).text());
+        });
+    })
     function formcheck() {
         if ($("#title").isEmpty()) {
             Tip.focus("title", "请填写文章标题!");

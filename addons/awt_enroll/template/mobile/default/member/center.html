@@ -1,0 +1,84 @@
+{template 'common/header'}
+<title>个人中心</title>
+<style>
+    .page.page-current {
+        overflow: auto;
+    }
+</style>
+<div class="page">
+    <header class="bar bar-nav">
+        <h1 class="title">个人中心</h1>
+    </header>
+    <div id='container'></div>
+    <nav class="bar bar-tab">
+        <a class="tab-item active" href="#">
+            <span class="icon icon-home"></span>
+            <span class="tab-label">首页</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-star"></span>
+            <span class="tab-label">收藏</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-settings"></span>
+            <span class="tab-label">设置</span>
+        </a>
+    </nav>
+</div>
+
+<script id='tpl_detail' type='text/html'>
+    <div class="content">
+        <div class="list-block">
+            <ul>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.title%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.activity_stime%></div>
+                    </div>
+                </li>
+                <li class="item-content">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title"><%activity.location%></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-block">
+            <p><a href="#" class="button button-big">立即报名 </a></p>
+        </div>
+    </div>
+</script>
+<script id='tpl_empty' type='text/html'>
+    <div class="team_no"><br><span style="line-height:18px; font-size:16px;">活动信息不存在</span></div>
+</script>
+
+<script language="javascript">
+    var id = "{$_GPC['id']}";
+    require(['tpl', 'core'], function (tpl, core) {
+        function getActivitie() {
+            core.json('member/center', {id: id, }, function (json) {
+                var status = json.status;
+                if ( status == 1 ){
+                    $('#container').html(tpl('tpl_detail', json.result));
+                }else {
+                    $('#container').html(tpl('tpl_empty'));
+                }
+            }, true);
+        }
+
+        getActivitie();
+
+    })
+</script>

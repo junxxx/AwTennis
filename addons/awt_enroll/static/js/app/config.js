@@ -7,7 +7,8 @@ require.config({
         'tpl':'../dist/tmodjs',
         'jquery.touchslider':'../dist/jquery.touchslider.min',
         'swipe':'../dist/swipe',
-        'sweetalert':'../dist/sweetalert/sweetalert.min'
+        'sweetalert':'../dist/sweetalert/sweetalert.min',
+        'sui':'../dist/sui/sm.min'
         
     },
     shim: {
@@ -26,6 +27,10 @@ require.config({
         'sweetalert':{
             exports: "$",
             deps: ['css!../dist/sweetalert/sweetalert.css']
+        },
+        'sui':{
+            exports: "$",
+            deps: ['zepto.min']
         }
         
     }

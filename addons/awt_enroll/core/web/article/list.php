@@ -26,7 +26,7 @@ if( $operation == 'display') {
 		} else {
 			pdo_insert($tablename, $data);
 			$id = pdo_insertid();
-			plog('article.article.add', "修改文章 ID: {$id}");
+			plog('article.article.add', "新增文章 ID: {$id}");
 		}
 		message('更新文章成功！', $this->createWebUrl('article/list', array('op' => 'display')), 'success');
 	}

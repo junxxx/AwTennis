@@ -49,12 +49,12 @@
     <div class="notice_detail">
         <div class="page_topbar">
             <a href="{php echo $this->createMobileUrl('article')}" class="back" ><i class="fa fa-angle-left"></i></a>
-            <div class="title"><%aboutUs.title%></div>
+            <div class="title"><%article.title%></div>
         </div>
         <div class="notice_main" >
-            <div class="title"><%aboutUs.title%></div>
-            <div class="time"><%aboutUs.createtime%></div>
-            <div class="detail"><%=aboutUs.detail%></div>
+            <div class="title"><%article.title%></div>
+            <div class="time"><%article.createtime%></div>
+            <div class="detail"><%=article.detail%></div>
         </div>
     </div>
 </script>
@@ -63,11 +63,11 @@
     </div>
 </script>
 <script language="javascript">
-    var page = 1;
+    var id = "{$_GPC['id']}";
     require(['tpl', 'core'], function (tpl, core) {
         $('#container').html(tpl('tpl_notice_main'));
 
-        core.json('aboutus/aboutus', {}, function (json) {
+        core.json('aboutus/detail', {id:id}, function (json) {
             if(json.status == 0) {
                 core.tip.show(json.result,'middle',4000);
             }else{
