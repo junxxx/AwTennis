@@ -44,6 +44,12 @@ class Awt_enrollModuleSite extends Core {
 	public function doWebMatch() {
 		$this->_exec(__FUNCTION__, 'match');
 	}
+
+	/*后台活动报名管理*/
+	public function doWebEnroll() {
+		$this->_exec(__FUNCTION__, 'list');
+	}
+
 	public function doWebSetting() {
 		//这个操作被定义用来呈现 管理中心导航菜单
 	}
