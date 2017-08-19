@@ -18,11 +18,11 @@
 
     .notice_addnav {height:40px; width:94%; padding:0 3%; border-bottom:1px solid #f0f0f0; border-top:1px solid #f0f0f0; margin-top:14px; line-height:40px; color:#666; }
 
-    .notice_detail { width:100%;position:absolute;top:0;right:-100%;z-index:99999;display: none}
+    .notice_detail { width:100%;position:absolute;top:0;}
     .notice_main {height:auto;width:94%; padding:0px 3%; border-bottom:1px solid #f0f0f0; border-top:1px solid #f0f0f0; background:#fff;}
     .notice_main .title {height:auto;; width:94%; padding:0px 3%;line-height:22px;word-break: break-all;font-size:16px;color:#333;padding:5px;}
     .notice_main .time {height:30px; width:94%; padding:0px 3%; border-bottom:1px solid #f0f0f0; line-height:22px;word-break: break-all;font-size:14px;color:#666;}
-    .notice_main .detail { height:100%;width:94%; padding:0px 3%; word-break: break-all;}
+    .notice_main .detail { height:100%;width:94%; padding:0px 3%; }
     .notice_main .detail img { width:100%;}
     .notice_sub1 {height:44px; width:94%; margin:14px 3% 0px; background:#ff4f4f; border-radius:4px; text-align:center; font-size:16px; line-height:44px; color:#fff;}
     .notice_sub2 {height:44px; width:94%; margin:14px 3% 0px; background:#ddd; border-radius:4px; text-align:center; font-size:16px; line-height:44px; color:#666; border:1px solid #d4d4d4;}
@@ -38,7 +38,7 @@
 <script id='tpl_notice_main' type='text/html'>
     <div class="page_topbar">
         <a href="javascript:;" class="back" onclick="history.back()"><i class="fa fa-angle-left"></i></a>
-        <div class="title">关于我们</div>
+        <div class="title"><%title%></div>
     </div>
 
     <div id='notices'></div>
@@ -48,13 +48,13 @@
 <script id='tpl_notice_data' type='text/html'>
     <div class="notice_detail">
         <div class="page_topbar">
-            <a href="{php echo $this->createMobileUrl('member/article')}" class="back" ><i class="fa fa-angle-left"></i></a>
-            <div class="title">公告内容</div>
+            <a href="{php echo $this->createMobileUrl('article')}" class="back" ><i class="fa fa-angle-left"></i></a>
+            <div class="title"><%aboutUs.title%></div>
         </div>
         <div class="notice_main" >
-            <div class="title"><%notice.title%></div>
-            <div class="time"><%notice.createtime%></div>
-            <div class="detail"></div>
+            <div class="title"><%aboutUs.title%></div>
+            <div class="time"><%aboutUs.createtime%></div>
+            <div class="detail"><%=aboutUs.detail%></div>
         </div>
     </div>
 </script>
@@ -68,8 +68,12 @@
         $('#container').html(tpl('tpl_notice_main'));
 
         core.json('aboutus/aboutus', {}, function (json) {
-            if(json.status == 0)
-                core.tip.show(json.result);
+            if(json.status == 0) {
+                core.tip.show(json.result,'middle',4000);
+            }else{
+                var result = json.result;
+                $('#detail_container').html(tpl('tpl_notice_data',result));
+            }
 
         }, true);
     })

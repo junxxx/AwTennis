@@ -29,7 +29,7 @@ class Awt_enrollModuleSite extends Core {
 	}
 	public function doWebArticle() {
 		//这个操作被定义用来呈现 管理中心导航菜单
-		echo 'article';
+		$this->_exec(__FUNCTION__, 'list');
 	}
 	public function doWebMatch() {
 		//这个操作被定义用来呈现 管理中心导航菜单
