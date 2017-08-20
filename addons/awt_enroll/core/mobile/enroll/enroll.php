@@ -24,15 +24,15 @@ if ($_W['isajax']) {
             if ( $nowTime < $activity['sign_stime']) {
                 show_json(0,'还未到报名时间');
             }
-            /*正选人数，替补处理*/
 
             /*活动是否已经报过名*/
             $enrolled = m('activity')->isEnrolled($member['id'], $activityId);
-            if (!$enrolled){
+//            if (!$enrolled){
                 /*TODO 报名资格检查*/
                 $checkQualification = m('activity')->checkQualification();
                 /*如果有资格*/
                 if ($checkQualification){
+
                     $enrollData = array(
                         'uniacid' => $uniacid,
                         'aid'     => $activityId,
@@ -40,13 +40,31 @@ if ($_W['isajax']) {
                         'openid'     => $member['openid'],
                         'createtime' => time(),
                         'status' => 0,
+                        'reserve_status' => 0,
                     );
+                    /*正选人数满了，替补处理reserve_status*/
+                    $mainIsFull = m('activity')->isFullNums($activityId);
+                    if ($mainIsFull){
+                        /*替补*/
+                        $enrollData['reserve_status'] = 1;
+                    }else {
+                        /*球员上周是否参加过此项活动*/
+                        $lastWeekPlayed = m('activity')->lastWeekPlayed($member['id'], $activityId);
+                        if ($lastWeekPlayed) {
+                            /*是否有报名锁定时间,*/
+                            if ( $nowTime < $activity['activity_locktime']) {
+                                $enrollData['reserve_status'] = 1;
+                            }
+                        }
+                    }
+                    /*有两个状态,一个是活动提交状态,一个是球员是否是替补状态*/
+
                     pdo_insert($logtable, $enrollData);
                     show_json(1,'报名成功');
                 }
                 show_json(0,'无报名资格');
 
-            }
+//            }
             show_json(0,'已经报过此活动');
         }
     }

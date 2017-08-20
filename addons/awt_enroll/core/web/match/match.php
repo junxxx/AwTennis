@@ -39,6 +39,7 @@ if ($operation == 'display'){
 	if (checksubmit('submit')) {
 		$sign_stime = strtotime($_GPC['sign_stime']);
 		$activity_stime = strtotime($_GPC['activity_stime']);
+		$activity_locktime = strtotime($_GPC['activity_locktime']);
 		/*location活动位置还没有加进来*/
 		$data = array(
 			'uniacid' => $uniacid,
@@ -46,6 +47,7 @@ if ($operation == 'display'){
 			'headimg' => $_GPC['headimg'],
 			'sign_stime' => $sign_stime,
 			'activity_stime' => $activity_stime,
+			'activity_locktime' => $activity_locktime,
 			'location' => trim($_GPC['location']),
 			'rule' => $_GPC['rule'],
 			'com_nums' => $_GPC['com_nums'],

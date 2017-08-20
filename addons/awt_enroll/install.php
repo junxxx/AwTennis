@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_activities` (
   `cid` int(11) unsigned NOT NULL COMMENT '活动分类id,如单,双,混,拉球...',
   `sign_stime` int(10) NOT NULL COMMENT '开始报名时间,时间戳',
   `activity_stime` int(10) NOT NULL COMMENT '活动开始时间,时间戳',
+  `activity_locktime` int(10) NOT NULL COMMENT '报名锁定时间',
   `location` varchar(100) NOT NULL COMMENT '活动地点',
   `rule` text NOT NULL COMMENT '活动细则,比赛规则',
   `com_nums` int(11) NOT NULL COMMENT '正选人数',
@@ -81,6 +82,7 @@ CREATE TABLE IF NOT EXISTS  `awt_enroll_activitie_logs` (
   `openid` VARCHAR(50) NOT NULL,
   `createtime` INT(10) NOT NULL COMMENT '报名提交时间',
   `status` TINYINT(1) NOT NULL DEFAULT 0  COMMENT '报名状态',
+  `reserve_status` TINYINT(1) NOT NULL DEFAULT 0  COMMENT '替补状态,0不是,1是',
   `updatetime` INT(10) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))

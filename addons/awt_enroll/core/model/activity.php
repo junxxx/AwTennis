@@ -11,13 +11,19 @@ if (!defined('IN_IA')) {
 class AWT_Tenroll_Activity
 {
     private $uniacid = null;
+    private $nowTime = null;
     private $table = 'enroll_activities';
     private $logstable = 'enroll_activitie_logs';
+    private $where = null;
+    private $params = array();
 
     public function __construct()
     {
         global $_W;
         $this->uniacid = $_W['uniacid'];
+        $this->nowTime = time();
+        $this->where = ' WHERE uniacid=:uniacid ';
+        $this->params = array(':uniacid' => $this->uniacid);
     }
 
     public function getActivityById( $id )
@@ -37,6 +43,20 @@ class AWT_Tenroll_Activity
             }
         }
         return false;
+    }
+
+    /*获取报名时间大于当前时间的所有需要自动转正的报名替补记录*/
+    public function getCronActivityLogs()
+    {
+        $where =  ' WHERE l.uniacid =:uniacid AND l.reserve_status =:reserve_status  AND a.sign_stime >=:sign_stime AND a.activity_locktime >=:activity_locktime';
+        $params = array(
+            ':uniacid' => $this->uniacid,
+            ':reserve_status' => 1,
+            ':sign_stime' => $this->nowTime,
+            ':activity_locktime' => $this->nowTime,
+        );
+        $sql = ' SELECT a.sign_stime, a.activity_locktime, a.com_nums, l.id, l.uniacid, l.mid, l.openid, l.status, l.reserve_status  FROM '.tablename($this->table).$where;
+        return pdo_fetchall($sql, $params);
     }
 
     /*检查会员是否报过某项活动*/
@@ -61,5 +81,23 @@ class AWT_Tenroll_Activity
     {
         /*TODO */
         return true;
+    }
+
+    /*活动正选人数是否已经满员*/
+    public function isFullNums($Id)
+    {
+        if(intval($Id)){
+            $where = ' WHERE a.uniacid=:uniacid  AND a.id =:id AND l.reserve_status =:status';
+            $params = array(
+                ':uniacid' => $this->uniacid,
+                ':id' => $Id,
+                ':status' => 0,     /*正选状态*/
+            );
+            $sql = 'SELECT count(l.id) count, a.com_nums num FROM '.tablename($this->logstable).' l LEFT JOIN '.tablename($this->table).' a ON l.aid = a.id '.$where;
+            $record = pdo_fetch($sql,$params);
+            return $record['count'] >= $record['num'];
+
+        }
+        return false;
     }
 }
