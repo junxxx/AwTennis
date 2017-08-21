@@ -27,7 +27,7 @@ if ($_W['isajax']) {
 
             /*活动是否已经报过名*/
             $enrolled = m('activity')->isEnrolled($member['id'], $activityId);
-//            if (!$enrolled){
+            if (!$enrolled){
                 /*TODO 报名资格检查*/
                 $checkQualification = m('activity')->checkQualification();
                 /*如果有资格*/
@@ -64,7 +64,7 @@ if ($_W['isajax']) {
                 }
                 show_json(0,'无报名资格');
 
-//            }
+            }
             show_json(0,'已经报过此活动');
         }
     }
