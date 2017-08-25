@@ -1,0 +1,6 @@
+{template 'web/_header'}
+<ul class="nav nav-tabs">
+    <li {if $_GPC['p'] == 'index' || empty($_GPC['p'])} class="active" {/if}><a href="{php echo $this->createWebUrl('setting/index')}">系统设置</a></li>
+    <li {if $_GPC['p'] == 'index' || empty($_GPC['p'])} class="active" {/if}><a href="{php echo $this->createWebUrl('setting/index')}">模板消息设置</a></li>
+    <li {if $_GPC['p'] == 'index' || empty($_GPC['p'])} class="active" {/if}><a href="{php echo $this->createWebUrl('setting/index')}">短信账号设置</a></li>
+</ul>
