@@ -88,6 +88,25 @@ CREATE TABLE IF NOT EXISTS  `awt_enroll_activitie_logs` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 COMMENT = '活动报名记录';
 
+CREATE TABLE IF NOT EXISTS `awt_enroll_activity_cate` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uniacid` INT(11) NOT NULL,
+  `cname` VARCHAR(45) NOT NULL COMMENT '分类名称',
+  `createtime` INT(10) NOT NULL,
+  `updatetime` INT(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+COMMENT = '活动分类';
+
+CREATE TABLE IF NOT EXISTS `awt_enroll_member_group` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uniacid` INT(11) NOT NULL,
+  `groupname` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+COMMENT = '用户分组';
+
+
 ";
 
 pdo_query($sql);
