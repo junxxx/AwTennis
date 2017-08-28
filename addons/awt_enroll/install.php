@@ -106,6 +106,32 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_member_group` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 COMMENT = '用户分组';
 
+CREATE TABLE IF NOT EXISTS `awt_enroll_sysset` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uniacid` INT(11) NOT NULL,
+  `sets` TEXT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+COMMENT = '系统设置';
+
+CREATE TABLE IF NOT EXISTS `awt_enroll_message_template` (
+   `id` int(11) NOT NULL AUTO_INCREMENT,
+   `uniacid` int(11) DEFAULT '0',
+   `title` varchar(255) DEFAULT '',
+   `template_id` varchar(255) DEFAULT '',
+   `first` text NOT NULL COMMENT '键名',
+   `firstcolor` varchar(255) DEFAULT '',
+   `data` text NOT NULL COMMENT '颜色',
+   `remark` text NOT NULL COMMENT '键值',
+   `remarkcolor` varchar(255) DEFAULT '',
+   `url` varchar(255) NOT NULL,
+   `createtime` int(11) DEFAULT '0',
+   `sendtimes` int(11) DEFAULT '0',
+   `sendcount` int(11) DEFAULT '0',
+   PRIMARY KEY (`id`),
+   KEY `idx_uniacid` (`uniacid`),
+   KEY `idx_createtime` (`createtime`)
+ ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 ";
 
