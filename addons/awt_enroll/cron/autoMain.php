@@ -24,11 +24,9 @@ class ActivityCron {
 	private $uniacid = 2;
 	private $activityTable = 'enroll_activities';
 	private $activityLogTable = 'enroll_activitie_logs';
-	private $nowTime = null;
 
 	public function __construct()
 	{
-		$this->nowTime = time();
 	}
 
 	/*自动转正*/

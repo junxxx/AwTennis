@@ -133,6 +133,16 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_message_template` (
    KEY `idx_createtime` (`createtime`)
  ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `awt_enroll_activity_type` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uniacid` INT(11) NOT NULL,
+  `typename` VARCHAR(45) NOT NULL COMMENT '活动类型名称',
+  `createtime` INT(10) NOT NULL,
+  `updatetime` INT(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+COMMENT = '活动类型';
+
 ";
 
 pdo_query($sql);

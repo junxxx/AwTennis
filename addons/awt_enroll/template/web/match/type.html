@@ -11,14 +11,14 @@
         <input type="hidden" name="id" value="{$item['id']}" />
         <div class="panel panel-default">
             <div class="panel-heading">
-                添加分类
+                添加类型
             </div>
 
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>分类名称</label>
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>类型名称</label>
                     <div class="col-sm-9 col-xs-12">
-                        <input type="text" id='cname' name="cname" class="form-control" value="{$item['cname']}" />
+                        <input type="text" id='typename' name="typename" class="form-control" value="{$item['typename']}" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -49,8 +49,8 @@
     })
 
     function formcheck() {
-        if ($("#cname").isEmpty()) {
-            Tip.focus("#cname", "请输入分类名称!");
+        if ($("#typename").isEmpty()) {
+            Tip.focus("#typename", "请输入类型名称!");
             return false;
         }
         return true;
@@ -62,7 +62,7 @@
 
 <div class="main">
     <div class="panel panel-info">
-        <div class="panel-heading">活动分类</div>
+        <div class="panel-heading">活动类型</div>
         <div class="panel-body">
 
         </div>
@@ -75,7 +75,7 @@
                     <thead class="navbar-inner">
                     <tr>
                         <th style="width:60px;">ID</th>
-                        <th>分类名称</th>
+                        <th>类型名称</th>
                         <th style='width:146px;'>上次更新时间</th>
                         <th style="">操作</th>
                     </tr>
@@ -83,17 +83,17 @@
                     <tbody>
                     {loop $list $item}
                     <tr>
-                        <td>{$item['id']}</td>                                           <td>{$item['cname']}</td>
+                        <td>{$item['id']}</td>                                           <td>{$item['typename']}</td>
                         <td>{$item['updatetime']}</td>                                   <td>
-                            {ifp 'shop.goods.edit|shop.goods.view'}<a href="{php echo $this->createWebUrl('match/category', array('id' => $item['id'], 'op' => 'post'))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="{ifp 'shop.goods.edit'}编辑{else}查看{/if}"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;{/if}
-                            {ifp 'shop.goods.delete'}<a href="{php echo $this->createWebUrl('match/category', array('id' => $item['id'], 'op' => 'delete'))}" onclick="return confirm('确认删除此分类？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>{/if}
+                            {ifp 'shop.goods.edit|shop.goods.view'}<a href="{php echo $this->createWebUrl('match/type', array('id' => $item['id'], 'op' => 'post'))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="{ifp 'shop.goods.edit'}编辑{else}查看{/if}"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;{/if}
+                            {ifp 'shop.goods.delete'}<a href="{php echo $this->createWebUrl('match/type', array('id' => $item['id'], 'op' => 'delete'))}" onclick="return confirm('确认删除此类型？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除"><i class="fa fa-times"></i></a>{/if}
                         </td>
                     </tr>
                     {/loop}
                     <tr>
                         <td colspan='9'>
                             {ifp 'shop.goods.add'}
-                            <a class='btn btn-default' href="{php echo $this->createWebUrl('match/category',array('op'=>'post'))}"><i class='fa fa-plus'></i> 添加分类</a>
+                            <a class='btn btn-default' href="{php echo $this->createWebUrl('match/type',array('op'=>'post'))}"><i class='fa fa-plus'></i> 添加类型</a>
                             {/if}
                         </td>
                     </tr>
