@@ -28,21 +28,6 @@
 
                 <div class="tab-content">
                     <div class="tab-pane  active" id="tab_basic">{template 'web/match/extend/basic'}</div>
-                    <div class="tab-pane  active" id="tab_des">{template 'web/match/extend/des'}</div>
-
-
-                    {if p('verify')}
-                    <div class="tab-pane" id="tab_verify">{template 'verify/goods'}</div>
-                    {/if}
-
-                    {if p('commission') && !empty($com_set['level'])}
-                    <div class="tab-pane" id="tab_sell">{template 'commission/goods'}</div>
-                    {/if}
-
-                    {if p('sale')}
-                    <div class="tab-pane" id="tab_sale">{template 'sale/goods'}</div>
-                    {/if}
-
                 </div>
             </div>
         </div>
@@ -184,10 +169,12 @@
                         <th style="width:60px;">ID</th>
                         <th style="width:80px;">排序</th>
                         <th>活动标题</th>
-                        <th style='width:350px;'>活动地点</th>
+                        <th >分类</th>
+                        <th >类型</th>
+                        <th >活动地点</th>
                         <th style='width:80px;'>参赛费用</th>
                         <th style='width:146px;'>上次更新时间</th>
-                        <th style='width:150px;'>状态</th>
+                        <th >状态</th>
                         <th style="">操作</th>
                     </tr>
                     </thead>
@@ -206,6 +193,8 @@
                         <td>
                             {$item['title']}
                         </td>
+                        <td>{$item['catename']}</td>
+                        <td>{$item['type']}</td>
                         <td>{$item['location']}</td>
                         <td>{$item['fee']}</td>
                         <td>{$item['updatetime']}</td>

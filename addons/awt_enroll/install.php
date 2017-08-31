@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_activities` (
   `rule` text NOT NULL COMMENT '活动细则,比赛规则',
   `com_nums` int(11) NOT NULL COMMENT '正选人数',
   `fee` decimal(10,2) NOT NULL COMMENT '活动费用',
+  `qualification` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否权限控制',
   `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
   `displayorder` int(11) NOT NULL COMMENT '排序',
   `createtime` int(11) NOT NULL,
