@@ -4,12 +4,22 @@
 <title>个人中心</title>
 <body>
 <header class="mui-bar mui-bar-nav">
-    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <h1 class="mui-title">底部选项卡-div模式</h1>
+    <h1 class="mui-title">个人中心</h1>
 </header>
-<div class="mui-content">
-    <div class="mui-control-content">
-        <div class="title">这是div模式选项卡中的第4个子页面，该页面展示一个常见的设置示例.</div>
+<div id="container"></div>
+<script id="member_main" type="text/html">
+    <div class="mui-content">
+        <div class="title">个人中心页面</div>
+        <div class="mui-card">
+            <div class="mui-card-header">
+                <div>
+                    <img src="<%member.avatar%>">
+                    <div class="nickname"><%member.nickname%></div>
+                </div>
+            </div>
+        </div>
+        <div class="middle"></div>
+        <div class="bottom"></div>
         <ul class="mui-table-view">
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right">
@@ -30,19 +40,12 @@
         <ul class="mui-table-view" style="margin-top: 25px;">
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right">
-                    关于mui
-                </a>
-            </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 25px;">
-            <li class="mui-table-view-cell">
-                <a style="text-align: center;color: #FF3B30;">
-                    退出登录
+                    关于
                 </a>
             </li>
         </ul>
     </div>
-</div>
+</script>
 <nav class="mui-bar mui-bar-tab">
     <a class="mui-tab-item " onclick = "window.location.href={php echo $this->createMobileUrl('enroll/list')}">
         <span class="mui-icon mui-icon-home"></span>
@@ -59,5 +62,12 @@
 </nav>
 </body>
 <script language="javascript">
+    require(['tpl', 'core'], function (tpl, core) {
+        core.json('member',{},function(json) {
+                if(json.status) {
+                    $("#container").html(tpl("member_main",json.result));
+                }
+        },true);
 
+    })
 </script>
