@@ -1,3 +1,11 @@
+{if !empty($item['id'])}
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动链接(点击复制)</label>
+    <div class="col-sm-9 col-xs-12">
+        <p class='form-control-static'><a href='javascript:;' title='点击复制连接' id='cp'>{php echo $this->createMobileUrl('match/detail',array('id'=>$item['id']))}</a></p>
+    </div>
+</div>
+{/if}
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
     <div class="col-sm-9 col-xs-12">
@@ -30,37 +38,6 @@
 
     </div>
 </div>
-
-<div class="form-group">
-    <label class="col-xs-12 col-sm-3 col-md-2 control-label">参赛人员权限控制</label>
-    <div class="col-sm-9 col-xs-12">
-        <label for="qualification1" class="radio-inline"><input type="radio" name="qualification" value="1" id="qualification1" {if $item['qualification'] == 1}checked="true"{/if} /> 开启</label>        &nbsp;&nbsp;&nbsp;
-        <label for="qualification2" class="radio-inline"><input type="radio" name="qualification" value="0" id="qualification2"  {if $item['qualification'] == 0}checked="true"{/if} /> 关闭</label>
-
-
-        <div class="form-group">
-            <div>
-                <label class="col-xs-12 col-sm-3 col-md-2 control-label">指定特殊组别</label>
-                <label for="isrecommand" class="checkbox-inline">
-                    <input type="checkbox" name="isrecommand" value="1" id="isrecommand" checked="true"> 推荐
-                </label>
-                <label for="isrecommand" class="checkbox-inline">
-                    <input type="checkbox" name="isrecommand" value="1" id="isrecommand" checked="true"> 推荐
-                </label>
-            </div>
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label">特殊权限保护时间</label>
-            <div class="col-sm-4 col-xs-6">
-                {php echo tpl_form_field_date('quali_stime', !empty($item['quali_stime']) ? date('Y-m-d H:i',$item['quali_stime']) : date('Y-m-d H:i'), 1)}
-            </div>
-            <div class="col-sm-4 col-xs-6">
-                {php echo tpl_form_field_date('quali_etime', !empty($item['quali_etime']) ? date('Y-m-d H:i',$item['quali_etime']) : date('Y-m-d H:i'), 1)}
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
 
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名开始时间</label>

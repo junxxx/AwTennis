@@ -54,6 +54,7 @@ if ($operation == 'display'){
 			'com_nums' => $_GPC['com_nums'],
 			'fee' => $_GPC['fee'],
 			'is_show' => $_GPC['is_show'],
+			'judgeopenid' => $_GPC['judgeopenid'],
 			'qualification' => $_GPC['qualification'],
 			'displayorder' => $_GPC['displayorder'],
 		);
@@ -77,6 +78,10 @@ if ($operation == 'display'){
 		':uniacid' => $uniacid,
 	);
 	$item = pdo_fetch($sql, $params);
+	/*驻场裁判*/
+	if (!empty($item['judgeopenid'])) {
+        $judger = m('member')->getMember($item['judgeopenid']);
+    }
 
 }elseif ($operation == 'delete'){
 

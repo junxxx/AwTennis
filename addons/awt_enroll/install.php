@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_activities` (
   `qualification` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否权限控制',
   `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
   `displayorder` int(11) NOT NULL COMMENT '排序',
+  `judgeopenid` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '驻场裁判openid',
   `createtime` int(11) NOT NULL,
   `updatetime` int(11) NOT NULL,
   PRIMARY KEY (`id`),

@@ -27,6 +27,8 @@ class ActivityCron {
 
 	public function __construct()
 	{
+	    if (PHP_SAPI != 'cli')
+	        exit('Access Denied!');
 	}
 
 	/*自动转正*/
@@ -40,6 +42,7 @@ class ActivityCron {
 		$log->write($message);
 
 		$reservePlayers = m('activity')->getCronActivityLogs();
+		print_r($reservePlayers);
 		if (!empty($reservePlayers)){
 			foreach ($reservePlayers as $player){
 
