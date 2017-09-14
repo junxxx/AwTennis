@@ -40,6 +40,9 @@ if ($operation == 'display'){
 
 	if (checksubmit('submit')) {
         $sign_stime = strtotime($_GPC['sign_stime']);
+        $sign_etime = strtotime($_GPC['sign_etime']);
+        $quali_stime = strtotime($_GPC['quali_stime']);
+        $quali_etime = strtotime($_GPC['quali_etime']);
 		$activity_stime = strtotime($_GPC['activity_stime']);
 		$activity_locktime = strtotime($_GPC['activity_locktime']);
 		$data = array(
@@ -48,6 +51,7 @@ if ($operation == 'display'){
 			'cid' => intval($_GPC['cateid']),
 			'headimg' => $_GPC['headimg'],
 			'sign_stime' => $sign_stime,
+			'sign_etime' => $sign_etime,
 			'activity_stime' => $activity_stime,
 			'activity_locktime' => $activity_locktime,
 			'location' => trim($_GPC['location']),
@@ -57,6 +61,8 @@ if ($operation == 'display'){
 			'is_show' => $_GPC['is_show'],
 			'judgeopenid' => $_GPC['judgeopenid'],
 			'qualification' => intval($_GPC['qualification']),
+			'quali_stime' => $quali_stime,
+			'quali_etime' => $quali_etime,
 			'challenger_num' => intval($_GPC['challengerNum']),
 			'new_first' => intval($_GPC['newFirst']),
 			'attend_groups' => serialize($_GPC['attendGroups']),
