@@ -35,6 +35,20 @@
         <input type="text" name="challengerNum" id="challengerNum" class="form-control" value="{$item['challenger_num']}" />
     </div>
 </div>
+
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">新人优先是否开启</label>
+    <div class="col-sm-6 col-xs-6">
+        <label class="radio-inline"><input type="radio" name="newFirst" value="0" {if empty($item['new_first']) || $item['new_first'] == 0}checked="true"{/if}  /> 关闭</label>
+        <label class="radio-inline"><input type="radio" name="newFirst" value="1" {if $item['new_first'] == 1}checked="true"{/if}   /> 开启</label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名锁定时间</label>
+    <div class="col-sm-4 col-xs-6">
+        {php echo tpl_form_field_date('activity_locktime', !empty($item['activity_locktime']) ? date('Y-m-d H:i',$item['activity_locktime']) : date('Y-m-d',1), 1)}不选择表示无锁定时间
+    </div>
+</div>
 <script language='javascript'>
     $('.chkall').click(function(){
         var checked =$(this).get(0).checked;

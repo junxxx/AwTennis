@@ -58,6 +58,7 @@ if ($operation == 'display'){
 			'judgeopenid' => $_GPC['judgeopenid'],
 			'qualification' => intval($_GPC['qualification']),
 			'challenger_num' => intval($_GPC['challengerNum']),
+			'new_first' => intval($_GPC['newFirst']),
 			'attend_groups' => serialize($_GPC['attendGroups']),
 			'displayorder' => $_GPC['displayorder'],
 		);

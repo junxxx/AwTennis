@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_activities` (
   `qualification` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否权限控制',
   `attend_groups` varchar(255) NOT NULL DEFAULT '0' COMMENT '参赛组',
   `challenger_num` INT NOT NULL DEFAULT '0' COMMENT '挑战位人数',
+  `new_first` tinyint(1) NOT NULL DEFAULT '0' COMMENT '新人优先开关，0--关闭,1--开启',
   `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
   `displayorder` int(11) NOT NULL COMMENT '排序',
   `judgeopenid` VARCHAR(50) NOT NULL DEFAULT '' COMMENT '驻场裁判openid',
