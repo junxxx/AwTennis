@@ -15,6 +15,7 @@ $uniacid = $_W['uniacid'];
 
 $operation = isset($_GPC['op']) ? $_GPC['op'] : 'display';
 $categories = m('category')->getCategories();
+$groups = m('group')->get();
 
 if ($operation == 'display'){
 	$where = ' WHERE 1 AND a.uniacid=:uniacid';
@@ -55,7 +56,9 @@ if ($operation == 'display'){
 			'fee' => $_GPC['fee'],
 			'is_show' => $_GPC['is_show'],
 			'judgeopenid' => $_GPC['judgeopenid'],
-			'qualification' => $_GPC['qualification'],
+			'qualification' => intval($_GPC['qualification']),
+			'challenger_num' => intval($_GPC['challengerNum']),
+			'attend_groups' => serialize($_GPC['attendGroups']),
 			'displayorder' => $_GPC['displayorder'],
 		);
 		if (!empty($id)) {
@@ -78,6 +81,9 @@ if ($operation == 'display'){
 		':uniacid' => $uniacid,
 	);
 	$item = pdo_fetch($sql, $params);
+	if(!empty($item)){
+        $item['attend_groups'] = unserialize($item['attend_groups']);
+    }
 	/*驻场裁判*/
 	if (!empty($item['judgeopenid'])) {
         $judger = m('member')->getMember($item['judgeopenid']);

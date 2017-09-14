@@ -1,12 +1,8 @@
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">权限控制是否开启</label>
     <div class="col-sm-6 col-xs-6">
-        {ife 'shop.goods' $item}
-        <label class="radio-inline"><input type="radio" name="cash" value="1" {if empty($item['cash']) || $item['cash'] == 1}checked="true"{/if}  /> 关闭</label>
-        <label class="radio-inline"><input type="radio" name="cash" value="2" {if $item['cash'] == 2}checked="true"{/if}   /> 开启</label>
-        {else}
-        <div class='form-control-static'>{if empty($item['cash']) || $item['cash'] == 1}关闭{else}开启{/if}</div>
-        {/if}
+        <label class="radio-inline"><input type="radio" name="qualification" value="0" {if empty($item['qualification']) || $item['qualification'] == 0}checked="true"{/if}  /> 关闭</label>
+        <label class="radio-inline"><input type="radio" name="qualification" value="1" {if $item['qualification'] == 1}checked="true"{/if}   /> 开启</label>
     </div>
 </div>
 <div class="form-group">
@@ -22,37 +18,21 @@
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">用户组参赛权限</label>
     <div class="col-sm-9 col-xs-12 chks" >
-        {ife 'shop.goods' $item}
         <label class="checkbox-inline">
-            <input type="checkbox" class='chkall' name="showgroups" value="" {if $item['showgroups']=='' }checked="true"{/if}  /> 全部用户组
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" class='chksingle'  name="showgroups[]" value="0" {if $item['showgroups']!='' && is_array($item['showgroups']) && in_array('0', $item['showgroups'])}checked="true"{/if}  /> 无分组
+            <input type="checkbox" class='chkall' name="attendGroups" value="" {if $item['attend_groups']=='' }checked="true"{/if}  /> 全部用户组
         </label>
         {loop $groups $group}
         <label class="checkbox-inline">
-            <input type="checkbox" class='chksingle'  name="showgroups[]" value="{$group['id']}" {if $item['showgroups']!=''  && in_array($group['id'], $item['showgroups']) && is_array($item['showgroups'])}checked="true"{/if}  /> {$group['groupname']}
+            <input type="checkbox" class='chksingle'  name="attendGroups[]" value="{$group['id']}" {if $item['attend_groups']!=''  && in_array($group['id'], $item['attend_groups']) && is_array($item['attend_groups'])}checked="true"{/if}  /> {$group['groupname']}
         </label>
         {/loop}
+    </div>
+</div>
 
-        {else}
-        <div class='form-control-static'>
-            {if $item['showgroups']==''}
-            全部用户等级
-            {else}
-            {if $item['showgroups']!='' && is_array($item['showgroups']) && in_array('0', $item['showgroups'])}
-            {php echo empty($shop['levelname'])?'普通等级':$shop['levelname']};
-            {/if}
-            {loop $levels $level}
-            {if $item['showgroups']!='' && is_array($item['showgroups'])  && in_array($level['id'], $item['showgroups'])}
-            {$level['levelname']};
-            {/if}
-            {/loop}
-            {/if}
-        </div>
-
-        {/if}
-
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">挑战位人数</label>
+    <div class="col-sm-4 col-xs-6">
+        <input type="text" name="challengerNum" id="challengerNum" class="form-control" value="{$item['challenger_num']}" />
     </div>
 </div>
 <script language='javascript'>
