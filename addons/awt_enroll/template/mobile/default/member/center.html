@@ -1,84 +1,73 @@
 {template 'common/header'}
+<script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
+<link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
 <title>个人中心</title>
-<style>
-    .page.page-current {
-        overflow: auto;
-    }
-</style>
-<div class="page">
-    <header class="bar bar-nav">
-        <h1 class="title">个人中心</h1>
-    </header>
-    <div id='container'></div>
-    <nav class="bar bar-tab">
-        <a class="tab-item active" href="#">
-            <span class="icon icon-home"></span>
-            <span class="tab-label">首页</span>
-        </a>
-        <a class="tab-item" href="#">
-            <span class="icon icon-me"></span>
-            <span class="tab-label">我</span>
-        </a>
-        <a class="tab-item" href="#">
-            <span class="icon icon-star"></span>
-            <span class="tab-label">收藏</span>
-        </a>
-        <a class="tab-item" href="#">
-            <span class="icon icon-settings"></span>
-            <span class="tab-label">设置</span>
-        </a>
-    </nav>
-</div>
-
-<script id='tpl_detail' type='text/html'>
-    <div class="content">
-        <div class="list-block">
-            <ul>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-menu"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title"><%activity.title%></div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-menu"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title"><%activity.activity_stime%></div>
-                    </div>
-                </li>
-                <li class="item-content">
-                    <div class="item-media"><i class="icon icon-menu"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title"><%activity.location%></div>
-                    </div>
-                </li>
-            </ul>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">个人中心</h1>
+</header>
+<div id="container"></div>
+<script id="member_main" type="text/html">
+    <div class="mui-content">
+        <div class="title">个人中心页面</div>
+        <div class="mui-card">
+            <div class="mui-card-header">
+                <div>
+                    <img src="<%member.avatar%>">
+                    <div class="nickname"><%member.nickname%></div>
+                </div>
+            </div>
         </div>
-
-        <div class="content-block">
-            <p><a href="#" class="button button-big">立即报名 </a></p>
-        </div>
+        <div class="middle"></div>
+        <div class="bottom"></div>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    新消息通知
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    隐私
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    通用
+                </a>
+            </li>
+        </ul>
+        <ul class="mui-table-view" style="margin-top: 25px;">
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    关于
+                </a>
+            </li>
+        </ul>
     </div>
 </script>
-<script id='tpl_empty' type='text/html'>
-    <div class="team_no"><br><span style="line-height:18px; font-size:16px;">活动信息不存在</span></div>
-</script>
-
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item " onclick = "window.location.href={php echo $this->createMobileUrl('enroll/list')}">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">活动</span>
+    </a>
+    <a class="mui-tab-item" href="{php echo $this->createMobileUrl('ranking/ranking')}>
+        <span class="mui-icon mui-icon-email"></span>
+        <span class="mui-tab-label">排行榜</span>
+    </a>
+    <a class="mui-tab-item mui-active" href="{php echo $this->createMobileUrl('member')}>
+        <span class="mui-icon mui-icon-contact mui-icon-icon-contact-filled"></span>
+        <span class="mui-tab-label">我</span>
+    </a>
+</nav>
+</body>
 <script language="javascript">
-    var id = "{$_GPC['id']}";
     require(['tpl', 'core'], function (tpl, core) {
-        function getActivitie() {
-            core.json('member/center', {id: id, }, function (json) {
-                var status = json.status;
-                if ( status == 1 ){
-                    $('#container').html(tpl('tpl_detail', json.result));
-                }else {
-                    $('#container').html(tpl('tpl_empty'));
+        core.json('member',{},function(json) {
+                if(json.status) {
+                    $("#container").html(tpl("member_main",json.result));
                 }
-            }, true);
-        }
-
-        getActivitie();
+        },true);
 
     })
 </script>

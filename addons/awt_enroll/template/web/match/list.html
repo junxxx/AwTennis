@@ -1,4 +1,5 @@
 {template 'web/_header'}
+{template 'web/match/tabs'}
 <script type="text/javascript" src="resource/js/lib/jquery-ui-1.10.3.min.js"></script>
 
 {if $operation == 'post'}
@@ -9,39 +10,22 @@
     <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
         <div class="panel panel-default">
             <div class="panel-heading">
-                {if empty($item['id'])}添加商品{else}编辑商品{/if}
+                {if empty($item['id'])}添加活动{else}编辑活动{/if}
             </div>
             <div class="panel-body">
                 <ul class="nav nav-arrow-next nav-tabs" id="myTab">
                     <li class="active" ><a href="#tab_basic">基本信息</a></li>
+                    <li><a href="#tab_qualification">参赛权限设置</a></li>
+                    <li><a href="#tab_judge">随场裁判设置</a></li>
+                    <li><a href="#tab_others">其它设置</a></li>
 
                 </ul>
-                {if !empty($item['id'])}
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动链接(点击复制)</label>
-                    <div class="col-sm-9 col-xs-12">
-                        <p class='form-control-static'><a href='javascript:;' title='点击复制连接' id='cp'>{php echo $this->createMobileUrl('match/detail',array('id'=>$item['id']))}</a></p>
-                    </div>
-                </div>
-                {/if}
 
                 <div class="tab-content">
                     <div class="tab-pane  active" id="tab_basic">{template 'web/match/extend/basic'}</div>
-                    <div class="tab-pane  active" id="tab_des">{template 'web/match/extend/des'}</div>
-
-
-                    {if p('verify')}
-                    <div class="tab-pane" id="tab_verify">{template 'verify/goods'}</div>
-                    {/if}
-
-                    {if p('commission') && !empty($com_set['level'])}
-                    <div class="tab-pane" id="tab_sell">{template 'commission/goods'}</div>
-                    {/if}
-
-                    {if p('sale')}
-                    <div class="tab-pane" id="tab_sale">{template 'sale/goods'}</div>
-                    {/if}
-
+                    <div class="tab-pane" id="tab_qualification">{template 'web/match/extend/qualification'}</div>
+                    <div class="tab-pane" id="tab_judge">{template 'web/match/extend/judge'}</div>
+                    <div class="tab-pane" id="tab_others">{template 'web/match/extend/others'}</div>
                 </div>
             </div>
         </div>
@@ -183,10 +167,12 @@
                         <th style="width:60px;">ID</th>
                         <th style="width:80px;">排序</th>
                         <th>活动标题</th>
-                        <th style='width:350px;'>活动地点</th>
+                        <th >分类</th>
+                        <th >类型</th>
+                        <th >活动地点</th>
                         <th style='width:80px;'>参赛费用</th>
                         <th style='width:146px;'>上次更新时间</th>
-                        <th style='width:150px;'>状态</th>
+                        <th >状态</th>
                         <th style="">操作</th>
                     </tr>
                     </thead>
@@ -205,6 +191,8 @@
                         <td>
                             {$item['title']}
                         </td>
+                        <td>{$item['catename']}</td>
+                        <td>{$item['type']}</td>
                         <td>{$item['location']}</td>
                         <td>{$item['fee']}</td>
                         <td>{$item['updatetime']}</td>

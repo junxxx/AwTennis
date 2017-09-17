@@ -1,16 +1,12 @@
 {template 'common/header'}
 <script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
 <link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
-<div class="page">
-    <header class="bar bar-nav">
-        <a class="button button-link button-nav pull-left" href="javascript:void();" onclick="window.history.back(-1);" data-transition='slide-out'>
-            <span class="icon icon-left"></span>
-            返回
-        </a>
-        <h1 class="title">活动详情页</h1>
-    </header>
-    <div id='container'></div>
-</div>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="javascript:void();" onclick="window.history.back(-1);"></a>
+    <h1 class="mui-title">活动详情页</h1>
+</header>
+<div id='container'></div>
 
 <script id='tpl_detail' type='text/html'>
     <div class="mui-content">
@@ -53,7 +49,7 @@
                 var status = json.status;
                 if ( status == 1 ){
                     $('#container').html(tpl('tpl_detail', json.result));
-                    document.getElementById("alertBtn").addEventListener('tap', function() {
+                    document.getElementById("alertBtn").addEventListener('click', function() {
 //                        mui.alert('欢迎使用', 'hello', function() {
 //                            info.innerText = '你刚关闭了警告框';
 //                        });

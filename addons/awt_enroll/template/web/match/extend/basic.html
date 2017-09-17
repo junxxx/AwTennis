@@ -1,3 +1,11 @@
+{if !empty($item['id'])}
+<div class="form-group">
+    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动链接(点击复制)</label>
+    <div class="col-sm-9 col-xs-12">
+        <p class='form-control-static'><a href='javascript:;' title='点击复制连接' id='cp'>{php echo $this->createMobileUrl('match/detail',array('id'=>$item['id']))}</a></p>
+    </div>
+</div>
+{/if}
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
     <div class="col-sm-9 col-xs-12">
@@ -22,10 +30,14 @@
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>分类</label>
     <div class="col-sm-8 col-xs-12">
+        <select class="form-control" name="cateid">
+            {loop $categories $cate}
+            <option  value="{$cate['id']}" {if $item['cid'] == $cate['id']}selected='selected'{/if}>{$cate['cname']}</option>
+            {/loop}
+        </select>
 
     </div>
 </div>
-
 
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名开始时间</label>
@@ -33,7 +45,7 @@
         {php echo tpl_form_field_date('sign_stime', !empty($item['sign_stime']) ? date('Y-m-d H:i',$item['sign_stime']) : date('Y-m-d H:i'), 1)}
     </div>
     <div class="col-sm-4 col-xs-6">
-        {php echo tpl_form_field_date('timeend', !empty($item['timeend']) ? date('Y-m-d H:i',$item['timeend']) : date('Y-m-d H:i'), 1)}
+        {php echo tpl_form_field_date('sign_etime', !empty($item['sign_etime']) ? date('Y-m-d H:i',$item['sign_etime']) : date('Y-m-d H:i'), 1)}
     </div>
 </div>
 
@@ -95,10 +107,8 @@
 <div class="form-group">
     <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否显示</label>
     <div class="col-sm-9 col-xs-12">
-        <label for="isshow1" class="radio-inline"><input type="radio" name="is_show" value="1" id="isshow1" {if $item['is_show'] == 1}checked="true"{/if} /> 是</label>
-        &nbsp;&nbsp;&nbsp;
+        <label for="isshow1" class="radio-inline"><input type="radio" name="is_show" value="1" id="isshow1" {if $item['is_show'] == 1}checked="true"{/if} /> 是</label>        &nbsp;&nbsp;&nbsp;
         <label for="isshow2" class="radio-inline"><input type="radio" name="is_show" value="0" id="isshow2"  {if $item['is_show'] == 0}checked="true"{/if} /> 否</label>
         <span class="help-block"></span>
-
     </div>
 </div>

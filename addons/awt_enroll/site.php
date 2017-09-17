@@ -50,8 +50,14 @@ class Awt_enrollModuleSite extends Core {
 		$this->_exec(__FUNCTION__, 'list');
 	}
 
+    /*后台用户管理*/
+    public function doWebMember() {
+        $this->_exec(__FUNCTION__, 'list');
+    }
+
+	/*系统设置*/
 	public function doWebSetting() {
-		//这个操作被定义用来呈现 管理中心导航菜单
+        $this->_exec(__FUNCTION__, 'index');
 	}
 
 

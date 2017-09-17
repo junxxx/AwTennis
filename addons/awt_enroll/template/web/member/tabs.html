@@ -1,0 +1,4 @@
+<ul class="nav nav-tabs">
+    <li {if ($_GPC['p'] == 'list' || empty($_GPC['p']))} class="active" {/if}><a href="{php echo $this->createWebUrl('member')}">会员管理</a></li>
+    <li {if ($_GPC['p'] == 'group')} class="active" {/if}><a href="{php echo $this->createWebUrl('member/group')}">分组管理</a></li>
+</ul>

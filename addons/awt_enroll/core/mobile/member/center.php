@@ -10,9 +10,11 @@ if (!defined('IN_IA')) {
     die('Access Denied');
 }
 global $_W, $_GPC;
+$openid = m('user')->getOpenid();
+$member = m('member')->getMember($openid);
 
 if($_W['isajax']){
-    show_json(1);
+    show_json(1,array('member' => $member));
 }
 
 

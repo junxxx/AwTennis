@@ -10,20 +10,22 @@ defined('IN_IA') or exit('Access Denied!');
 global $_W, $_GPC;
 
 $tablename = 'enroll_activities';
+$cateTable = 'enroll_activity_cate';
 $uniacid = $_W['uniacid'];
 
 $operation = isset($_GPC['op']) ? $_GPC['op'] : 'display';
+$categories = m('category')->getCategories();
+$groups = m('group')->get();
 
 if ($operation == 'display'){
-	$where = ' WHERE 1 AND uniacid=:uniacid';
+	$where = ' WHERE 1 AND a.uniacid=:uniacid';
 	$params = array(
 		':uniacid' => $uniacid,
 	);
-	$sql = ' SELECT * FROM '.tablename($tablename).$where;
-	$orderBy = ' ORDER BY id DESC ';
+	$sql = ' SELECT a.*, c.cname catename FROM '.tablename($tablename).' a LEFT JOIN '.tablename($cateTable).' c ON a.cid = c.id '.$where;
+	$orderBy = ' ORDER BY a.id DESC ';
 	$sql .= $orderBy;
 	$list = pdo_fetchall($sql, $params);
-
 	if (!empty($list)) {
 		foreach ($list as &$row)
 		{
@@ -37,20 +39,33 @@ if ($operation == 'display'){
 	$id = intval($_GPC['id']);
 
 	if (checksubmit('submit')) {
-		$sign_stime = strtotime($_GPC['sign_stime']);
+        $sign_stime = strtotime($_GPC['sign_stime']);
+        $sign_etime = strtotime($_GPC['sign_etime']);
+        $quali_stime = strtotime($_GPC['quali_stime']);
+        $quali_etime = strtotime($_GPC['quali_etime']);
 		$activity_stime = strtotime($_GPC['activity_stime']);
-		/*location活动位置还没有加进来*/
+		$activity_locktime = strtotime($_GPC['activity_locktime']);
 		$data = array(
 			'uniacid' => $uniacid,
 			'title' => trim($_GPC['activitytitle']),
+			'cid' => intval($_GPC['cateid']),
 			'headimg' => $_GPC['headimg'],
 			'sign_stime' => $sign_stime,
+			'sign_etime' => $sign_etime,
 			'activity_stime' => $activity_stime,
+			'activity_locktime' => $activity_locktime,
 			'location' => trim($_GPC['location']),
 			'rule' => $_GPC['rule'],
 			'com_nums' => $_GPC['com_nums'],
 			'fee' => $_GPC['fee'],
 			'is_show' => $_GPC['is_show'],
+			'judgeopenid' => $_GPC['judgeopenid'],
+			'qualification' => intval($_GPC['qualification']),
+			'quali_stime' => $quali_stime,
+			'quali_etime' => $quali_etime,
+			'challenger_num' => intval($_GPC['challengerNum']),
+			'new_first' => intval($_GPC['newFirst']),
+			'attend_groups' => serialize($_GPC['attendGroups']),
 			'displayorder' => $_GPC['displayorder'],
 		);
 		if (!empty($id)) {
@@ -73,6 +88,13 @@ if ($operation == 'display'){
 		':uniacid' => $uniacid,
 	);
 	$item = pdo_fetch($sql, $params);
+	if(!empty($item)){
+        $item['attend_groups'] = unserialize($item['attend_groups']);
+    }
+	/*驻场裁判*/
+	if (!empty($item['judgeopenid'])) {
+        $judger = m('member')->getMember($item['judgeopenid']);
+    }
 
 }elseif ($operation == 'delete'){
 
