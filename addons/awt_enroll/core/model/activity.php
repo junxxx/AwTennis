@@ -10,6 +10,15 @@ if (!defined('IN_IA')) {
 }
 class AWT_Tenroll_Activity
 {
+    const ENROLL_FIRST = 0;
+    const ENROLL_RESERVE = 1;
+
+    private static $enrollStatus = array(
+        self::ENROLL_FIRST => '正选',
+        self::ENROLL_RESERVE => '替补',
+    );
+
+
     private $uniacid = null;
     private $nowTime = null;
     private $table = 'enroll_activities';
@@ -24,6 +33,11 @@ class AWT_Tenroll_Activity
         $this->nowTime = time();
         $this->where = ' WHERE uniacid=:uniacid ';
         $this->params = array(':uniacid' => $this->uniacid);
+    }
+
+    public function addLogs($data)
+    {
+        return pdo_insert($this->logstable, $data);
     }
 
     public function getActivityById( $id )

@@ -49,7 +49,7 @@
                 var status = json.status;
                 if ( status == 1 ){
                     $('#container').html(tpl('tpl_detail', json.result));
-                    document.getElementById("alertBtn").addEventListener('tap', function() {
+                    document.getElementById("alertBtn").addEventListener('click', function() {
 //                        mui.alert('欢迎使用', 'hello', function() {
 //                            info.innerText = '你刚关闭了警告框';
 //                        });
