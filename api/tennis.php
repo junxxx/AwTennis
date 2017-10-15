@@ -9,25 +9,21 @@ require '../framework/bootstrap.inc.php';
 $queryString = str_replace('?', '&', $_SERVER['QUERY_STRING']);
 parse_str($queryString, $query);
 global $_GPC;
-if( is_array($query) && isset($query['act'])){
+if (is_array($query) && isset($query['act'])) {
     /*TODO add logger*/
     $action = $query['act'];
-    $method = 'action'.ucfirst($action);
+    $method = 'action' . ucfirst($action);
     $obj = new AWTennis();
-    if (method_exists($obj, $method))
-    {
+    if (method_exists($obj, $method)) {
         $obj->$method();
     }
 }
 
 function loadJson($array = array(), $type = 1)
 {
-    if ($type == 1)
-    {
+    if ($type == 1) {
         header("Content-Type: application/json; charset=utf-8");
-    }
-    else
-    {
+    } else {
         header("Content-Type: text/html; charset=utf-8");
     }
 
@@ -36,7 +32,8 @@ function loadJson($array = array(), $type = 1)
 }
 
 
-class AWTennis {
+class AWTennis
+{
     private $uniacid = 2;
     private static $moduleName = 'awt_enroll';
     private $logger;
@@ -61,7 +58,7 @@ class AWTennis {
         $_W['uniacid'] = $this->uniacid;
         $site = WeUtility::createModuleSite(self::$moduleName);
         load()->classs('logging');
-        $path = AWT_ENROLL_PATH.'/data/LOGS/api/tennis/';
+        $path = AWT_ENROLL_PATH . '/data/LOGS/api/tennis/';
         $logFile = 'tennis';
         $this->logger = new Log($path, $logFile);
     }
@@ -85,31 +82,28 @@ class AWTennis {
     public function actionAdd()
     {
         global $_GPC, $_W;
-        if (!$_W['ispost'])
-        {
+        if (!$_W['ispost']) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'post method is required',
+                'tips' => 'post method is required',
             );
             $this->response($response);
         }
 
         $groupName = isset($_GPC['groupName']) ? trim($_GPC['groupName']) : '';
         $groupName = str_replace(' ', '', $groupName);
-        if (empty($groupName))
-        {
+        if (empty($groupName)) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'groupName is required',
+                'tips' => 'groupName is required',
             );
             $this->response($response);
         }
         $groupNameExist = m('group')->getByName($groupName);
-        if ($groupNameExist)
-        {
+        if ($groupNameExist) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => "groupName {$groupName} is exist,change another one",
+                'tips' => "groupName {$groupName} is exist,change another one",
             );
             $this->response($response);
         }
@@ -122,18 +116,15 @@ class AWTennis {
             'update_time' => $time,
         );
         $ret = m('group')->insert($group);
-        if ($ret)
-        {
+        if ($ret) {
             $response = array(
                 'status' => self::POST_SUCCESS,
-                'data'   => $group,
+                'data' => $group,
             );
-        }
-        else
-        {
+        } else {
             $this->logger->write("insert groupName failed:" . var_export($ret, true));
             $response = array(
-                'tips'   => 'post failed',
+                'tips' => 'post failed',
             );
         }
         $this->response($response);
@@ -142,75 +133,67 @@ class AWTennis {
     public function actionDel()
     {
         global $_GPC, $_W;
-        if (!$_W['ispost'])
-        {
+        if (!$_W['ispost']) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'post method is required',
+                'tips' => 'post method is required',
             );
             $this->response($response);
         }
         $id = isset($_GPC['id']) ? intval($_GPC['id']) : '';
-        if (empty($id))
-        {
+        if (empty($id)) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'id is required',
+                'tips' => 'id is required',
             );
             $this->response($response);
         }
         $res = m('group')->deleteById($id);
-        if ($res)
-        {
+        if ($res) {
             $response = array(
                 'status' => self::POST_SUCCESS,
             );
-        }
-        else
-        {
+        } else {
             $this->logger->write("delete group failed:" . var_export($res, true));
             $response = array(
-                'tips'   => 'post failed',
+                'tips' => 'post failed',
             );
         }
         $this->response($response);
     }
+
     public function actionEdit()
     {
         global $_GPC, $_W;
-        if (!$_W['ispost'])
-        {
+        if (!$_W['ispost']) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'post method is required',
+                'tips' => 'post method is required',
             );
             $this->response($response);
         }
         $id = isset($_GPC['id']) ? intval($_GPC['id']) : '';
         $groupName = isset($_GPC['groupName']) ? trim($_GPC['groupName']) : '';
         $groupName = str_replace(' ', '', $groupName);
-        if (empty($id))
-        {
+        if (empty($id)) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'id is required',
+                'tips' => 'id is required',
             );
             $this->response($response);
         }
-        if (empty($groupName))
-        {
+        if (empty($groupName)) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'groupName is required',
+                'tips' => 'groupName is required',
             );
             $this->response($response);
         }
         $groupNameExist = m('group')->getByName($groupName);
-        if ($groupNameExist)
-        {
+        if ($groupNameExist) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => "groupName {$groupName} is exist,change another one",
+                'tips' => "groupName {$groupName} is exist,change another one",
             );
             $this->response($response);
         }
@@ -219,21 +202,19 @@ class AWTennis {
             'groupname' => $groupName,
         );
         $res = m('group')->edit($data);
-        if ($res)
-        {
+        if ($res) {
             $response = array(
                 'status' => self::POST_SUCCESS,
             );
-        }
-        else
-        {
+        } else {
             $this->logger->write("update group failed:" . var_export($res, true));
             $response = array(
-                'tips'   => 'post failed',
+                'tips' => 'post failed',
             );
         }
         $this->response($response);
     }
+
     /**
      * Get member group by Id
      * @return array
@@ -244,11 +225,10 @@ class AWTennis {
     {
         global $_GPC;
         $id = isset($_GPC['id']) ? intval($_GPC['id']) : '';
-        if (empty($id))
-        {
+        if (empty($id)) {
             $response = array(
                 'status' => self::INVALID_REQUEST,
-                'tips'   => 'id is required',
+                'tips' => 'id is required',
             );
             $this->response($response);
         }
@@ -263,7 +243,7 @@ class AWTennis {
      * @return array
      * @author junxxx
      * @date   2017-10-14
-    */
+     */
     public function actionGetAll()
     {
         $group = m('group')->getAll();
