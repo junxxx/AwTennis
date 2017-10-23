@@ -2,6 +2,15 @@
 <script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
 <link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
 <title>个人中心</title>
+<style>
+    .wxavatar {
+        border-radius: 50%;
+        height: 65px;
+    }
+    .user{
+        display: inline-block;
+    }
+</style>
 <body>
 <header class="mui-bar mui-bar-nav">
     <h1 class="mui-title">个人中心</h1>
@@ -9,53 +18,70 @@
 <div id="container"></div>
 <script id="member_main" type="text/html">
     <div class="mui-content">
-        <div class="title">个人中心页面</div>
-        <div class="mui-card">
+        <div class="mui-card" style="margin-top: 60px">
             <div class="mui-card-header">
-                <div>
-                    <img src="<%member.avatar%>">
-                    <div class="nickname"><%member.nickname%></div>
+                <div class="left">
+                    <img class="wxavatar" src="<%member.avatar%>">
+                    <div class="user">
+                        <span class="nickname"><%member.nickname%></span>
+                        <span class="memberNum">会员卡:88885689</span>
+                    </div>
+                </div>
+                <div class="right">
+                    <a class="mui-navigate-right">
+                        LV 3.0
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="middle"></div>
-        <div class="bottom"></div>
-        <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right">
-                    新消息通知
-                </a>
-            </li>
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right">
-                    隐私
-                </a>
-            </li>
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right">
-                    通用
-                </a>
-            </li>
-        </ul>
-        <ul class="mui-table-view" style="margin-top: 25px;">
-            <li class="mui-table-view-cell">
-                <a class="mui-navigate-right">
-                    关于
-                </a>
-            </li>
+        <div class="mui-card">
+            <div class="mui-card-header">
+                我的活动
+            </div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    显示面板
+                    <div class="activity-right">
+                        <a class="mui-navigate-right">
+                            <span>100 次</span>
+                            LV 3.0
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="mui-table-view mui-grid-view mui-grid-9">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                <span class="mui-icon mui-icon-home"></span>
+                <div class="mui-media-body">Home</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                <span class="mui-icon mui-icon-email"><span class="mui-badge">5</span></span>
+                <div class="mui-media-body">Email</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                <span class="mui-icon mui-icon-chatbubble"></span>
+                <div class="mui-media-body">Chat</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                <span class="mui-icon mui-icon-location"></span>
+                <div class="mui-media-body">location</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                <span class="mui-icon mui-icon-search"></span>
+                <div class="mui-media-body">Search</div></a></li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+                <span class="mui-icon mui-icon-phone"></span>
+                <div class="mui-media-body">Phone</div></a></li>
         </ul>
     </div>
 </script>
 <nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item " onclick = "window.location.href={php echo $this->createMobileUrl('enroll/list')}">
+    <a class="mui-tab-item " id="activity">
         <span class="mui-icon mui-icon-home"></span>
         <span class="mui-tab-label">活动</span>
     </a>
-    <a class="mui-tab-item" href="{php echo $this->createMobileUrl('ranking/ranking')}>
+    <a class="mui-tab-item" id="ranking" href="{php echo $this->createMobileUrl('ranking/ranking')}>
         <span class="mui-icon mui-icon-email"></span>
         <span class="mui-tab-label">排行榜</span>
     </a>
-    <a class="mui-tab-item mui-active" href="{php echo $this->createMobileUrl('member')}>
+    <a class="mui-tab-item mui-active" id="me" href="{php echo $this->createMobileUrl('member')}>
         <span class="mui-icon mui-icon-contact mui-icon-icon-contact-filled"></span>
         <span class="mui-tab-label">我</span>
     </a>
@@ -64,10 +90,21 @@
 <script language="javascript">
     require(['tpl', 'core'], function (tpl, core) {
         core.json('member',{},function(json) {
-                if(json.status) {
-                    $("#container").html(tpl("member_main",json.result));
-                }
-        },true);
+            if(json.status) {
+                $("#container").html(tpl("member_main",json.result));
+                document.getElementById("activity").addEventListener('click', function() {
+                    window.location.href = "{php echo $this->createMobileUrl('enroll/list')}";
+                });
 
+                document.getElementById("ranking").addEventListener('click', function() {
+                    window.location.href = "{php echo $this->createMobileUrl('ranking/ranking')}";
+                });
+
+                document.getElementById("me").addEventListener('click', function() {
+                    window.location.href = "{php echo $this->createMobileUrl('member/center')}";
+                });
+
+            }
+        },true);
     })
 </script>

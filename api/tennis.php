@@ -17,6 +17,15 @@ if (is_array($query) && isset($query['act'])) {
     if (method_exists($obj, $method)) {
         $obj->$method();
     }
+    else
+    {
+        $response = array(
+            'status' => 404,
+            'tips' => 'Not founded',
+        );
+        loadJson($response);
+    }
+
 }
 
 function loadJson($array = array(), $type = 1)
@@ -37,6 +46,7 @@ class AWTennis
     private $uniacid = 2;
     private static $moduleName = 'awt_enroll';
     private $logger;
+    private $key = '';
 
     const GET_SUCCESS = 200;          //服务器成功返回用户请求的数据
     const POST_SUCCESS = 201;          //用户新建或修改数据成功
