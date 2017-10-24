@@ -16,7 +16,6 @@ define('IN_SYS', true);
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require '../../../framework/bootstrap.inc.php';
-require IA_ROOT . '/web/common/bootstrap.sys.inc.php';
 
 $modulename ='awt_enroll';
 $site = WeUtility::createModuleSite($modulename);
@@ -34,6 +33,7 @@ class ActivityCron {
 	{
 	    if (PHP_SAPI != 'cli')
 	        exit('Access Denied!');
+	    load()->classs('process.lock');
         load()->classs('logging');
         $path = AWT_ENROLL_PATH.'/data/LOGS/cron/';
         $logFile = 'autoMain';
@@ -45,6 +45,12 @@ class ActivityCron {
 	/*自动转正*/
 	public function autoMain()
 	{
+        $LOCK = new ProcessLock();
+        if (!$LOCK->getLock(__FUNCTION__ . 'lock'))
+        {
+            $this->log->write('file locked');
+            exit('file locked');
+        }
 	    //		$reservePlayers = m('activity')->getCronActivityLogs();
 //		print_r($reservePlayers);
 //		if (!empty($reservePlayers)){
@@ -52,6 +58,7 @@ class ActivityCron {
 //
 //			}
 //		}
+
 
         $template = $this->getMsgTemplate();
         $template =$template[0];
@@ -96,7 +103,7 @@ class ActivityCron {
 		$this->finishTime = microtime();
 		$totalTime = $this->finishTime - $this->startTime;
 
-		$this->log->write("finishTime: $this->finishTime\ntotalTime:$totalTime")
+		$this->log->write("finishTime: $this->finishTime\ntotalTime:$totalTime");
 	}
 
 }
