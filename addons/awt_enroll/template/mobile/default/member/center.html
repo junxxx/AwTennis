@@ -72,37 +72,12 @@
         </ul>
     </div>
 </script>
-<nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item " id="activity">
-        <span class="mui-icon mui-icon-home"></span>
-        <span class="mui-tab-label">活动</span>
-    </a>
-    <a class="mui-tab-item" id="ranking">
-        <span class="mui-icon mui-icon-email"></span>
-        <span class="mui-tab-label">排行榜</span>
-    </a>
-    <a class="mui-tab-item mui-active" id="me">
-        <span class="mui-icon mui-icon-contact mui-icon-icon-contact-filled"></span>
-        <span class="mui-tab-label">我</span>
-    </a>
-</nav>
-</body>
 <script language="javascript">
     require(['tpl', 'core'], function (tpl, core) {
         core.json('member',{},function(json) {
             if(json.status) {
                 $("#container").html(tpl("member_main",json.result));
-                document.getElementById("activity").addEventListener('click', function() {
-                    window.location.href = "{php echo $this->createMobileUrl('enroll/list')}";
-                });
 
-                document.getElementById("ranking").addEventListener('click', function() {
-                    window.location.href = "{php echo $this->createMobileUrl('ranking/ranking')}";
-                });
-
-                document.getElementById("me").addEventListener('click', function() {
-                    window.location.href = "{php echo $this->createMobileUrl('member/center')}";
-                });
                 document.getElementById("myActivity").addEventListener('click', function() {
                     window.location.href = "{php echo $this->createMobileUrl('member/myActivity')}";
                 });
@@ -111,3 +86,4 @@
         },true);
     })
 </script>
+{template 'common/footer'}
