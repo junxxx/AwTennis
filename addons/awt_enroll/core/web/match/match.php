@@ -15,7 +15,7 @@ $uniacid = $_W['uniacid'];
 
 $operation = isset($_GPC['op']) ? $_GPC['op'] : 'display';
 $categories = m('category')->getCategories();
-$groups = m('group')->get();
+$groups = m('group')->getAll();
 
 if ($operation == 'display'){
 	$where = ' WHERE 1 AND a.uniacid=:uniacid';

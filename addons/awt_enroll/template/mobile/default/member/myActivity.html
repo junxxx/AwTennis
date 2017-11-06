@@ -1,0 +1,65 @@
+{template 'common/header'}
+<script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
+<link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
+<title>我的活动</title>
+<style>
+    .wxavatar {
+        border-radius: 50%;
+        height: 65px;
+    }
+    .user{
+        display: inline-block;
+    }
+</style>
+<body>
+<div id="container"></div>
+<script id="activity_main" type="text/html">
+    <div class="mui-content">
+        <div id="slider" class="mui-slider mui-fullscreen">
+            <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+                <div class="mui-scroll">
+                    <a class="mui-control-item mui-active" href="#item1mobile" data-wid="tab-top-subpage-1.html">
+                        正选
+                    </a>
+                    <a class="mui-control-item" href="#item2mobile" data-wid="tab-top-subpage-2.html">
+                        替补
+                    </a>
+                    <a class="mui-control-item" href="#item3mobile" data-wid="tab-top-subpage-3.html">
+                        退赛
+                    </a>
+                    <a class="mui-control-item" href="#item4mobile" data-wid="tab-top-subpage-4.html">
+                        失败
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item " id="activity">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">活动</span>
+    </a>
+    <a class="mui-tab-item" id="ranking">
+        <span class="mui-icon mui-icon-email"></span>
+        <span class="mui-tab-label">排行榜</span>
+    </a>
+    <a class="mui-tab-item mui-active" id="me">
+        <span class="mui-icon mui-icon-contact mui-icon-icon-contact-filled"></span>
+        <span class="mui-tab-label">我</span>
+    </a>
+</nav>
+<script id="activity_empty" type="text/html">
+</script>
+</body>
+<script language="javascript">
+    require(['tpl', 'core'], function (tpl, core) {
+        core.json('member/myActivity',{},function(json) {
+            if(json.status) {
+                $("#container").html(tpl("activity_main",json.result));
+
+
+            }
+        },true);
+    })
+</script>

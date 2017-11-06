@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="mui-card">
+        <div class="mui-card" id="myActivity">
             <div class="mui-card-header">
                 我的活动
             </div>
@@ -102,6 +102,9 @@
 
                 document.getElementById("me").addEventListener('click', function() {
                     window.location.href = "{php echo $this->createMobileUrl('member/center')}";
+                });
+                document.getElementById("myActivity").addEventListener('click', function() {
+                    window.location.href = "{php echo $this->createMobileUrl('member/myActivity')}";
                 });
 
             }
