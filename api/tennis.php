@@ -243,9 +243,18 @@ class AWTennis
             $this->response($response);
         }
         $group = m('group')->getById($id);
-        $response['status'] = self::GET_SUCCESS;
-        $response['data'] = $group;
-        $this->response($response);
+        if($group)
+        {
+            $response['status'] = self::GET_SUCCESS;
+            $response['data'] = $group;
+            $this->response($response);
+        }
+        else
+        {
+            $response['status'] = self::NOT_FOUND;
+            $this->response($response);
+        }
+
     }
 
     /**
