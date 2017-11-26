@@ -14,8 +14,15 @@ $openid = m('user')->getOpenid();
 $member = m('member')->getMember($openid);
 
 if($_W['isajax']){
-    show_json(1,array('member' => $member));
-}
+    $activityModel =  m('activity');
+    $list = $activityModel->getActivitiesByMid($openid);
+    if($list) {
+        foreach ($list as &$row) {
+            $row['reserve_status'] = $activityModel::$enrollStatus[$row['reserve_status']];
+        }
+    }
 
+    show_json(1,array('member' => $member, 'list' => $list));
+}
 
 include $this->template('member/myActivity');
