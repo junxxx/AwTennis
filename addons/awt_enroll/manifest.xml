@@ -59,6 +59,6 @@
 	<permissions>
 	</permissions>
 	<install><![CDATA[install.php]]></install>
-	<uninstall><![CDATA[unstall.php]]></uninstall>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
 	<upgrade><![CDATA[]]></upgrade>
 </manifest>
