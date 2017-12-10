@@ -21,7 +21,7 @@
     </div>
 </script>
 <script id="activity_empty" type="text/html">
-    <div class="credit_no"><i class="fa fa-file-text-o" style="font-size:100px;"></i><br><span style="line-height:18px; font-size:16px;">暂时没有任何活动记录~</span></div>
+    <div class="credit_no"><i class="fa fa-file-text-o" style="font-size:100px;"></i><br><span style="line-height:18px; font-size:16px;">暂时没有相关活动记录~</span></div>
 </script>
 <script id="activity_list" type="text/html">
     <ul class="mui-table-view">
@@ -40,20 +40,20 @@
 </script>
 <script language="javascript">
     require(['tpl', 'core'], function (tpl, core) {
-        var type = $('.mui-control-item').data('type');
 
         core.json('member/myActivity',{'type':"{$_GPC['type']}"},function(json) {
-            if(json.status) {
-                $("#container").html(tpl("activity_main"));
-                $('.nav').click(function() {
-                    var type = $(this).data('type');
-                    location.href = core.getUrl('member/myActivity', {type: type});
-                })
-                var list = json.result.list;
-                if (list.length <= 0)
-                {
-                    $("#list").html(tpl("activity_empty",json.result));
-                }
+            $("#container").html(tpl("activity_main"));
+            $('.nav').click(function() {
+                var type = $(this).data('type');
+                location.href = core.getUrl('member/myActivity', {type: type});
+            })
+            var list = json.result.list;
+            if (list.length <= 0)
+            {
+                $("#list").html(tpl("activity_empty",json.result));
+            }
+            else
+            {
                 $("#list").html(tpl("activity_list",json.result));
             }
         },true);

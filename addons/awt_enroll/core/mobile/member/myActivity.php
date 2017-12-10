@@ -25,6 +25,7 @@ if ($_W['isajax']) {
             $row['reserve_status'] = $activityModel::$enrollStatus[$row['reserve_status']];
             $row['activity_stime'] = date('Y-m-d H:i', $row['activity_stime']);
         }
+        unset($row);
     }
 
     show_json(1, array('member' => $member, 'list' => $list));
