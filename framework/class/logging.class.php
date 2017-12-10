@@ -1,6 +1,6 @@
 <?php
 /**
- * File  logging.calss..php
+ * File  logging.class.php
  * Created by https://github.com/junxxx
  * Email: hprjunxxx@gmail.com
  * Author: junxxx

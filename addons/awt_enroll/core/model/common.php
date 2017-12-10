@@ -24,4 +24,14 @@ class AWT_Tenroll_Common
 		}
 		return false;
 	}
+
+	public function getMsgTemplate()
+    {
+        global $_W;
+        $sql = " SELECT * FROM ".tablename('enroll_message_template')." WHERE uniacid=:uniacid ";
+        $params = array(
+            ':uniacid' => $_W['uniacid'],
+        );
+        return pdo_fetchall($sql, $params);
+    }
 }

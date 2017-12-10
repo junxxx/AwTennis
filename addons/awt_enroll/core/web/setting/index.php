@@ -33,7 +33,17 @@ if ($operation == 'addtype') {
                 $data[] = array('keywords' => $keywords[$key], 'value' => $value[$key], 'color' => $color[$key]);
             }
         }
-        $insert = array('title' => $_GPC['tp_title'], 'template_id' => trim($_GPC['tp_template_id']), 'first' => trim($_GPC['tp_first']), 'firstcolor' => trim($_GPC['firstcolor']), 'data' => iserializer($data), 'remark' => trim($_GPC['tp_remark']), 'remarkcolor' => trim($_GPC['remarkcolor']), 'url' => trim($_GPC['tp_url']), 'uniacid' => $_W['uniacid']);
+        $insert = array(
+            'title' => $_GPC['tp_title'],
+            'template_id' => trim($_GPC['tp_template_id']),
+            'first' => trim($_GPC['tp_first']),
+            'firstcolor' => trim($_GPC['firstcolor']),
+            'data' => iserializer($data),
+            'remark' => trim($_GPC['tp_remark']),
+            'remarkcolor' => trim($_GPC['remarkcolor']),
+            'url' => trim($_GPC['tp_url']),
+            'uniacid' => $_W['uniacid']
+        );
         if (empty($id)) {
             pdo_insert($messageTemTable, $insert);
             $id = pdo_insertid();

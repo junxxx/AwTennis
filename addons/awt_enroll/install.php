@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_member` (
   KEY `idx_level` (`level`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS  `awt_enroll_activitie_logs` (
+CREATE TABLE IF NOT EXISTS  `awt_enroll_activities_logs` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `uniacid` INT(11) NOT NULL,
   `aid` INT(11) NOT NULL COMMENT '活动id',
@@ -110,7 +110,10 @@ CREATE TABLE IF NOT EXISTS `awt_enroll_member_group` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `uniacid` INT(11) NOT NULL,
   `groupname` VARCHAR(45) NOT NULL,
+  `ctime` INT(10) NOT NULL DEFAULT 0,
+  `update_time` INT(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
+  UNIQUE INDEX `groupname_UNIQUE` (`groupname` ASC),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 COMMENT = '用户分组';
 

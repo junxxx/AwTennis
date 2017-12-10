@@ -13,7 +13,7 @@ class AWT_Tenroll_Activity
     const ENROLL_FIRST = 0;
     const ENROLL_RESERVE = 1;
 
-    private static $enrollStatus = array(
+    public static $enrollStatus = array(
         self::ENROLL_FIRST => '正选',
         self::ENROLL_RESERVE => '替补',
     );
@@ -22,7 +22,7 @@ class AWT_Tenroll_Activity
     private $uniacid = null;
     private $nowTime = null;
     private $table = 'enroll_activities';
-    private $logstable = 'enroll_activitie_logs';
+    private $logstable = 'enroll_activities_logs';
     private $where = null;
     private $params = array();
 
@@ -113,5 +113,39 @@ class AWT_Tenroll_Activity
 
         }
         return false;
+    }
+
+    /**
+     * 获取会员的活动记录
+     * date 2017-11-26
+     * @param string $mid mid or openid
+     * @param int $type 状态，正选还是替补
+     * @return mixed
+    */
+    public function getActivitiesByMid($mid, $type)
+    {
+        if(!$mid)
+            return false;
+
+        if(is_string($mid)) {
+            $where = " WHERE 1 AND l.openid=:openid ";
+            $param = array(
+                ':openid' => $mid,
+            );
+        } else {
+            $where = " WHERE 1 AND l.mid=:mid ";
+            $param = array(
+                ':mid' => $mid,
+            );
+        }
+
+        $type = intval($type);
+
+        if($type && array_key_exists($type, self::$enrollStatus)) {
+            $where .= " AND l.reserve_status=:type ";
+            $param[':type'] = $type;
+        }
+        $sql = " SELECT l.*, a.* FROM ".tablename($this->logstable) . " AS l LEFT JOIN " .tablename($this->table). " AS a ON l.aid = a.id ". $where;
+        return pdo_fetchall($sql, $param);
     }
 }

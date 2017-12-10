@@ -1,20 +1,18 @@
-{if $show_footer}
-<style type="text/css">
-    {if $this->footer['commission']}
-    footer#footer-nav .menu-list li { width:25%}
-    {/if}
-</style>
-<div style='height:85px;width:100%'></div>
-<footer id="footer-nav">
-    <ul class="menu-list" style="margin:0">
-        <li {if $footer_current=='first'}class='active'{/if}><a href="{php echo $this->createMobileUrl('shop')}"><i class="fa fa-{php echo $this->footer['first']['ico']}"></i><span>首页</span></a></li>
-        <li {if $footer_current=='second'}class='active'{/if}><a href="{php echo $this->footer['second']['url']}"><i class="fa fa-{php echo $this->footer['second']['ico']}"></i><span>{php echo $this->footer['second']['text']}</span></a></li>
-        <!--{if $this->footer['commission']}-->
-        <!--<li {if $footer_current=='commission'}class='active'{/if}><a href="{php echo $this->footer['commission']['url']}"><i class="fa fa-{php echo $this->footer['commission']['ico']}"></i><span>{php echo $this->footer['commission']['text']}</span></a></li>-->
-        <!--{/if}-->
-        <li {if $footer_current=='cart'}class='active'{/if}><a href="{php echo $this->createMobileUrl('shop/cart')}"><i class="fa fa-shopping-cart"></i><span>购物车</span></a></li>
-        <li {if $footer_current=='member'}class='active'{/if}><a href="{php echo $this->createMobileUrl('member')}"><i class="fa fa-user"></i><span>会员中心</span></a></li>
-    </ul>
-</footer>
-{/if}
+<nav class="mui-bar mui-bar-tab">
+    <a href="{php echo $this->createMobileUrl('enroll/list')}" class="mui-tab-item " id="activity">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">活动</span>
+    </a>
+    <a href="{php echo $this->createMobileUrl('ranking/ranking')}" class="mui-tab-item" id="ranking">
+        <span class="mui-icon mui-icon-email"></span>
+        <span class="mui-tab-label">排行榜</span>
+    </a>
+    <a href="{php echo $this->createMobileUrl('member/center')}" class="mui-tab-item mui-active" id="me">
+        <span class="mui-icon mui-icon-contact mui-icon-icon-contact-filled"></span>
+        <span class="mui-tab-label">我</span>
+    </a>
+</nav>
+<script language="javascript">
+    mui('body').on('tap','a',function(){document.location.href=this.href;});
+</script>
 {template 'common/footer_base'}

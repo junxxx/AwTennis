@@ -4,4 +4,4 @@ MP*.txt
 addons/ewei_shop
 *.jpg
 data/config*
-
+.DS_Store
