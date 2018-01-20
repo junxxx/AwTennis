@@ -31,7 +31,11 @@
 </div>
 <script id="member_main" type="text/html">
     <div class="mui-content" id="basicInfo">
+<<<<<<< HEAD
         <div class="mui-card">
+=======
+        <!--<div class="mui-card" style="margin-top: 60px">-->
+>>>>>>> 1780bba58ca58f3f15cf3db15a209210b077542e
             <!--<div class="mui-card-header" id="card">-->
                 <!--<div class="left">-->
                     <!--<img class="wxavatar" src="<%weChatInfo.avatar%>">-->
@@ -44,6 +48,7 @@
         <!--<div class="">-->
             <!--<button class="mui-btn" id="btn_binding" title="注册会员">注册会员</button>-->
         <!--</div>-->
+<<<<<<< HEAD
             <div id="basicInfo_left mui-card-header" class="left">
                 <img class="headImg" src="<% weChatInfo.avatar %>">
                 <div id="weChatName" class="weChatName"><% weChatInfo.nickname%></div>
@@ -58,6 +63,21 @@
             <div id="basicInfo_right" class="right">
 
             </div>
+=======
+        <div id="basicInfo_left" class="left">
+            <img class="headImg" src="<% weChatInfo.avatar %>">
+            <div id="weChatName" class="weChatName"><% weChatInfo.nickname%></div>
+            <div id="cardNum">
+                {if $clubInfo == null}
+                <button class="mui-btn" id="btn_binding" title="注册会员">注册会员</button>
+                {else}
+                会员卡号：<% $clubInfo.cardNum %>
+                {/if}
+            </div>
+        </div>
+        <div id="basicInfo_right" class="right">
+
+>>>>>>> 1780bba58ca58f3f15cf3db15a209210b077542e
         </div>
     </div>
     <div class="mui-content" id="clubInfo">
