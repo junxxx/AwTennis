@@ -1,0 +1,12 @@
+.marginTop50{
+    margin-top: 50px; !important;
+}
+
+.width30{
+    width: 50px;
+}
+table td{
+    border-left: lightgrey solid 1px;
+    border-right: lightgrey solid 1px;
+    border-bottom: steelblue solid 1px;
+ }
