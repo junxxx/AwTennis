@@ -1,6 +1,6 @@
 {template 'common/header'}
 <script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
-<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+<!--<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>-->
 <link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
 <title>个人中心</title>
 <body>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="mui-button-row">
                         <button type="button" id="om_confirm_btn" class="mui-btn mui-btn-primary">确认</button>
-                        <button type="button" id="om_cancel_btn" class="mui-btn mui-btn-danger">取消</button>
+                        <button type="button" id="om_cancel_btn" class="mui-btn mui-btn-danger cancel_btn">取消</button>
                     </div>
                 </form>
             </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="mui-button-row">
                         <button type="button" id="nm_confirm_btn" class="mui-btn mui-btn-primary">确认</button>
-                        <button type="button" id="nm_cancel_btn" class="mui-btn mui-btn-danger">取消</button>
+                        <button type="button" id="nm_cancel_btn" class="mui-btn mui-btn-danger cancel_btn">取消</button>
                     </div>
                 </form>
             </div>
@@ -82,15 +82,14 @@
 <script language="javascript">
     var param = {};
 
-    require(['tpl', 'core'], function (tpl, core) {
+    require(['tpl', 'core', 'md5'], function (tpl, core, md5) {
         $("#om_confirm_btn").bind("click", function () {
            param['behavior'] = 'binding';
            param['cardNum'] = $("#cardNum").val().trim();
            if(param['cardNum'] === ''){
-//               mui.toast("请输入会员卡号", {duration:'short', type:'div'});
                core.tip.show("请输入会员卡号", 'bottom', 2000);
            }else{
-               ajax(tpl, core, param);
+               doAjax(tpl, core, param);
            }
          });
         $("#nm_confirm_btn").bind("click", function () {
@@ -122,43 +121,52 @@
             }
 
             if(isValid){
-                ajax(tpl, core, param);
+                doAjax(tpl, core, param);
             }
 
         });
 
+        $(".cancel_btn").bind("click", function(){
+            backToCenter();
+        });
     });
 
-    function ajax(tpl, core, param) {
+    function doAjax(tpl, core, param) {
         core.json('member/card',param,function(json) {
-            //do something
             switch(json.status) {
                 case 0:
-                    core.tip.show(json.result);
+                    core.tip.show(json.result, 'bottom', 1500);
                     // mui.toast(json.result,{duration:'short', type:'div'});
                     break;
                 case 1:
-                    var result = json.result;
+//                    var result = json.result;
                     // console.log(result);
-                    switch(result.status){
-                        case 200:
-                                //break;
-                        case 201:
-                                core.tip.show("恭喜您，申请会员成功！");
-                                break;
-                        // case 400:
-                        //     core.tip.show(result.msg);
-                        //     break;
-                        // case 404:
-                        //     core.tip.show(result.msg);
-                        //     break;
-                        default:
-                            core.tip.show("绑定失败，请重新绑定!");
-                    }
+//                    switch(result.status){
+//                        case 200:
+//                                //break;
+//                        case 201:
+//                            core.tip.show("恭喜您，申请会员成功！");
+//                            backToCenter();
+//                            break;
+//                        // case 400:
+//                        //     core.tip.show(result.msg);
+//                        //     break;
+//                        // case 404:
+//                        //     core.tip.show(result.msg);
+//                        //     break;
+//                        default:
+//                            core.tip.show("绑定失败，请重新绑定!");
+//                    }
+                    core.tip.show(json.result, 'bottom', 1000);
+                    //返回个人中心
+                    backToCenter();
                     break;
             }
 
         },true);
     }
 
+    function backToCenter(){
+        window.location.href = "{php echo $this->createMobileUrl('member/center')}";
+    }
 </script>

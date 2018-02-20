@@ -1,0 +1,160 @@
+2017-08-08 13:39:07 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw7Ms5PEWDZoNa2xV7amljxU]]></FromUserName>
+<CreateTime>1502170755</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=aboutus&m=awt_enroll]]></EventKey>
+<MenuId>465076950</MenuId>
+</xml>
+
+2017-08-08 13:39:07 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+    'createtime' => '1502170755',
+    'msgtype' => 'event',
+    'event' => 'VIEW',
+    'eventkey' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=aboutus&m=awt_enroll',
+    'menuid' => '465076950',
+    'from' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+    'to' => 'gh_272635033f26',
+    'time' => '1502170755',
+    'type' => 'text',
+    'content' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=aboutus&m=awt_enroll',
+    'redirection' => true,
+    'source' => 'VIEW',
+  ),
+)
+
+2017-08-08 13:39:07 response :
+------------
+
+2017-08-08 20:30:29 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw2iE_7GJgL3R0pyQee9-n2c]]></FromUserName>
+<CreateTime>1502195436</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=aboutus&m=awt_enroll]]></EventKey>
+<MenuId>465076950</MenuId>
+</xml>
+
+2017-08-08 20:30:29 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'createtime' => '1502195436',
+    'msgtype' => 'event',
+    'event' => 'VIEW',
+    'eventkey' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=aboutus&m=awt_enroll',
+    'menuid' => '465076950',
+    'from' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'to' => 'gh_272635033f26',
+    'time' => '1502195436',
+    'type' => 'text',
+    'content' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=aboutus&m=awt_enroll',
+    'redirection' => true,
+    'source' => 'VIEW',
+  ),
+)
+
+2017-08-08 20:30:29 response :
+------------
+
+2017-08-08 20:30:49 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw2iE_7GJgL3R0pyQee9-n2c]]></FromUserName>
+<CreateTime>1502195456</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=ranking&m=awt_enroll]]></EventKey>
+<MenuId>465076950</MenuId>
+</xml>
+
+2017-08-08 20:30:49 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'createtime' => '1502195456',
+    'msgtype' => 'event',
+    'event' => 'VIEW',
+    'eventkey' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=ranking&m=awt_enroll',
+    'menuid' => '465076950',
+    'from' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'to' => 'gh_272635033f26',
+    'time' => '1502195456',
+    'type' => 'text',
+    'content' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=ranking&m=awt_enroll',
+    'redirection' => true,
+    'source' => 'VIEW',
+  ),
+)
+
+2017-08-08 20:30:49 response :
+------------
+
+2017-08-08 20:30:52 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw2iE_7GJgL3R0pyQee9-n2c]]></FromUserName>
+<CreateTime>1502195460</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=enroll&m=awt_enroll]]></EventKey>
+<MenuId>465076950</MenuId>
+</xml>
+
+2017-08-08 20:30:52 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'createtime' => '1502195460',
+    'msgtype' => 'event',
+    'event' => 'VIEW',
+    'eventkey' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=enroll&m=awt_enroll',
+    'menuid' => '465076950',
+    'from' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'to' => 'gh_272635033f26',
+    'time' => '1502195460',
+    'type' => 'text',
+    'content' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=enroll&m=awt_enroll',
+    'redirection' => true,
+    'source' => 'VIEW',
+  ),
+)
+
+2017-08-08 20:30:52 response :
+------------
+

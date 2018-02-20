@@ -1,3 +1,4 @@
+/*common style*/
 .marginTop50{
     margin-top: 50px; !important;
 }
@@ -5,8 +6,33 @@
 .width30{
     width: 50px;
 }
-table td{
+.rankingTable td{
     border-left: lightgrey solid 1px;
     border-right: lightgrey solid 1px;
     border-bottom: steelblue solid 1px;
  }
+
+.borderBlue {
+    /*border: 1px solid steelblue;*/
+}
+
+.borderGrey {
+    border: 1px solid lightgray;
+}
+
+/*font*/
+.fontSmall {
+    font-size: x-small;
+    font-weight: lighter;
+}
+
+.fontLarge {
+    font-size: x-large;
+    font-weight: bold;
+
+}
+
+hr{
+    width: 50%;
+    margin-left: 25%;
+}

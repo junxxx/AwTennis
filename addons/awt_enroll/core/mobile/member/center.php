@@ -30,19 +30,31 @@ if ($_W['isajax']) {
     }else{
         $status = 1;
         $weChatInfo = $member;
+
         if(!is_null($member['memberid'])){
             //用户已注册会员
             $params["id"]=$member['memberid'];
+
             $apiAWTennis = new ApiAWTennis($params);
             $apiResponse = $apiAWTennis->getUser($member['memberid']);
 
-            if(is_null($apiResponse)){
+            if(is_null($apiResponse)||$apiResponse['status']==''||$apiResponse['status']>299){
                 $clubInfo = "获取用户信息失败，请重试";
             }else{
-                $clubInfo = $apiResponse;
+                //获取个人俱乐部级别
+                $groupName = m('group')->getById($apiResponse['data'][0]['profile']['grade']);
+                if($groupName){
+                    $apiResponse['data'][0]['profile']['grade'] = $groupName['groupname'];
+                }else{
+                    $apiResponse['data'][0]['profile']['grade'] = '--';
+                }
+                //返回数据到html
+                $clubInfo = $apiResponse['data'][0];
             }
         }
     }
+
+
     show_json($status, array('weChatInfo'=>$weChatInfo, 'clubInfo'=>$clubInfo));
 }
 

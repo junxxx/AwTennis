@@ -1,0 +1,40 @@
+2017-08-01 16:55:55 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw3H2JJWmI5Nkh4MXgfJQClc]]></FromUserName>
+<CreateTime>1501577756</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://wx.aiwangsports.com]]></EventKey>
+<MenuId>464676159</MenuId>
+</xml>
+
+2017-08-01 16:55:55 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'createtime' => '1501577756',
+    'msgtype' => 'event',
+    'event' => 'VIEW',
+    'eventkey' => 'http://wx.aiwangsports.com',
+    'menuid' => '464676159',
+    'from' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'to' => 'gh_272635033f26',
+    'time' => '1501577756',
+    'type' => 'text',
+    'content' => 'http://wx.aiwangsports.com',
+    'redirection' => true,
+    'source' => 'VIEW',
+  ),
+)
+
+2017-08-01 16:55:55 response :
+------------
+

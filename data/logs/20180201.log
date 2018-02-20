@@ -1,0 +1,37 @@
+2018-02-01 12:41:53 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw_sH1bm4z0Kxdz4jY0F_s7k]]></FromUserName>
+<CreateTime>1517460170</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
+
+2018-02-01 12:41:53 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw_sH1bm4z0Kxdz4jY0F_s7k',
+    'createtime' => '1517460170',
+    'msgtype' => 'event',
+    'event' => 'subscribe',
+    'eventkey' => '',
+    'from' => 'oFxpOw_sH1bm4z0Kxdz4jY0F_s7k',
+    'to' => 'gh_272635033f26',
+    'time' => '1517460170',
+    'type' => 'text',
+    'redirection' => true,
+    'source' => 'subscribe',
+  ),
+)
+
+2018-02-01 12:41:53 response :
+------------
+

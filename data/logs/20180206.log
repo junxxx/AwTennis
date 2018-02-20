@@ -1,0 +1,80 @@
+2018-02-06 08:58:53 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw3H2JJWmI5Nkh4MXgfJQClc]]></FromUserName>
+<CreateTime>1517878792</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=ranking&m=awt_enroll]]></EventKey>
+<MenuId>465655273</MenuId>
+</xml>
+
+2018-02-06 08:58:53 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'createtime' => '1517878792',
+    'msgtype' => 'event',
+    'event' => 'VIEW',
+    'eventkey' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=ranking&m=awt_enroll',
+    'menuid' => '465655273',
+    'from' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'to' => 'gh_272635033f26',
+    'time' => '1517878792',
+    'type' => 'text',
+    'content' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=ranking&m=awt_enroll',
+    'redirection' => true,
+    'source' => 'VIEW',
+  ),
+)
+
+2018-02-06 08:58:53 response :
+------------
+
+2018-02-06 09:00:24 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw3H2JJWmI5Nkh4MXgfJQClc]]></FromUserName>
+<CreateTime>1517878883</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[VIEW]]></Event>
+<EventKey><![CDATA[http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=member&m=awt_enroll]]></EventKey>
+<MenuId>465655273</MenuId>
+</xml>
+
+2018-02-06 09:00:24 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'createtime' => '1517878883',
+    'msgtype' => 'event',
+    'event' => 'VIEW',
+    'eventkey' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=member&m=awt_enroll',
+    'menuid' => '465655273',
+    'from' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'to' => 'gh_272635033f26',
+    'time' => '1517878883',
+    'type' => 'text',
+    'content' => 'http://wx.aiwangsports.com/app/index.php?i=2&c=entry&do=member&m=awt_enroll',
+    'redirection' => true,
+    'source' => 'VIEW',
+  ),
+)
+
+2018-02-06 09:00:24 response :
+------------
+

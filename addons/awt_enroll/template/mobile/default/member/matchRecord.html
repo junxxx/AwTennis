@@ -1,0 +1,130 @@
+{template 'common/header'}
+<script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
+<link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
+<link href="../addons/awt_enroll/static/css/baseStyle.css" rel="stylesheet"/>
+<link href="../addons/awt_enroll/static/css/matchRecord.css" rel="stylesheet"/>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<title>参赛记录</title>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a onclick="goBack()" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">个人比赛记录</h1>
+</header>
+
+<div class="MRSelect_main mui-input-row borderBlue">
+    <select id="select_match_type" class="MRSelect">
+        <option value="single" selected="selected">单打</option>
+        <option value="double">双打</option>
+    </select>
+    <!--<div class="MRSelect">-->
+        <!--<input type="checkbox" name="matchType" value="single" checked="checked">单打</input>-->
+        <!--<input type="checkbox" name="matchType" value="double">双打</input>-->
+    <!--</div>-->
+</div>
+<div id="container"></div>
+<script id="member_main" type="text/html">
+    <div class="statistic_main_outer borderBlue">
+        <div class="statistic_main_inner">
+            <div class="stat_left borderBlue">
+                <div>总场数</div>
+                <div><%nTotal%></div>
+            </div>
+            <div class="stat_center borderBlue">
+                <div>胜场数</div>
+                <div><%nWin%></div>
+            </div>
+            <div class="stat_right borderBlue">
+                <div>败场数</div>
+                <div><%nLose%></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="match_main borderBlue">
+        <%each matches as match%>
+        <%if match.winLose=="W"%>
+        <div class="match" style="color: steelblue;">
+        <%else%>
+        <div class="match" style="color: tomato;">
+        <%/if%>
+            <div class="matchTime">
+                <i class="fa fa-calendar fa-sm"></i>
+                <%match.matchTime%>
+            </div>
+            <div class="matchRecord">
+                <table>
+                    <tr>
+                        <th>队友</th>
+                        <th>对手</th>
+                        <th>地点</th>
+                        <th>赛事</th>
+                        <!--<th>轮次</th>-->
+                        <th>比分</th>
+                    </tr>
+                    <tr>
+                        <td><%if match.partner%><%match.partner%><%else%>--<%/if%></td>
+                        <td><%match.opponent%></td>
+                        <td><%match.place%></td>
+                        <td><%match.tournament%></td>
+                        <!--<td><%match.round%></td>-->
+                        <td><%match.matchScore%></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <%/each%>
+    </div>
+</script>
+<script language="javascript">
+    require(['tpl', 'core'], function (tpl, core) {
+
+        var matchType = "single";
+        doAjax(matchType, tpl, core);
+        $("#select_match_type").bind("change", function () {
+            matchType = $("#select_match_type option:selected").val();
+            doAjax(matchType, tpl ,core);
+        });
+
+    });
+
+    function doAjax(matchType, tpl, core) {
+        core.json('member',{},function(json) {
+            if(json.status) {
+                var matches = null;
+
+                if(matchType === "double"){
+                    matches = json.result.clubInfo.doublematch;
+                }else{
+                    matches = json.result.clubInfo.singlematch;
+                }
+
+                // console.log(matches);
+
+                var nTotalMatchs = matches.length;
+                var nWin = matches.filter(function (value) {
+                    return value.winLose === "W";
+                }).length;
+
+                var objMatch = {};
+
+                objMatch.nTotal = nTotalMatchs;
+                objMatch.nWin = nWin;
+                objMatch.nLose = nTotalMatchs - nWin;
+                objMatch.matches = matches;
+
+                $("#container").html(tpl("member_main", objMatch));
+
+            }else{
+                //错误提示
+                $("#container").html(json.result.weChatInfo);
+            }
+
+        },true);
+    }
+
+    //back to center
+    function goBack() {
+        window.location.href = "{php echo $this->createMobileUrl('member/center')}";
+    }
+</script>
+{template 'common/footer'}

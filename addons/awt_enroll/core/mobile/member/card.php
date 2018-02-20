@@ -11,7 +11,6 @@ require_once AWT_ENROLL_CORE . 'common/ApiAWTennis.class.php';
 defined('IN_IA') or exit('Access Denied!');
 global $_W, $_GPC;
 
-<<<<<<< HEAD
 function getMem(){
     //获取当前用户的openid
     //sql table: awt_mc_mapping_fans
@@ -23,24 +22,13 @@ function getMem(){
     return $member;
 }
 
-=======
->>>>>>> 1780bba58ca58f3f15cf3db15a209210b077542e
 function updateMem($status, $clubMemberid){
     //将用户memberId保存到微信端数据库表wxt_enroll_member
     if($status == 200 || $status == 201){
         //会员绑定成功
         $update_data['memberid'] = intval($clubMemberid);
-<<<<<<< HEAD
 
         $member = getMem();
-=======
-        //获取当前用户的openid
-        //sql table: awt_mc_mapping_fans
-        $openid = m('user')->getOpenid();
-        //通过openid查询用户
-        //sql table: entroll_member
-        $member = m('member')->getMember($openid);
->>>>>>> 1780bba58ca58f3f15cf3db15a209210b077542e
 
         try{
             if(!m('member')->updateMember($member['id'],$update_data)){
@@ -60,36 +48,22 @@ if ($_W['isajax']) {
     if ($operation == 'binding') {
         //获取页面表单的请求参数
         $param['cardNum'] = trim($_GPC['cardNum']);
-//        echo $param['cardNum'];
+        //echo $param['cardNum'];
         //通过api接口获取数据
         $apiAWTennis = new ApiAWTennis($param);
         $apiResponse = $apiAWTennis->getBinding();
-<<<<<<< HEAD
 
+        //echo $apiResponse['data'][0]['id'];exit();
         //处理api接口返回的结果
-        if(is_null($apiResponse)){
-            $message = '会员申请失败，请稍后重试';
+        if(is_null($apiResponse)||$apiResponse['status']==''||$apiResponse['status']>299){
+            $message = '会员申请失败, 请稍后重试';
         }else{
             $status = 1;
-            $message = $apiResponse;
-
+            $message = '恭喜您, 绑定会员成功!';
+            //保存会员id
             updateMem($apiResponse['status'], $apiResponse['data'][0]['id']);
         }
 
-=======
-
-        //处理api接口返回的结果
-        if(is_null($apiResponse)){
-            $message = '会员申请失败，请稍后重试';
-        }else{
-            $status = 1;
-            $message = $apiResponse;
-
-            updateMem($apiResponse['status'], $apiResponse['data'][0]['id']);
-        }
-
->>>>>>> 1780bba58ca58f3f15cf3db15a209210b077542e
-//        exit();
     }else if($operation == 'create') {
     /*新增*/
         //获取表单请求参数
@@ -103,12 +77,12 @@ if ($_W['isajax']) {
         $apiAWTennis = new ApiAWTennis($param);
         $apiResponse = $apiAWTennis->getRegistering();
 
-        if(is_null($apiResponse)){
+        if(is_null($apiResponse)||$apiResponse['status']==''||$apiResponse['status']>299){
             $message = "会员注册失败，请稍后重试";
         }else{
             $status = 1;
-            $message = $apiResponse;
-
+            $message = "恭喜您, 注册会员成功!";
+            //保存会员id
             updateMem($apiResponse['status'], $apiResponse['data'][0]['id']);
         }
     }
@@ -116,17 +90,8 @@ if ($_W['isajax']) {
     show_json($status, $message);
 }
 
-<<<<<<< HEAD
 //获取当前用户信息
 $member = getMem();
-=======
-//获取当前用户的openid
-//sql table: awt_mc_mapping_fans
-$openid = m('user')->getOpenid();
-//通过openid查询用户
-//sql table: entroll_member
-$member = m('member')->getMember($openid);
->>>>>>> 1780bba58ca58f3f15cf3db15a209210b077542e
 
 if(is_null($member['memberid'])){
     //未注册会员

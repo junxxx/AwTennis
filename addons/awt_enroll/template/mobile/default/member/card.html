@@ -7,8 +7,8 @@
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
     <h1 class="mui-title">会员卡</h1>
 </header>
-<div class="mui-content">
-    <div>会员卡</div>
+<div class="mui-content" id="container">
+    <div>会员卡号：</div>
     <div class="mui-button-row">
         <button type="button" id="btn_unbinding" class="mui-btn mui-btn-primary">解除会员</button>
     </div>
@@ -18,6 +18,7 @@
     var param = {};
 
     require(['tpl', 'core'], function (tpl, core) {
+        doAjax(tpl, core, param);
         $("#btn_unbinding").bind("click", function () {
 //           ajax(tpl, core, param);
             core.tip.show("解除会员成功");
@@ -25,7 +26,7 @@
 
     });
 
-    function ajax(tpl, core, param) {
+    function doAjax(tpl, core, param) {
         core.json('member/card',param,function(json) {
             //do something
             switch(json.status) {
@@ -40,9 +41,9 @@
                         case 200:
                                 //break;
                         case 201:
-                                core.tip.show("恭喜您，申请会员成功！");
+                            core.tip.show("恭喜您，申请会员成功！");
 
-                                break;
+                            break;
                         // case 400:
                         //     core.tip.show(result.msg);
                         //     break;

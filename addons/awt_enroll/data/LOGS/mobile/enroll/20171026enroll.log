@@ -1,0 +1,600 @@
+2017-10-26 17:02:57:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'uid' => '6',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502847497',
+  'status' => '0',
+  'nickname' => '沙漠海',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/PxorvA22U2FA1dG55JxrdFIykBuicJBcjrJSj2BHT0vbcoxx06h0CPptDq4e4wLib7DEPX0Pqo9w9Xk9HGxP5CyQWJGezIicSTH/132',
+  'province' => '上海',
+  'city' => '黄浦',
+  'area' => '',
+)
+
+2017-10-26 17:02:57:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 17:11:37:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-10-26 17:11:37:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 17:13:00:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-10-26 17:13:00:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 17:29:16:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '8',
+  'uniacid' => '2',
+  'uid' => '5',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw0dBV1TlXBfUlGWKuGR8xHM',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1509010151',
+  'status' => '0',
+  'nickname' => '冲刺440',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVuibb1Mo0rlHJHrO1A0fib9PgXMzoU7gGHGtj7GvVKxeg8e3l5SZZGRqR0y7qDiazfx3EhjumqzibXEoHw/132',
+  'province' => '上海',
+  'city' => '嘉定',
+  'area' => '',
+)
+
+2017-10-26 17:29:16:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 17:33:57:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '8',
+  'uniacid' => '2',
+  'uid' => '5',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw0dBV1TlXBfUlGWKuGR8xHM',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1509010151',
+  'status' => '0',
+  'nickname' => '冲刺440',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVuibb1Mo0rlHJHrO1A0fib9PgXMzoU7gGHGtj7GvVKxeg8e3l5SZZGRqR0y7qDiazfx3EhjumqzibXEoHw/132',
+  'province' => '上海',
+  'city' => '嘉定',
+  'area' => '',
+)
+
+2017-10-26 17:33:57:
+------------
+String:
+activity: array (
+  'id' => '3',
+  'uniacid' => '2',
+  'title' => '8月积分挑战赛',
+  'headimg' => 'images/2/2017/08/yzW3r7yz7NZj322zj3otW2OxTqFRQT.jpg',
+  'cid' => '3',
+  'sign_stime' => '1505091660',
+  'sign_etime' => '1505782860',
+  'activity_stime' => '1503034680',
+  'activity_locktime' => '1503115200',
+  'location' => '体育馆',
+  'rule' => '',
+  'com_nums' => '8',
+  'fee' => '35.00',
+  'qualification' => '1',
+  'quali_stime' => '1505383200',
+  'quali_etime' => '1505469600',
+  'attend_groups' => 'a:1:{i:0;s:1:"1";}',
+  'challenger_num' => '4',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1502775539',
+  'updatetime' => '1505614517',
+)
+
+2017-10-26 17:34:01:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '8',
+  'uniacid' => '2',
+  'uid' => '5',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw0dBV1TlXBfUlGWKuGR8xHM',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1509010151',
+  'status' => '0',
+  'nickname' => '冲刺440',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVuibb1Mo0rlHJHrO1A0fib9PgXMzoU7gGHGtj7GvVKxeg8e3l5SZZGRqR0y7qDiazfx3EhjumqzibXEoHw/132',
+  'province' => '上海',
+  'city' => '嘉定',
+  'area' => '',
+)
+
+2017-10-26 17:34:01:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 17:34:09:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '8',
+  'uniacid' => '2',
+  'uid' => '5',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw0dBV1TlXBfUlGWKuGR8xHM',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1509010151',
+  'status' => '0',
+  'nickname' => '冲刺440',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVuibb1Mo0rlHJHrO1A0fib9PgXMzoU7gGHGtj7GvVKxeg8e3l5SZZGRqR0y7qDiazfx3EhjumqzibXEoHw/132',
+  'province' => '上海',
+  'city' => '嘉定',
+  'area' => '',
+)
+
+2017-10-26 17:34:09:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 17:34:15:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '8',
+  'uniacid' => '2',
+  'uid' => '5',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw0dBV1TlXBfUlGWKuGR8xHM',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1509010151',
+  'status' => '0',
+  'nickname' => '冲刺440',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVuibb1Mo0rlHJHrO1A0fib9PgXMzoU7gGHGtj7GvVKxeg8e3l5SZZGRqR0y7qDiazfx3EhjumqzibXEoHw/132',
+  'province' => '上海',
+  'city' => '嘉定',
+  'area' => '',
+)
+
+2017-10-26 17:34:15:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 17:41:07:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '8',
+  'uniacid' => '2',
+  'uid' => '5',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw0dBV1TlXBfUlGWKuGR8xHM',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1509010151',
+  'status' => '0',
+  'nickname' => '冲刺440',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVuibb1Mo0rlHJHrO1A0fib9PgXMzoU7gGHGtj7GvVKxeg8e3l5SZZGRqR0y7qDiazfx3EhjumqzibXEoHw/132',
+  'province' => '上海',
+  'city' => '嘉定',
+  'area' => '',
+)
+
+2017-10-26 17:41:07:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+
+2017-10-26 18:46:21:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '3',
+  'uniacid' => '2',
+  'uid' => '2',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+  'realname' => '',
+  'mobile' => '',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502840716',
+  'status' => '0',
+  'nickname' => 'Future',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '0',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/PxorvA22U2GOg4TpGKPeBE7zvnMGstP0VldYbbZoicYBHEEroGtQFwNvbRjpnQs6QS9kldicuxL3kLulLaO7C8FBK8YxdDKEGo/132',
+  'province' => '',
+  'city' => '',
+  'area' => '',
+)
+
+2017-10-26 18:46:21:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509005939',
+)
+

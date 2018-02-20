@@ -1,0 +1,60 @@
+2017-12-10 14:07:34:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-12-10 14:07:34:
+------------
+String:
+activity: array (
+  'id' => '4',
+  'uniacid' => '2',
+  'title' => '2017年11月1日万体双打比赛',
+  'headimg' => 'images/2/2017/10/p7XJlJXMzL7x7bJO7qnWlVbmmq4INw.jpg',
+  'cid' => '3',
+  'sign_stime' => '1509066000',
+  'sign_etime' => '1509523200',
+  'activity_stime' => '1509534000',
+  'activity_locktime' => '-28800',
+  'location' => '万体馆室外网球场，2片场地',
+  'rule' => '',
+  'com_nums' => '4',
+  'fee' => '40.00',
+  'qualification' => '0',
+  'quali_stime' => '1509005580',
+  'quali_etime' => '1509005580',
+  'attend_groups' => 's:0:"";',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1509005939',
+  'updatetime' => '1509088042',
+)
+

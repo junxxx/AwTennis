@@ -118,12 +118,8 @@ class AWT_Tenroll_Member
      * Decripstion:更新用户信息，将申请会员成功的用户的俱乐部id存储到awt_enroll_member中
      * 添加此函数后，服务器返回500
      */
-//	public function updateMember($userid, $arr_new_data = array()){
-//	    if(!empty($userid) && !empty($arr_new_data)){
-//            return !empty(pdo_update('enroll_member', $arr_new_data, array('id'=>intval($userid))));
-//        }else{
-//	        return false;
-//        }
-//
-//    }
+	public function updateMember($userid, $arr_new_data = array()){
+        $result = pdo_update('enroll_member', $arr_new_data, array('id'=>$userid));
+        return !empty($result);
+    }
 }

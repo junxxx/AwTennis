@@ -1,0 +1,109 @@
+<?php defined('IN_IA') or exit('Access Denied');?><?php (!empty($this) && $this instanceof WeModuleSite) ? (include $this->template('common/header', TEMPLATE_INCLUDEPATH)) : (include template('common/header', TEMPLATE_INCLUDEPATH));?>
+<!--<script language="javascript" src="../addons/awt_enroll/static/js/dist/jquery-1.11.1.min.js"></script>-->
+<script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
+<link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
+<link href="../addons/awt_enroll/static/css/baseStyle.css" rel="stylesheet"/>
+<title>排行榜</title>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">排行榜</h1>
+</header>
+<form class="mui-input-group" style="margin-top: 50px;">
+    <div class="mui-input-row">
+        <label for="entry">排名类型：</label>
+        <select id="entry" name="entry" class="mui-input-clear">
+            <option value="0" selected="selected">-请选择-</option>
+            <option value="1">男子单打</option>
+            <option value="2">女子单打</option>
+            <option value="3">混合单打</option>
+            <option value="4">双打男子个人</option>
+            <option value="5">双打女子个人</option>
+            <option value="6">男子双打</option>
+            <option value="7">女子双打</option>
+            <option value="8">混合双打</option>
+        </select>
+    </div>
+</form>
+<div id='container'></div>
+
+<script id='rank_list' type='text/html'>
+    <div class="mui-content">
+        <div class="mui-card" style="margin-top: 50px">
+            <table class="mui-table-view">
+                <tr class="mui-table-view-cell">
+                    <td>升降</td>
+                    <td>排名</td>
+                    <td>球员</td>
+                    <td>性别</td>
+                    <td>总积分</td>
+                    <td>胜率</td>
+                    <td>总场数</td>
+                    <td>胜场数</td>
+                    <td>净胜局</td>
+                </tr>
+                <%each data as player%>
+                    <tr class="mui-table-view-cell">
+                        <td><%player.rankingChange%></td>
+                        <td><%player.currentRank%></td>
+                        <td class="width30"><%player.player%></td>
+                        <td><%player.sex%></td>
+                        <td><%player.totalPoint%></td>
+                        <td><%player.winningProbability%></td>
+                        <td><%player.totalMatchs%></td>
+                        <td><%player.wins%></td>
+                        <td><%player.totalMarginbureau%></td>
+                    </tr>
+                <%/each%>
+            </table>
+        </div>
+    </div>
+</script>
+<script id='tpl_empty' type='text/html'>
+    <div class="notice_no"><i class="fa fa-volume-up" style="font-size:100px;"></i><br><span style="line-height:18px; font-size:16px;">暂时没有任何内容</span>
+    </div>
+</script>
+<script language="javascript">
+    var param = {};
+
+    require(['tpl', 'core'], function (tpl, core) {
+        param['entry'] = 3;//默认显示混合单打排名
+        ajax(tpl, core, param);
+        //选择不同类型，切换到不同的排名
+        $('#entry').bind('change', function () {
+            var selected = Number($('#entry').find('option:selected').val());
+            if(selected === 0){
+                selected = 3;
+            }
+            param['entry'] = selected;
+
+            ajax(tpl, core, param);
+        });
+
+    });
+
+    function ajax(tpl, core, param){
+        core.json('ranking/ranking', param, function (json) {
+            switch (json.status){
+            // if(json.status == 0) {
+                case 0:
+                core.tip.show(json.result);
+                break;
+            // }
+            // if(json.status == 1) {
+//                console.log(json.result);
+                case 1:
+                var result = json.result;
+                var errorMessage = result['error'];
+//                var rankList = result['data'];
+                if(errorMessage === ''){
+                    $('#container').html(tpl('rank_list', result));
+                }else{
+                    core.tip.show(errorMessage);
+                }
+                break;
+
+            }
+        }, true);
+    }
+</script>
