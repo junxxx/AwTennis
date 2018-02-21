@@ -1,0 +1,74 @@
+2017-09-20 11:19:24 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw7Ms5PEWDZoNa2xV7amljxU]]></FromUserName>
+<CreateTime>1505877580</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[TEMPLATESENDJOBFINISH]]></Event>
+<MsgID>467662474</MsgID>
+<Status><![CDATA[success]]></Status>
+</xml>
+
+2017-09-20 11:19:24 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+    'createtime' => '1505877580',
+    'msgtype' => 'event',
+    'event' => 'TEMPLATESENDJOBFINISH',
+    'msgid' => '467662474',
+    'status' => 'success',
+    'from' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+    'to' => 'gh_272635033f26',
+    'time' => '1505877580',
+    'type' => 'event',
+  ),
+)
+
+2017-09-20 11:19:24 response :
+------------
+
+2017-09-20 11:25:46 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw7Ms5PEWDZoNa2xV7amljxU]]></FromUserName>
+<CreateTime>1505877963</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[TEMPLATESENDJOBFINISH]]></Event>
+<MsgID>467662653</MsgID>
+<Status><![CDATA[success]]></Status>
+</xml>
+
+2017-09-20 11:25:46 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+    'createtime' => '1505877963',
+    'msgtype' => 'event',
+    'event' => 'TEMPLATESENDJOBFINISH',
+    'msgid' => '467662653',
+    'status' => 'success',
+    'from' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+    'to' => 'gh_272635033f26',
+    'time' => '1505877963',
+    'type' => 'event',
+  ),
+)
+
+2017-09-20 11:25:46 response :
+------------
+

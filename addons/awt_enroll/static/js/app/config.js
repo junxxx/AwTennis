@@ -8,8 +8,8 @@ require.config({
         'jquery.touchslider':'../dist/jquery.touchslider.min',
         'swipe':'../dist/swipe',
         'sweetalert':'../dist/sweetalert/sweetalert.min',
-        'sui':'../dist/sui/sm.min'
-        
+        'sui':'../dist/sui/sm.min',
+        'md5': 'https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min'
     },
     shim: {
         'jquery.ui': {

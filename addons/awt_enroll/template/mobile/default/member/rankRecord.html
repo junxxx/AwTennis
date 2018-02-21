@@ -1,0 +1,229 @@
+{template 'common/header'}
+<script language="javascript" src="../addons/awt_enroll/static/js/dist/mui/js/mui.min.js"></script>
+<link href="../addons/awt_enroll/static/js/dist/mui/css/mui.min.css" rel="stylesheet"/>
+<link href="../addons/awt_enroll/static/css/baseStyle.css" rel="stylesheet"/>
+<link href="../addons/awt_enroll/static/css/rankRecord.css" rel="stylesheet"/>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<title>全部排名</title>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a id="goBack" onclick="goBack()" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">俱乐部排名</h1>
+</header>
+<div id="container"></div>
+<script id="member_main" type="text/html">
+    <div class="title_IndividualRank blueBorder">
+        个人排名
+    </div>
+    <div class="individualRank_main">
+        <div class="rankCommon">
+            <%if individualRanks["混合单打"]%>
+                <div class="title">混合单打</div>
+                <div class="rank">
+                    <table>
+                        <tr>
+                            <td>当前排名</td>
+                            <td>最高排名</td>
+                            <td>最高排名始于</td>
+                        </tr>
+                        <tr>
+                            <td><% individualRanks["混合单打"]["currentRank"]%></td>
+                            <td><% individualRanks["混合单打"]["highestRank"]%></td>
+                            <td><% individualRanks["混合单打"]["highestRankStartedAt"]%></td>
+                        </tr>
+                    </table>
+                </div>
+                <hr/>
+            <%/if%>
+            <%if individualRanks["男单"]%>
+                <div class="title">男单</div>
+                <div class="rank">
+                    <table>
+                        <tr>
+                            <td>当前排名</td>
+                            <td>最高排名</td>
+                            <td>最高排名始于</td>
+                        </tr>
+                        <tr>
+                            <td><% individualRanks["男单"]["currentRank"]%></td>
+                            <td><% individualRanks["男单"]["highestRank"]%></td>
+                            <td><% individualRanks["男单"]["highestRankStartedAt"]%></td>
+                        </tr>
+                    </table>
+                </div>
+                <hr/>
+            <%/if%>
+            <%if individualRanks["女单"]%>
+                <div class="title">女单</div>
+                <div class="rank">
+                    <table>
+                        <tr>
+                            <td>当前排名</td>
+                            <td>最高排名</td>
+                            <td>最高排名始于</td>
+                        </tr>
+                        <tr>
+                            <td><% individualRanks["女单"]["currentRank"]%></td>
+                            <td><% individualRanks["女单"]["highestRank"]%></td>
+                            <td><% individualRanks["女单"]["highestRankStartedAt"]%></td>
+                        </tr>
+                    </table>
+                </div>
+                <hr/>
+            <%/if%>
+            <%if individualRanks["双打男子个人"]%>
+                <div class="title">双打男子个人</div>
+                <div class="rank">
+                    <table>
+                        <tr>
+                            <td>当前排名</td>
+                            <td>最高排名</td>
+                            <td>最高排名始于</td>
+                        </tr>
+                        <tr>
+                            <td><% individualRanks["双打男子个人"]["currentRank"]%></td>
+                            <td><% individualRanks["双打男子个人"]["highestRank"]%></td>
+                            <td><% individualRanks["双打男子个人"]["highestRankStartedAt"]%></td>
+                        </tr>
+                    </table>
+                </div>
+                <hr/>
+            <%/if%>
+            <%if individualRanks["双打女子个人"]%>
+                <div class="title">双打女子个人</div>
+                <div class="rank">
+                    <table>
+                        <tr>
+                            <td>当前排名</td>
+                            <td>最高排名</td>
+                            <td>最高排名始于</td>
+                        </tr>
+                        <tr>
+                            <td><% individualRanks["双打女子个人"]["currentRank"]%></td>
+                            <td><% individualRanks["双打女子个人"]["highestRank"]%></td>
+                            <td><% individualRanks["双打女子个人"]["highestRankStartedAt"]%></td>
+                        </tr>
+                    </table>
+                </div>
+                <hr/>
+            <%/if%>
+        </div>
+    </div>
+
+    <div class="title_teamRank blueBorder">
+        组合排名
+    </div>
+    <div class="teamRank_main">
+        <div class="rankCommon">
+            <%each teamRanks as teamRank%>
+                <div class="teamName">- <%teamRank["id"]%></div>
+                <%if teamRank["value"]["混双"]%>
+                    <div class="title">混双</div>
+                    <div class="rank">
+                        <table>
+                            <tr>
+                                <td>当前排名</td>
+                                <td>最高排名</td>
+                                <td>最高排名始于</td>
+                            </tr>
+                            <tr>
+                                <td><% teamRank["value"]["混双"]["currentRank"]%></td>
+                                <td><% teamRank["value"]["混双"]["highestRank"]%></td>
+                                <td><% teamRank["value"]["混双"]["highestRankStartedAt"]%></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr/>
+                <%/if%>
+                <%if teamRank["value"]["男双"]%>
+                    <div class="title">男双</div>
+                    <div class="rank">
+                        <table>
+                            <tr>
+                                <td>当前排名</td>
+                                <td>最高排名</td>
+                                <td>最高排名始于</td>
+                            </tr>
+                            <tr>
+                                <td><% teamRank["value"]["男双"]["currentRank"]%></td>
+                                <td><% teamRank["value"]["男双"]["highestRank"]%></td>
+                                <td><% teamRank["value"]["男双"]["highestRankStartedAt"]%></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr/>
+                <%/if%>
+                <%if teamRank["value"]["女双"]%>
+                    <div class="title">女双</div>
+                    <div class="rank">
+                        <table>
+                            <tr>
+                                <td>当前排名</td>
+                                <td>最高排名</td>
+                                <td>最高排名始于</td>
+                            </tr>
+                            <tr>
+                                <td><% teamRank["value"]["女双"]["currentRank"]%></td>
+                                <td><% teamRank["value"]["女双"]["highestRank"]%></td>
+                                <td><% teamRank["value"]["女双"]["highestRankStartedAt"]%></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr/>
+                <%/if%>
+            <%/each%>
+        </div>
+    </div>
+</script>
+<script language="javascript">
+
+    require(['tpl', 'core'], function (tpl, core) {
+        core.json('member',{},function(json) {
+            if(json.status) {
+
+                var _individualRank = json.result.clubInfo.individualRank;
+                var _teamRank = json.result.clubInfo.teamRank;
+                var teamRank = [];
+
+                for(var key in _teamRank){
+                    // console.log(Object.keys(teamRank[key]));
+
+                    if(_teamRank.hasOwnProperty(key) && (Object.keys(_teamRank[key]).length !== 0||!isEmptyObj(_teamRank[key]))) {
+                        // console.log(key);
+                        // console.log(_teamRank[key]);
+                        var tmp = {};
+                        tmp.id = key;
+                        tmp.value = _teamRank[key];
+                        teamRank.push(tmp);
+                    }
+                }
+                // console.log(_individualRank);
+
+                var clubRank = {};
+                clubRank.individualRanks = _individualRank;
+                clubRank.teamRanks = teamRank;
+
+                $("#container").html(tpl("member_main",clubRank));
+
+            }else{
+                //错误提示
+                $("#container").html(json.result.weChatInfo);
+            }
+
+        },true);
+    });
+
+    //back to center
+    function goBack() {
+        window.location.href = "{php echo $this->createMobileUrl('member/center')}";
+    }
+
+    //判断对象是否为空
+    function isEmptyObj(obj) {
+        for(var key in obj){
+            return false;
+        }
+        return true;
+    }
+</script>
+{template 'common/footer'}

@@ -1,0 +1,300 @@
+2017-10-25 18:01:04:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-10-25 18:01:04:
+------------
+String:
+activity: array (
+  'id' => '3',
+  'uniacid' => '2',
+  'title' => '8月积分挑战赛',
+  'headimg' => 'images/2/2017/08/yzW3r7yz7NZj322zj3otW2OxTqFRQT.jpg',
+  'cid' => '3',
+  'sign_stime' => '1505091660',
+  'sign_etime' => '1505782860',
+  'activity_stime' => '1503034680',
+  'activity_locktime' => '1503115200',
+  'location' => '体育馆',
+  'rule' => '',
+  'com_nums' => '8',
+  'fee' => '35.00',
+  'qualification' => '1',
+  'quali_stime' => '1505383200',
+  'quali_etime' => '1505469600',
+  'attend_groups' => 'a:1:{i:0;s:1:"1";}',
+  'challenger_num' => '4',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1502775539',
+  'updatetime' => '1505614517',
+)
+
+2017-10-25 18:01:09:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-10-25 18:01:09:
+------------
+String:
+activity: array (
+  'id' => '3',
+  'uniacid' => '2',
+  'title' => '8月积分挑战赛',
+  'headimg' => 'images/2/2017/08/yzW3r7yz7NZj322zj3otW2OxTqFRQT.jpg',
+  'cid' => '3',
+  'sign_stime' => '1505091660',
+  'sign_etime' => '1505782860',
+  'activity_stime' => '1503034680',
+  'activity_locktime' => '1503115200',
+  'location' => '体育馆',
+  'rule' => '',
+  'com_nums' => '8',
+  'fee' => '35.00',
+  'qualification' => '1',
+  'quali_stime' => '1505383200',
+  'quali_etime' => '1505469600',
+  'attend_groups' => 'a:1:{i:0;s:1:"1";}',
+  'challenger_num' => '4',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1502775539',
+  'updatetime' => '1505614517',
+)
+
+2017-10-25 18:01:15:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-10-25 18:01:15:
+------------
+String:
+activity: array (
+  'id' => '2',
+  'uniacid' => '2',
+  'title' => '万体单打积分赛',
+  'headimg' => 'images/2/2017/08/N8HNowrHHPhn3WDWPdwRNn8NhrwPO8.jpg',
+  'cid' => '0',
+  'sign_stime' => '1502865060',
+  'sign_etime' => '0',
+  'activity_stime' => '1503498480',
+  'activity_locktime' => '0',
+  'location' => '万体',
+  'rule' => '&lt;p&gt;6局金球 ,无占先&lt;/p&gt;',
+  'com_nums' => '12',
+  'fee' => '30.00',
+  'qualification' => '0',
+  'quali_stime' => '0',
+  'quali_etime' => '0',
+  'attend_groups' => '0',
+  'challenger_num' => '0',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1502605932',
+  'updatetime' => '1502782391',
+)
+
+2017-10-25 18:01:24:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-10-25 18:01:24:
+------------
+String:
+activity: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'title' => '活动标题',
+  'headimg' => 'images/2/2017/08/N8HNowrHHPhn3WDWPdwRNn8NhrwPO8.jpg',
+  'cid' => '2',
+  'sign_stime' => '1502719080',
+  'sign_etime' => '0',
+  'activity_stime' => '1502891880',
+  'activity_locktime' => '-28800',
+  'location' => '神秘地带',
+  'rule' => '',
+  'com_nums' => '8',
+  'fee' => '35.00',
+  'qualification' => '0',
+  'quali_stime' => '0',
+  'quali_etime' => '0',
+  'attend_groups' => 'a:2:{i:0;s:1:"1";i:1;s:1:"2";}',
+  'challenger_num' => '5',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1502605056',
+  'updatetime' => '1505374163',
+)
+
+2017-10-25 18:01:39:
+------------
+String:
+Begin--------->
+ member: array (
+  'id' => '1',
+  'uniacid' => '2',
+  'uid' => '1',
+  'groupid' => '0',
+  'level' => '0',
+  'openid' => 'oFxpOw7Ms5PEWDZoNa2xV7amljxU',
+  'realname' => '派森',
+  'mobile' => '13625623564',
+  'pwd' => '',
+  'weixin' => '',
+  'createtime' => '1502809698',
+  'status' => '0',
+  'nickname' => 'jun_xxx',
+  'credit1' => '0',
+  'credit2' => '0.00',
+  'birthyear' => '',
+  'birthmonth' => '',
+  'birthday' => '',
+  'gender' => '1',
+  'avatar' => 'http://wx.qlogo.cn/mmopen/I4iaV1QCWVu9Z0oibbPjPRvRpZ873jwpv0Ll1a3E3YMuGUgvYuGrpYMIVJqUcQXyMzKHMKGUwqd77recbibOGzEnuQTQw1ibvau4/132',
+  'province' => '江苏',
+  'city' => '无锡',
+  'area' => '',
+)
+
+2017-10-25 18:01:39:
+------------
+String:
+activity: array (
+  'id' => '3',
+  'uniacid' => '2',
+  'title' => '8月积分挑战赛',
+  'headimg' => 'images/2/2017/08/yzW3r7yz7NZj322zj3otW2OxTqFRQT.jpg',
+  'cid' => '3',
+  'sign_stime' => '1505091660',
+  'sign_etime' => '1505782860',
+  'activity_stime' => '1503034680',
+  'activity_locktime' => '1503115200',
+  'location' => '体育馆',
+  'rule' => '',
+  'com_nums' => '8',
+  'fee' => '35.00',
+  'qualification' => '1',
+  'quali_stime' => '1505383200',
+  'quali_etime' => '1505469600',
+  'attend_groups' => 'a:1:{i:0;s:1:"1";}',
+  'challenger_num' => '4',
+  'new_first' => '0',
+  'is_show' => '1',
+  'displayorder' => '0',
+  'judgeopenid' => '',
+  'createtime' => '1502775539',
+  'updatetime' => '1505614517',
+)
+

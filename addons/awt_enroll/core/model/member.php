@@ -52,9 +52,11 @@ class AWT_Tenroll_Member
 		$member = m('member')->getMember($openid);
 		$userinfo = m('user')->getInfo();
 		$followed = m('user')->followed($openid);
+
 		$uid = 0;
 		$mc = array();
 		load()->model('mc');
+		//已关注公众号
 		if ($followed) {
 			$uid = mc_openid2uid($openid);
 			$mc = mc_fetch($uid, array( 'realname', 'mobile', 'avatar', 'resideprovince', 'residecity', 'residedist' ));
@@ -63,6 +65,7 @@ class AWT_Tenroll_Member
 //            exit('请关注公众号！');
 //        }
 
+        //新用户
 		if (empty( $member )) {
 			$member = array( 'uniacid' => $_W['uniacid'],
 				'uid' => $uid, 'openid' => $openid,
@@ -104,4 +107,19 @@ class AWT_Tenroll_Member
 			}
 		}
 	}
+
+    /**
+     * @param $userid
+     * @param array $arr_new_data
+     * Function: updateMember
+     * Date: 2018/1/20 0:17
+     * Author: peRFect
+     * @return bool
+     * Decripstion:更新用户信息，将申请会员成功的用户的俱乐部id存储到awt_enroll_member中
+     * 添加此函数后，服务器返回500
+     */
+	public function updateMember($userid, $arr_new_data = array()){
+        $result = pdo_update('enroll_member', $arr_new_data, array('id'=>$userid));
+        return !empty($result);
+    }
 }

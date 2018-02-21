@@ -44,9 +44,10 @@ define(['jquery', 'core'], function($, core) {
 
         routes = routes.split('/');
         var todo = routes[0];
-       
+
         var p = routes.length >= 2 ? routes[1] : '';
         var url = this.options.baseUrl.replace('ROUTES', todo) + '&p=' + p;
+        // console.log(url);
         var method =  routes.length >= 3 ? routes[2] : '';
         if(method!=''){
             url+='&method=' + method;

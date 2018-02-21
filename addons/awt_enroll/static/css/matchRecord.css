@@ -1,0 +1,118 @@
+/**
+  the style of matchRecord.html
+  added by Fu at 23:03 2018.02.19
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.borderBlue {
+    /*border: blue 1px solid;*/
+}
+/*下拉框*/
+.MRSelect_main {
+    position: relative;
+    float: left;
+
+    padding: 80px 100px 10px 100px;
+
+    width: 100%;
+    height: 50px;
+    /*子元素居中显示*/
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+.MRSelect {
+
+    width: 100%;
+    height: auto;
+
+    border-radius: 10px;
+
+    font-family: "Microsoft YaHei", Consolas, sans-serif;
+}
+/*比赛数据统计*/
+.statistic_main_outer {
+    width: 100%;
+    height: 60px;
+
+    padding: 10px 50px 5px 50px;
+
+    position: relative;
+    float: left;
+    /*文字居中*/
+    text-align: center;
+    font-size: small;
+
+}
+
+.statistic_main_inner{
+    width: 100%;
+    height: 100%;
+
+    /*圆角阴影div*/
+    border-radius: 15px;
+    box-shadow: gray 2px 2px 2px 1px;
+}
+.stat_left {
+    position: relative;
+    float: left;
+
+    width: 33%;
+    height: auto;
+}
+.stat_center {
+    position: relative;
+    float: left;
+
+    width: 34%;
+    height: auto;
+
+    color: steelblue;
+}
+.stat_right {
+    position: relative;
+    float: left;
+
+    width: 33%;
+    height: auto;
+
+    color: tomato;
+}
+/*比赛记录*/
+.match_main {
+    position: relative;
+    float: left;
+
+    width: 100%;
+    height: auto;
+
+    padding: 5px 20px 51px 10px;
+
+    /*text-align: center;*/
+    font-size: small;
+}
+
+.matchTime {
+    margin-left: 5px;
+}
+.matchRecord {
+    margin-left: 10px;
+    border-left: lightgrey 1px solid;
+}
+
+.matchRecord > table {
+    margin-left: 10px;
+
+    width: 100%;
+    height: auto;
+
+    text-align: center;
+}
+
+.matchRecord th,td {
+    border: lightgrey 1px solid;
+}

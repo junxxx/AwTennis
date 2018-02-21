@@ -1,0 +1,38 @@
+2018-01-12 19:50:00 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw2iE_7GJgL3R0pyQee9-n2c]]></FromUserName>
+<CreateTime>1515757849</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[费总辛苦/::D]]></Content>
+<MsgId>6510130390582408893</MsgId>
+</xml>
+
+2018-01-12 19:50:00 params :
+------------
+String:
+array (
+  'rule' => -2,
+  'module' => '',
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'createtime' => '1515757849',
+    'msgtype' => 'text',
+    'content' => '费总辛苦/::D',
+    'msgid' => '6510130390582408893',
+    'from' => 'oFxpOw2iE_7GJgL3R0pyQee9-n2c',
+    'to' => 'gh_272635033f26',
+    'time' => '1515757849',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+)
+
+2018-01-12 19:50:00 response :
+------------
+

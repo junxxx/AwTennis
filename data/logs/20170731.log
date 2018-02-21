@@ -1,0 +1,55 @@
+2017-07-31 21:18:14 trace :
+------------
+String:
+<xml><ToUserName><![CDATA[gh_272635033f26]]></ToUserName>
+<FromUserName><![CDATA[oFxpOw3H2JJWmI5Nkh4MXgfJQClc]]></FromUserName>
+<CreateTime>1501507101</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[pppp]]></Content>
+<MsgId>6448923893971575045</MsgId>
+</xml>
+
+2017-07-31 21:18:15 params :
+------------
+String:
+array (
+  'message' => 
+  array (
+    'tousername' => 'gh_272635033f26',
+    'fromusername' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'createtime' => '1501507101',
+    'msgtype' => 'text',
+    'content' => 'pppp',
+    'msgid' => '6448923893971575045',
+    'from' => 'oFxpOw3H2JJWmI5Nkh4MXgfJQClc',
+    'to' => 'gh_272635033f26',
+    'time' => '1501507101',
+    'type' => 'text',
+    'event' => NULL,
+    'redirection' => false,
+    'source' => NULL,
+  ),
+  'module' => 'basic',
+  'rule' => '10',
+  'priority' => '0',
+  'keyword' => 
+  array (
+    'id' => '14',
+    'rid' => '10',
+    'uniacid' => '2',
+    'module' => 'basic',
+    'content' => 'pppp',
+    'type' => '1',
+    'displayorder' => '0',
+    'status' => '1',
+  ),
+)
+
+2017-07-31 21:18:15 response :
+------------
+Array:
+FromUserName : gh_272635033f26 ;
+ToUserName : oFxpOw3H2JJWmI5Nkh4MXgfJQClc ;
+MsgType : text ;
+Content : ppo ;
+
