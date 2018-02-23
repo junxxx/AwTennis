@@ -365,16 +365,33 @@
             <table>
                 <tr>
                     <th>组别:</th>
-                    <td><% clubInfo['profile']['grade']%></td>
-                    <!--<td>银组</td>-->
+                    <td>
+                        <% if clubInfo['profile']['grade']%>
+                        <% clubInfo['profile']['grade']%>
+                        <%else%>
+                        --
+                        <%/if%>
+                    </td>
                 </tr>
                 <tr>
                     <th>等级:</th>
-                    <td><% clubInfo['profile']['level']%></td>
+                    <td>
+                        <% if clubInfo['profile']['level']%>
+                        <% clubInfo['profile']['level']%>
+                        <%else%>
+                        --
+                        <%/if%>
+                    </td>
                 </tr>
                 <tr>
                     <th>球龄:</th>
-                    <td><% clubInfo['profile']['playedYears']%></td>
+                    <td>
+                        <% if clubInfo['profile']['playedYears']%>
+                        <% clubInfo['profile']['playedYears']%> 年
+                        <%else%>
+                        --
+                        <%/if%>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -384,15 +401,33 @@
             <table>
                 <tr>
                     <th>正手:</th>
-                    <td><% clubInfo['profile']['forehand']%></td>
+                    <td>
+                        <% if clubInfo['profile']['forehand']%>
+                        <% clubInfo['profile']['forehand']%>
+                        <%else%>
+                        --
+                        <%/if%>
+                    </td>
                 </tr>
                 <tr>
                     <th>反手:</th>
-                    <td><% clubInfo['profile']['backhand']%></td>
+                    <td>
+                        <% if clubInfo['profile']['backhand']%>
+                        <% clubInfo['profile']['backhand']%>
+                        <%else%>
+                        --
+                        <%/if%>
+                    </td>
                 </tr>
                 <tr>
                     <th>身高:</th>
-                    <td><% clubInfo['profile']['height']%></td>
+                    <td>
+                        <% if clubInfo['profile']['height']%>
+                        <% clubInfo['profile']['height']%>
+                        <%else%>
+                        --
+                        <%/if%>
+                    </td>
                 </tr>
             </table>
         </div>
