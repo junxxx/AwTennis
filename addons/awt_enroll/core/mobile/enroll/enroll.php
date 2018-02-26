@@ -22,9 +22,17 @@ if ($_W['isajax']) {
         $activity = m('activity')->getActivityById($activityId);
         $log->write("Begin--------->\n member: " . var_export($member, true));
         $log->write('activity: ' . var_export($activity, true));
+
         if (empty($activity)) {
             show_json(0, '活动不存在');
         }
+
+        //只有注册了会员才可报名俱乐部比赛
+        //added by Fu on 2018.2.22
+        if(is_null($member['memberid'])){
+            show_json(0, '请先注册俱乐部会员');
+        }
+        
         /*开始报名时间检查*/
         $nowTime = time();
         if ($nowTime < $activity['sign_stime']) {

@@ -7,7 +7,7 @@
 <body>
 <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <h1 class="mui-title">排行榜</h1>
+    <h1 class="mui-title">俱乐部排行榜</h1>
 </header>
 <form class="mui-input-group" style="margin-top: 50px;">
     <div class="mui-input-row">
@@ -84,25 +84,20 @@
 
     function ajax(tpl, core, param){
         core.json('ranking/ranking', param, function (json) {
+            // console.log(json.result);
             switch (json.status){
-            // if(json.status == 0) {
                 case 0:
                 core.tip.show(json.result);
                 break;
-            // }
-            // if(json.status == 1) {
-//                console.log(json.result);
                 case 1:
                 var result = json.result;
                 var errorMessage = result['error'];
-//                var rankList = result['data'];
                 if(errorMessage === ''){
                     $('#container').html(tpl('rank_list', result));
                 }else{
                     core.tip.show(errorMessage);
                 }
                 break;
-
             }
         }, true);
     }
