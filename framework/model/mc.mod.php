@@ -320,7 +320,9 @@ function mc_oauth_userinfo($acid = 0){
         if (!is_error($userinfo) && !empty( $userinfo ) && is_array($userinfo) && !empty( $userinfo['nickname'] )) {
             $userinfo['nickname'] = stripcslashes($userinfo['nickname']);
             if (!empty( $userinfo['headimgurl'] )) {
-                $userinfo['headimgurl'] = rtrim($userinfo['headimgurl'], '0') . 132;
+                $avator = explode('/', $userinfo['headimgurl']);
+                array_pop($avator);
+                $userinfo['headimgurl'] = implode('/', $avator) . '/'. 132;
             }
             $userinfo['avatar'] = $userinfo['headimgurl'];
             $_SESSION['userinfo'] = base64_encode(iserializer($userinfo));
